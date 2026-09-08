@@ -1,0 +1,76 @@
+# Ignore everything by default and allow back only what belongs in the repo.
+# Written this way on purpose: a new file has to be named here to be committed,
+# so nothing private can slip in by accident.
+
+/*
+
+!/.gitignore
+!/README.md
+!/LICENSE
+!/figures
+!/data
+!/notes
+!/plots
+!/zenodo
+
+# figures: only the five PDFs that go in the paper
+/figures/*
+!/figures/fig_bpt.pdf
+!/figures/fig_w80_by_class.pdf
+!/figures/fig_bpt_distance.pdf
+!/figures/fig_loi_vs_q.pdf
+!/figures/fig_w80_bptdist.pdf
+
+# data: only the four small catalogs the kept scripts read.
+# the VLASS x DESI cross-match tables, the DESI spectra and the VLASS cutouts
+# come from the public archives and are not ours to redistribute.
+/data/*
+!/data/catalog_small.csv
+!/data/catalog_large.csv
+!/data/catalog_small_Q.csv
+!/data/catalog_large_Q.csv
+
+# notes: only the line-fit and classification tables the kept scripts read, by name.
+# the scripts use these paths as written, so they have to stay at notes/.
+# every .txt in here is a working note and stays out.
+/notes/*
+!/notes/2026-07-08_oiii_fits.csv
+!/notes/2026-07-09_oi_fits.csv
+!/notes/2026-07-13_resolution_w80.csv
+!/notes/2026-07-15_hbeta_fits.csv
+!/notes/2026-07-16_halpha_fits.csv
+!/notes/2026-07-22_halpha_fits_new_large.csv
+!/notes/2026-07-22_hbeta_fits_new_large.csv
+!/notes/2026-07-22_oi_fits_new_large.csv
+!/notes/2026-07-22_oiii_fits_new_large.csv
+!/notes/2026-07-22_w80_new_large.csv
+!/notes/2026-07-28_luminosity_check.csv
+!/notes/2026-07-31_bpt_class_lumcut_v2.csv
+!/notes/2026-07-31_halpha_fits_new_small24.csv
+!/notes/2026-07-31_hbeta_fits_new_small24.csv
+!/notes/2026-07-31_oi_fits_new_small24.csv
+!/notes/2026-07-31_oiii_fits_new_small24.csv
+!/notes/2026-07-31_w80_new_small24.csv
+
+# plots: the scripts write here, so the empty directory has to exist.
+# none of the actual plots are tracked; the five paper ones live in figures/.
+/plots/*
+!/plots/.gitkeep
+
+# zenodo: the deposit itself plus the scripts that build it.
+# the manuscript, the emails, the inventory, the backups and the zip stay out.
+/zenodo/*
+!/zenodo/upload
+!/zenodo/make_release_tables.py
+!/zenodo/make_manifest.py
+!/zenodo/metadata.json
+!/zenodo/description_for_zenodo.txt
+
+# never, anywhere
+.DS_Store
+._*
+__pycache__/
+*.pyc
+.Rhistory
+*.fits
+*.fits.gz
