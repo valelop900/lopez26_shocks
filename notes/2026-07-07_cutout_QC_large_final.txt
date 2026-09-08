@@ -1,0 +1,43 @@
+NRAO large sample QC notes, 2026-07-07
+File: OI_sample_large.csv, 30 objects, radio size >20 kpc
+Optical: PanSTARRS
+Rule (confirmed by Mark): host on the core = good. Small offset is fine, including host between two lobes with a weak or blended core.
+Format: row | name | RA | DEC | TARGETID | verdict | reason
+
+1. VDGN2.1SE J011727.15+074148.4 | 19.36226 | 7.69649 | 39627971870330713 | flag | two radio components, multiple optical galaxies, host ambiguous
+2. VDGN2.1SE J020234.34+000258.8 | 30.64301 | 0.05052 | 39627785240580910 | good | central radio core on PanSTARRS host, core-plus-lobes
+3. VDGN2.1SE J023952.01+122641.5 | 39.96676 | 12.44516 | 39628085301085881 | good | double-lobed, host near radio center, Mark confirmed
+4. VDGN2.1SE J041504.82-035836.7 | 63.77003 | -3.97636 | 39636485284040431 | flag | radio double offset from central PanSTARRS host
+5. VLASS2.1SE J090107.69+062313.9 | 135.28202 | 6.38720 | 39627943802045029 | flag | radio single but no clear host at center, crowded field
+6. VDGN2.1SE J095739.96+111609.7 | 149.41823 | 11.27235 | 39628057509629400 | good | compact radio on central PanSTARRS galaxy, foreground star nearby
+7. VLASS2.1SE J095937.09+082918.0 | 149.90452 | 8.48833 | 39627991998795876 | flag | multiple radio blobs, no host at center
+8. VDGN2.1SE J095949.21-015006.9 | 149.95499 | -1.83557 | 39627744962678438 | good | core-plus-two-lobes, faint host near radio center
+9. VLASS2.1SE J101040.35+655848.1 | 152.66814 | 65.98004 | 39633453045515061 | good | compact radio on PanSTARRS galaxy at center
+10. VDGN2.1SE J102214.66+572641.9 | 155.56044 | 57.44524 | 39633355360174795 | good | core-plus-lobes centered on PanSTARRS host
+11. VLASS2.1SE J102225.19-024008.6 | 155.60497 | -2.66906 | 39627720899954742 | good | small offset from host, Mark confirmed good
+12. VDGN2.1SE J105501.36+520202.5 | 163.75129 | 52.03358 | 39633278411475906 | good | PanSTARRS host under extended radio, sensible single source
+13. VLASS2.1SE J110047.85+104614.0 | 165.19937 | 10.77058 | 39628045895602066 | good | double source, host on core, Mark confirmed good
+14. VDGN2.1SE J113235.89-012844.2 | 173.14942 | -1.48017 | 39627751392545392 | flag | radio blobs offset from central PanSTARRS point source
+15. VDGN2.1SE J120550.71+662753.6 | 181.46131 | 66.46489 | 39633458141594881 | good | small offset from host, Mark confirmed good
+16. VDGN2.1SE J121839.08+502544.6 | 184.68105 | 50.42952 | 39633255867092118 | flag | compact radio core offset from PanSTARRS galaxy, bright emission off-frame
+17. VDGN2.1SE J123847.65+520256.2 | 189.69775 | 52.05059 | 39633278679911735 | good | central radio component on PanSTARRS host, core-plus-lobes
+18. VLASS2.1SE J141657.09+505759.0 | 214.23789 | 50.96639 | 39633263853045905 | good | compact radio on PanSTARRS galaxy at center
+19. VDGN2.1SE J161847.42+215913.2 | 244.69973 | 21.99045 | 39628307863439817 | flag | crowded field, extra radio patches near host, unclear
+20. VLASS2.1SE J171457.62+345303.7 | 258.74010 | 34.88438 | 39632981928708935 | good | compact radio on central PanSTARRS galaxy
+21. VLASS2.1SE J174356.47+275250.0 | 265.98530 | 27.88057 | 39628439673637111 | good | radio core-plus-lobe on central PanSTARRS point source
+22. VLASS2.1SE J174356.98+663814.0 | 265.98741 | 66.63723 | 39633461115357880 | good | PanSTARRS host on radio axis between lobes
+23. VDGN2.1SE J175955.96+720927.2 | 269.97842 | 72.15975 | 39633507852486742 | flag | no clear PanSTARRS galaxy under radio core, ambiguous
+24. VDGN2.1SE J204009.39-024739.4 | 310.03824 | -2.79410 | 39627723492033841 | flag | crowded field, host not clearly on radio component
+25. VLASS2.1SE J210053.56-033516.2 | 315.22315 | -3.58786 | 39627705469109313 | flag | no optical host under radio structure
+26. VDGN2.1SE J215252.43-013156.3 | 328.21781 | -1.53196 | 39627753993017145 | flag | host not clearly under central radio component
+27. VDGN2.1SE J223858.53-003759.1 | 339.74999 | -0.63230 | 39627772309536862 | flag | compact radio with jet, core offset from optical host
+28. VDGN2.1SE J230417.68+131315.3 | 346.07348 | 13.22177 | 39628107996466622 | flag | multiple radio blobs, no host at center
+29. VLASS2.1SE J231607.74+022120.2 | 349.03227 | 2.35562 | 39627844942299778 | good | single compact radio on one clear optical galaxy
+30. VDGN2.1SE J235538.33+052246.7 | 358.91002 | 5.38136 | 39627923489033484 | flag | compact radio near host but crowded by extended emission
+
+Summary
+Total: 30
+Good: 16
+Flag: 14
+Good rows: 2, 3, 6, 8, 9, 10, 11, 12, 13, 15, 17, 18, 20, 21, 22, 29
+Flag rows: 1, 4, 5, 7, 14, 16, 19, 23, 24, 25, 26, 27, 28, 30

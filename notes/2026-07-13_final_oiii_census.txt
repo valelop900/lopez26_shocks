@@ -1,0 +1,25 @@
+Final OIII census after hand-check of every no-broad object, 2026-07-13
+
+Method: doublet-tied double gaussian (4959 locked to 5007), broad detected if
+broad amp > 3x its own fit error, plus eyeball verification of all no-broad objects.
+
+Hand-check outcomes:
+- 39627802344950353: EXCLUDED. DESI spectrum has a dead gap 5800-7500 A (bad camera/arm),
+  OIII falls inside it. Unmeasurable, not a non-detection. OI at 8772 A unaffected.
+- 39627701220278777: EXCLUDED. Fit returned None (was already out).
+- 39628418026834277: FLIPPED to broad-detected. Amplitude marginal (2.3 sigma) but broad
+  width measured at 7 sigma (5.30 +- 0.79 A) and wings visible by eye.
+- 39627884159044712: stays no-broad. The 2.4 sigma "broad" is a wide low component spread
+  across the noisy window, not wings on the line. Noise sculpting, not outflow.
+- All other no-broad objects verified by eye as genuine narrow-only or clean faint lines.
+
+Final numbers:
+large: 2 of 16 no broad (13%)
+small: 15 of 49 no broad (31%)
+
+No-broad objects remain ~2.4x more common in the small sample. Result verified by eye
+object by object.
+
+SUPERSEDED 2026-07-13. The hand-check of individual objects stands, but the
+conclusion "no-broad is 2.4x more common in the small sample" is a sensitivity
+artifact, not an outflow result. See notes/2026-07-13_contradiction_resolution.txt.

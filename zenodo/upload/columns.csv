@@ -1,0 +1,37 @@
+name,unit,dtype,description,source
+TARGETID,,int64,DESI unique target identifier,DESI DR1
+sample,,string,"Sample flag: ""small"" (10-15 kpc, 47 rows) or ""large"" (>25 kpc, 30 rows). Filter on this to separate the two samples",This work
+Name,,string,VLASS radio component name,VLASS SE Continuum catalog (Kimball et al. 2026)
+RA,deg,float64,Right ascension (J2000) of the radio source,VLASS SE Continuum catalog (Kimball et al. 2026)
+DEC,deg,float64,Declination (J2000) of the radio source,VLASS SE Continuum catalog (Kimball et al. 2026)
+Z,,float64,DESI spectroscopic redshift,DESI DR1
+Flux,mJy,float64,VLASS 3 GHz total flux density,VLASS SE Continuum catalog (Kimball et al. 2026)
+E_Flux,mJy,float64,Uncertainty on Flux,VLASS SE Continuum catalog (Kimball et al. 2026)
+LAS,arcsec,float64,Largest angular size of the radio source,VLASS SE Continuum catalog (Kimball et al. 2026)
+Physical_Size,kpc,float64,Projected linear size from LAS and redshift,This work
+Alpha,,float64,"Catalog radio spectral index (S ~ nu^alpha), used to K-correct the 3 GHz luminosity. NOT used in the paper's jet power estimate, which converts 3 GHz to 151 MHz with a flat alpha = -0.7. Blank for 2 large sources; -0.7 assumed for those",VLASS SE Continuum catalog (Kimball et al. 2026)
+E_Alpha,,float64,Uncertainty on Alpha,VLASS SE Continuum catalog (Kimball et al. 2026)
+D_L,Mpc,float64,Luminosity distance,This work
+log_L_radio,log10(W/Hz),float64,"log10 rest-frame 3 GHz radio luminosity, K-corrected as (1+z)^(-1-alpha)",This work
+w80,km/s,float64,"[OIII] 5007 W80 line width, two-Gaussian pyspeckit fit, instrumental resolution removed",This work
+bpt_class,,string,"BPT classification from the [OI]/Ha diagram: seyfert, liner, or sf",This work
+sl_distance,dex,float64,Perpendicular distance from the Seyfert/LINER line y = 1.18x + 1.30 in the [OI] BPT plane; positive = Seyfert side,This work
+NEV_3426_FLUX,1e-17 erg/s/cm2,float64,[NeV] 3426 emission line flux,DESI DR1 agngal VAC
+NEV_3426_FLUX_IVAR,1e34 cm4 s2/erg2,float64,Inverse variance of NEV_3426_FLUX. Blank where flux is 0.0 (line not fitted),DESI DR1 agngal VAC
+OI_6300_FLUX,1e-17 erg/s/cm2,float64,[OI] 6300 emission line flux,DESI DR1 agngal VAC
+OI_6300_FLUX_IVAR,1e34 cm4 s2/erg2,float64,Inverse variance of OI_6300_FLUX,DESI DR1 agngal VAC
+OIII_5007_FLUX,1e-17 erg/s/cm2,float64,[OIII] 5007 emission line flux,DESI DR1 agngal VAC
+OIII_5007_FLUX_IVAR,1e34 cm4 s2/erg2,float64,Inverse variance of OIII_5007_FLUX,DESI DR1 agngal VAC
+HALPHA_FLUX,1e-17 erg/s/cm2,float64,Narrow H-alpha emission line flux,DESI DR1 agngal VAC
+HALPHA_FLUX_IVAR,1e34 cm4 s2/erg2,float64,Inverse variance of HALPHA_FLUX,DESI DR1 agngal VAC
+HBETA_FLUX,1e-17 erg/s/cm2,float64,Narrow H-beta emission line flux,DESI DR1 agngal VAC
+HBETA_FLUX_IVAR,1e34 cm4 s2/erg2,float64,Inverse variance of HBETA_FLUX,DESI DR1 agngal VAC
+HALPHA_BROAD_FLUX,1e-17 erg/s/cm2,float64,Broad H-alpha emission line flux. 0.0 where no broad component was fitted; nonzero identifies Type-1 AGN,DESI DR1 agngal VAC
+HALPHA_BROAD_FLUX_IVAR,1e34 cm4 s2/erg2,float64,Inverse variance of HALPHA_BROAD_FLUX. Blank where flux is 0.0,DESI DR1 agngal VAC
+fit_HB_FLUX,1e-17 erg/s/cm2,float64,"Fitted H-beta 4861 flux, narrow + broad components. The very broad (BLR) component is excluded","This work, pyspeckit fits (paper Section 2.2)"
+fit_OIII_5007_FLUX,1e-17 erg/s/cm2,float64,"Fitted [OIII] 5007 flux, narrow + broad components","This work, pyspeckit fits (paper Section 2.2)"
+fit_HA_FLUX,1e-17 erg/s/cm2,float64,"Fitted H-alpha 6563 flux, narrow + broad components. The very broad (BLR) component is excluded","This work, pyspeckit fits (paper Section 2.2)"
+fit_NII_6584_FLUX,1e-17 erg/s/cm2,float64,"Fitted [NII] 6584 flux, narrow + broad components. Kinematics tied to H-alpha, doublet ratio fixed at 1/3","This work, pyspeckit fits (paper Section 2.2)"
+fit_OI_6300_FLUX,1e-17 erg/s/cm2,float64,"Fitted [OI] 6300 flux, narrow + broad components. This is the flux behind the y-axis of paper Figure 4","This work, pyspeckit fits (paper Section 2.2)"
+log_oi_ha,dex,float64,log10(fit_OI_6300_FLUX / fit_HA_FLUX). x-axis of paper Figure 1,"This work, pyspeckit fits (paper Section 2.2)"
+log_oiii_hb,dex,float64,log10(fit_OIII_5007_FLUX / fit_HB_FLUX). y-axis of paper Figure 1,"This work, pyspeckit fits (paper Section 2.2)"

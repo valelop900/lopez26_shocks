@@ -1,0 +1,19 @@
+Small sample QC recheck, 2026-07-13
+Re-evaluated 8 flagged rows under the final looser rule (Mark, 7 July email).
+Method: Aladin blink, VLASS-Quicklook vs optical at same position, ~1.5 arcmin fov.
+Optical = PanSTARRS for rows 4, 6, 11, 17, 21 (DESI HiPS server failed to load);
+DESI Legacy for rows 3, 5, 16.
+
+row | TARGETID | new verdict | reason
+3  | 39627887631929650 | good | radio on the orange host, no real offset at proper zoom
+4  | 39627887787116738 | good | faint but clear radio blob at host position
+5  | 39627936101302939 | good | elongated radio, small offset toward obvious host, allowed case
+6  | 39627791519452623 | good | radio sits on one specific member of the group, host resolved
+11 | 39628051121705326 | good | radio on the blue-white host
+16 | 39627775098750148 | good | radio point source on galaxy at crosshair
+17 | 39627726847476452 | good | radio centered on host, not offset
+21 | 39627877989223494 | good | radio on faint orange galaxy, faint is fine
+
+All 8 recovered. Old flags were offset/faintness/crowding complaints from the
+over-strict first pass, none were radio-on-empty-sky or wrong-galaxy.
+Small sample: 52 -> 60 good. Total good: 68 -> 76.

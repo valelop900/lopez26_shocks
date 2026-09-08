@@ -1,0 +1,22 @@
+OIII census with doublet-tied fit, 2026-07-13
+
+Improved the OIII fit: 4959 and 5007 now fit simultaneously with tied parameters
+(same velocity center and width, 4959 amplitude fixed to 1/3 of 5007, atomic physics).
+Same approach as Mullaney et al fits used by Molyneux. Window covers both lines,
+baseline excludes the whole doublet.
+
+Census, broad detected = broad amp > 3x its own fit error:
+large: 2 of 16 no broad (13%)
+small: 17 of 51 no broad (33%)
+1 object excluded for unusable error: 39627701220278777
+
+Result stable across all three methods tried (amp cutoff, error-based single-line,
+error-based doublet): no-broad objects are 2-3x more common in the small sample.
+
+Direction is opposite the Molyneux compact-source trend, but our samples (10-15 vs
+>20 kpc) sit entirely in their "extended" regime (their compact = <5 kpc), so this
+probes a different size range than their result.
+
+SUPERSEDED 2026-07-13. Census direction is brightness-driven. See
+notes/2026-07-13_contradiction_resolution.txt. The doublet-tied fit itself is fine
+and is still the fit used everywhere.

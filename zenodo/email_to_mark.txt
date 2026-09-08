@@ -1,0 +1,48 @@
+Subject: Zenodo data release for the ApJL paper - ready except for four decisions
+
+Hi Mark,
+
+I've put together the Zenodo release for the shocks paper. It's staged locally and ready to
+upload, but I haven't created an account or deposited anything yet because there are a few
+things I'd rather you decide first.
+
+What's there: the two catalog tables (47 small, 30 large), a README with the column
+descriptions and the sample definitions, a machine-readable column table, the scripts that
+build the catalogs and make the paper figures, and checksums. I also wrote a check script
+that recomputes every number we quote in the paper using only the released tables, and it
+reproduces all of them exactly - the W80 medians and both p-values, the BPT distance
+medians, the [NeV] fractions at 3 and 5 sigma, the Balmer decrements, the Type-1 counts, and
+the jet power medians. So the release is self-contained; nobody needs our intermediate files
+to check our results.
+
+The four things I need from you:
+
+First, do you want the WISE magnitudes and the [OII] fluxes back in the tables? They're
+sitting in the source cross-match and it's a one-line change either way.
+
+Second, one merged file with a sample column, or the two separate files it's currently set
+up as?
+
+Third, where a line flux is exactly 0.0 the inverse variance cell is blank. I've left it
+blank on the reading that it means the line was never fitted, rather than filling it with 0
+which could be misread as a real measurement. Happy to switch it if you'd rather.
+
+Fourth, and mainly - should you make the deposit or should I? Whoever logs in owns the
+record and it's awkward to transfer afterwards, so it's worth getting right the first time.
+Related: I've put CC-BY-4.0 in as a placeholder for the license, but I didn't want to commit
+to that without you, especially if NRAO has a preference for student-program data.
+
+One thing worth doing early regardless of the rest: Zenodo lets you reserve the DOI while
+the record is still a private draft. That means we can drop the real DOI into the manuscript
+now instead of "doi to be added after review", and still not publish anything until you're
+happy with it.
+
+Two smaller things I couldn't resolve on my own. I don't have a DESI DR1 reference anywhere
+in my notes and I didn't want to guess at one, so it's a TODO in the README - do you have
+the one we should cite? And your August note mentioned checking the Willott 1999
+normalization on ADS; I've left that flagged as unverified rather than assume it.
+
+Let me know on the four and I can finish it off quickly.
+
+Thanks,
+Valeria

@@ -1,0 +1,37 @@
+QC verdicts, new large sample (VLASS3_2_OI_large.csv, 30 objects)
+2026-07-22. Valeria. Rules per Mark: radio on/near host = good;
+flag only for empty sky, wrong galaxy, or ambiguous host.
+Doubles with host between lobes = good.
+
+row 1, TARGETID 39628216905763376, good, double lobes centered on galaxy
+row 2, TARGETID 39628326670698043, good, galaxy in gap between two lobes
+row 3, TARGETID 39637026198258867, good, galaxy at center between two lobes
+row 4, TARGETID 39628169761786552, good, single blob on galaxy
+row 5, TARGETID 39627975796198001, good, single radio blob on galaxy
+row 6, TARGETID 39628403166419745, good, single blob near galaxy, small offset
+row 7, TARGETID 39628247008281703, good, single radio blob on galaxy
+row 8, TARGETID 39628202036956294, good, galaxy centered between two lobes
+row 9, TARGETID 39628383398660956, good, galaxy in gap between two lobes
+row 10, TARGETID 39628326024773876, good, radio on galaxy, slight elongation
+row 11, TARGETID 39628332521754011, good, single blob on faint galaxy at center
+row 12, TARGETID 39628211037934325, good, galaxy at center core between two lobes
+row 13, TARGETID 39633113621465526, good, single blob on galaxy
+row 14, TARGETID 39633126292457992, good, radio core on galaxy with lobe
+row 15, TARGETID 39627842677376414, good, radio on target galaxy at crosshair
+row 16, TARGETID 39628232231752149, good, single blob on galaxy at crosshair
+row 17, TARGETID 39628398418463562, good, galaxy in gap between two lobes
+row 18, TARGETID 39627787794909543, good, single blob on galaxy at crosshair
+row 19, TARGETID 39628205606307671, good, single blob on galaxy at crosshair
+row 20, TARGETID 39627787748770583, good, faint radio on galaxy at crosshair
+row 21, TARGETID 39628405414561680, good, single blob on galaxy at crosshair
+row 22, TARGETID 39627981848582880, good, single blob on galaxy at crosshair
+row 23, TARGETID 39627932758445064, good, faint radio on galaxy at crosshair
+row 24, TARGETID 39633208748277942, good, faint radio on galaxy at crosshair
+row 25, TARGETID 39628321394262307, good, single blob on galaxy at crosshair
+row 26, TARGETID 39628222966537042, good, galaxy at central core between two lobes
+row 27, TARGETID 39628005458316343, good, radio on galaxy at crosshair, elongated
+row 28, TARGETID 39627818971172910, good, radio on galaxy at crosshair
+row 29, TARGETID 39628388897392600, good, radio on galaxy at crosshair
+row 30, TARGETID 39633109817232239, good, galaxy at gap between two lobes
+
+TOTAL: 30 good, 0 flag

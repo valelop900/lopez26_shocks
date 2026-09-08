@@ -1,0 +1,7 @@
+RUN RESULTS 2026-08-05
+- jet_power.py ran clean, per-source Alpha used, K-correction (1+z)^(-1-alpha) included
+- logL3 median: large 24.84, small 24.09
+- logQ median: large 35.52, small 35.17
+- outputs: data/VLASS3_2_OI_large_Q.csv, data/VLASS3_2_OI_small_Q.csv
+- reminder: apply logL3 > 24 cut when plotting, files are pre-cut samples
+- reminder: verify Willott 1999 normalization (1e28, f factor) on ADS

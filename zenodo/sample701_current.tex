@@ -1,0 +1,379 @@
+%% Beginning of file 'sample701.tex'
+%%
+%% Version 7.0.1. Created May 2025.
+%% Version 7. Created January 2025.  
+%%
+%% AASTeX v7+ calls the following external packages:
+%% times, hyperref, ifthen, hyphens, longtable, xcolor, 
+%% bookmarks, array, rotating, ulem, and lineno 
+%%
+%% RevTeX is no longer used in AASTeX v7+.
+%%
+\documentclass[linenumbers,trackchanges]{aastex701}
+%%
+%% This initial command takes arguments that can be used to easily modify 
+
+%% the output of the compiled manuscript. Any combination of arguments can be 
+%% invoked like this:
+%%
+%% \documentclass[argument1,argument2,argument3,...]{aastex701}
+%%
+%% Six of the arguments are typestting options. They are:
+%%
+%%  twocolumn   : two text columns, 10 point font, single spaced article.
+%%                This is the most compact and represent the final published
+%%                derived PDF copy of the accepted manuscript from the publisher
+%%  default     : one text column, 10 point font, single spaced (default).
+%%  manuscript  : one text column, 12 point font, double spaced article.
+%%  preprint    : one text column, 12 point font, single spaced article.  
+%%  preprint2   : two text columns, 12 point font, single spaced article.
+%%  modern      : a stylish, single text column, 12 point font, article with
+%% 		  wider left and right margins. This uses the Daniel
+%% 		  Foreman-Mackey and David Hogg design.
+%%
+%% Note that you can submit to the AAS Journals in any of these 6 styles.
+%%
+%% There are other optional arguments one can invoke to allow other stylistic
+%% actions. The available options are:
+%%
+%%   astrosymb    : Loads Astrosymb font and define \astrocommands. 
+%%   tighten      : Makes baselineskip slightly smaller, only works with 
+%%                  the twocolumn substyle.
+%%   times        : uses times font instead of the default.
+%%   linenumbers  : turn on linenumbering. Note this is mandatory for AAS
+%%                  Journal submissions and revisions.
+%%   trackchanges : Shows added text in bold.
+%%   longauthor   : Do not use the more compressed footnote style (default) for 
+%%                  the author/collaboration/affiliations. Instead print all
+%%                  affiliation information after each name. Creates a much 
+%%                  longer author list but may be desirable for short 
+%%                  author papers.
+%% twocolappendix : make 2 column appendix.
+%%   anonymous    : Do not show the authors, affiliations, acknowledgments,
+%%                  and author contributions for dual anonymous review.
+%%  resetfootnote : Reset footnotes to 1 in the body of the manuscript.
+%%                  Useful when there are a lot of authors and affiliations
+%%		    in the front matter.
+%%   longbib      : Print article titles in the references. This option
+%% 		    is mandatory for PSJ manuscripts.
+%%
+%% Since v6, AASTeX has included \hyperref support. While we have built in 
+%% specific %% defaults into the classfile you can manually override them 
+%% with the \hypersetup command. For example,
+%%
+%% \hypersetup{linkcolor=red,citecolor=green,filecolor=cyan,urlcolor=magenta}
+%%
+%% will change the color of the internal links to red, the links to the
+%% bibliography to green, the file links to cyan, and the external links to
+%% magenta. Additional information on \hyperref options can be found here:
+%% https://www.tug.org/applications/hyperref/manual.html#x1-40003
+%%
+%% The "bookmarks" has been changed to "true" in hyperref
+%% to improve the accessibility of the compiled pdf file.
+%%
+%% If you want to create your own macros, you can do so
+%% using \newcommand. Your macros should appear before
+%% the \begin{document} command.
+%%
+\newcommand{\vdag}{(v)^\dagger}
+\newcommand\aastex{AAS\TeX}
+\newcommand\latex{La\TeX}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% The following section outlines numerous optional output that
+%% can be displayed in the front matter or as running meta-data.
+%%
+%% Running header information. A short title on odd pages and 
+%% short author list on even pages. Note that this
+%% information may be modified in production.
+%%\shorttitle{AASTeX v7.0.1 Sample article}
+\shorttitle{Shocks in small radio sources}
+\shortauthors{Lopez \& Lacy}
+%%\shortauthors{The Terra Mater collaboration}
+%%
+%% Include dates for submitted, revised, and accepted.
+%%\received{February 1, 2025}
+%%\revised{March 1, 2025}
+%%\accepted{\today}
+%%
+%% Indicate AAS Journal the manuscript was submitted to.
+
+%%%not sure if this is  the right way to use it
+\submitjournal{ApJL}
+%% Note that this command adds "Submitted to " the argument.
+%%
+%% You can add a light gray and diagonal water-mark to the first page 
+%% with this command:
+%% \watermark{text}
+%% where "text", e.g. DRAFT, is the text to appear.  If the text is 
+%% long you can control the water-mark size with:
+%% \setwatermarkfontsize{dimension}
+%% where dimension is any recognized LaTeX dimension, e.g. pt, in, etc.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Use this command to indicate a subdirectory where figures are located.
+%%\graphicspath{{./}{figures/}}
+%% This is the end of the preamble.  Indicate the beginning of the
+%% manuscript itself with \begin{document}.
+
+\begin{document}
+
+\title{Evidence for strong shocks in the ISM of small radio sources}
+
+
+%% A significant change from AASTeX v6+ is in the author blocks. Now an email
+%% address is required for each author. This means that each author requires
+%% at least one of the following:
+%%
+%% \author
+%% \affiliation
+%% \email
+%%
+%% If these three commands are not available for each author, the latex
+%% compiler will issue an error and if you force the latex compiler to continue,
+%% it will generate an incomplete pdf.
+%%
+%% Multiple \affiliation commands are allowed and authors can also include
+%% an optional \altaffiliation to indicate a status, i.e. Hubble Fellow. 
+%% while affiliations are indexed as footnotes, altaffiliations are noted with
+%% with a non-numeric footnote that is set away from the numeric \affiliation 
+%% footnotes. NOTE that if an \altaffiliation command is used it must 
+%% come BEFORE the \affiliation call, right after the \author command, in 
+%% order to place the footnotes in the proper location. Because non-numeric
+%% symbols are used, \altaffiliation should be used sparingly.
+%%
+%% In v7+ the \author command takes an optional argument which provides 
+%% additional metadata about the author. Authors can provide the 16 digit 
+%% ORCID, the surname (family or last) name, the given (first or fore-) name, 
+%% and a name suffix, e.g. "Jr.". The syntax is:
+%%
+%% \author[orcid=0000-0002-9072-1121,gname=Gregory,sname=Schwarz]{Greg Schwarz}
+%%
+%% This name metadata in not shown, it is only for parsing by the peer review
+%% system so authors can be more easily identified. This name information will
+%% also be sent to the publisher so they can include it in the CROSSREF 
+%% metadata. Including an orcid will hyperlink the author name to the 
+%% author's ORCID page. Note that  during compilation, LaTeX will do some 
+%% limited checking of the format of the ID to make sure it is valid. If 
+%% the "orcid-ID.png" image file is  present or in the LaTeX pathway, the 
+%% ORCID icon will appear next to the authors name.
+%%
+%% Even though emails are now required for each author, the \email does not
+%% produce output in the compiled manuscript unless the optional "show" command
+%% is used. For example,
+%%
+%% \email[show]{greg.schwarz@aas.org}
+%%
+%% All "shown" emails are show in the bottom left of the first page. Due to
+%% space constraints, only a few emails should be shown. 
+%%
+%% To identify a corresponding author, use the \correspondingauthor command.
+%% The command appends "Corresponding Author: " to the argument it appears at
+%% the bottom left of the first page like the output from \email. 
+
+\author[orcid=0009-0009-0998-5049,sname=Lopez]{Valeria Lopez}
+\affiliation{National Radio Astronomy Observatory, 520 Edgemont Road, Charlottesville VA 22903}
+\email[show]{valelop800@gmail.com}  
+
+\author[orcid=0000-0002-3032-1783,gname=Mark, sname=Lacy]{Mark Lacy} 
+\affiliation{National Radio Astronomy Observatory, 520 Edgemont Road, Charlottesville VA 22903}
+\email[show]{mlacy@nrao.edu}
+
+
+%% Use the \collaboration command to identify collaborations. This command
+%% takes an optional argument that is either a number or the word "all"
+%% which tells the compiler how many of the authors above the command to
+%% show. For example "\collaboration[all]{(DELVE Collaboration)}" wil include
+%% all the authors above this command.
+%%
+%% Mark off the abstract in the ``abstract'' environment. 
+\begin{abstract}
+Radio jets deposit energy into the interstellar medium of their host galaxies, and while a jet is still confined within the host it is expected to drive shocks through the gas. Broad [O~{\sc iii}]~$\lambda$5007 profiles trace ionized gas that has been disturbed, the [O~{\sc i}]/H$\alpha$ versus [O~{\sc iii}]/H$\beta$ diagram helps distinguish gas photoionized by an AGN from gas excited by shocks, and the high ionization [Ne~{\sc v}]~$\lambda$3426 line traces the hard UV continuum of the accretion disk, which shocks only reproduce at very high velocities. We have selected two samples of radio-loud AGN from a cross-match of the VLA Sky Survey with DESI Data Release 1, at $0.15<z<0.5$ and with [O~{\sc i}]~$\lambda$6300 detected at $>5\sigma$: one with projected radio sizes of 10--15~kpc, whose jets are still inside the host, and one with sizes greater than 25~kpc, whose jets have broken out. We fit the [O~{\sc iii}] and [O~{\sc i}] profiles, measure W80, and classify each source on the BPT diagram. The confined sources have broader [O~{\sc iii}] lines, sit systematically closer to the LINER region, and are detected less often in [Ne~{\sc v}], and the [Ne~{\sc v}] difference is not explained by redshift, sensitivity, or dust. We then discuss how, taken together, these results indicate that the jets of the confined sources are driving strong shocks through the interstellar medium of their hosts.
+\end{abstract}
+
+\keywords{\uat{Active galactic nuclei}{16} --- \uat{Radio jets}{1347} --- \uat{AGN host galaxies}{2017}}
+
+
+\section{Introduction} 
+
+The radio jets launched by active galactic nuclei (AGN) are among the most energetic structures produced by galaxies. At the center of an active galaxy sits a supermassive black hole, and when that black hole is accreting, it can drive collimated outflows of plasma outward through the galaxy. These jets pass through the interstellar medium of the host, heating the gas, and, in the most powerful cases, removing it from the galaxy altogether. This link between galaxy evolution and AGN activity is called feedback. Without feedback, models of galaxy evolution cannot reproduce the mass distribution of galaxies that we see today
+\citep{croton06,heckman2014}.
+
+Ionized gas is one of the more convenient ways to watch feedback happen. The [O~{\sc iii}]~$\lambda$5007 line is bright in the narrow-line regions of AGN and has been used for a long time to trace gas that has been set into motion by the AGN \citep[e.g.][]{whittle1985}. Both the shape of this line and its flux carry information about the gas. A common measure of the shape is W80, which is the velocity range that holds the middle 80 percent of the flux in the line \citep[e.g.][]{liu2013}. Narrow values of W80 mean the gas dynamics reflect the virial motions within the gravitational potential well of the galaxy. Broad values, above roughly 800~km~s$^{-1}$, mean there is gas at velocities that rotation by itself cannot account for, which is what an outflow looks like in a spectrum. A broad profile by itself does not say what disturbed the gas, however. Radiation from the nucleus, winds, and shocks caused by radio jets can all move the ionized gas, and separating these possibilities requires comparing the line widths against some property of the AGN itself. In this work that property is the size of the radio source.
+
+Simulations \citep[e.g.][]{mukherjee25} indicate that radio jets will have a strong effect on the ISM and observations have shown consistency with this. \citet{mullaney2013} show that radio emitting AGN with compact structures have systematically broader [O~{\sc iii}] emission lines than radio-quiet AGN in stacked spectra from the Sloan Digital Sky Survey (SDSS). \citet{molyneux2019} classified 2922 $z<0.2$ SDSS AGN as radio compact or extended and found that the compact sources have systematically broader [O~{\sc iii}] profiles. 
+Broad components with FWHM~$>1000$~km~s$^{-1}$, the signature of extreme outflows, were twice as common in the compact sources overall, and nearly four times as common in the moderate radio luminosity range where the AGN dominates the radio emission.  
+Their interpretation is that young or frustrated jets, still confined within the host, are responsible for the most disturbed gas. \citet{escott25} found that AGN detected in the LOFAR Two-metre Sky Survey were more likely to show outflows in their [O~{\sc iii}]~$\lambda$5007 emission than their radio-undetected counterparts.
+These studies were, however, limited by the resolution of the FIRST and NVSS surveys, so that ``compact'' meant unresolved at about 5~kpc scales, and the sizes of the smallest sources could not be
+measured directly. \citet{escott26} used sub-arcsecond LOFAR images to overcome this limitation and show that AGN radio emission on kpc scales was associated with the incidence of [O~{\sc iii}] outflows. Other evidence for jet-driven shocks in radio galaxies includes the detection of strong H$_{2}$ rotational emission lines \citep{ogle10}. To date, however, there have only been a few individual cases studied where there is evidence for shocks both from emission line widths and from emission line diagnostic ratios
+\citep[e.g. 3C326N,][]{leftley24}.
+
+We were thus motivated to use the power of two new sky surveys to obtain a better understanding of the incidence and nature of feedback from radio jet powered shocks by 
+focusing on whether the size of a radio source is connected to the properties of the ionized gas in its host galaxy. The Very Large Array Sky Survey \citep[VLASS;][]{lacy2020} is the highest angular resolution radio survey to image the entire sky visible to the Very Large Array (VLA), achieving a physical resolution of $\approx 10$~kpc at $z=0.3$. The Dark Energy Spectroscopic Instrument (DESI) Data Release 1  \citep{DESI26}
+provides high quality and wide spectral range optical spectroscopy of the host galaxies of many VLASS radio sources, allowing investigation of both the [O~{\sc iii}] emission line profiles and another potential indicator of AGN and shocks, namely the [O~{\sc i}]/H$\alpha$ vs [O~{\sc iii}]/H$\beta$ BPT diagram \citep{BPT, VO87, Allen08}. 
+From a VLASS and DESI cross-match we selected two samples of [O~{\sc i}]~$\lambda$6300 detected sources at $0.15 < z < 0.5$. The first contains extended sources, whose jets terminate outside the main body of the host. The second contains compact, but resolved sources whose jets are outside of the nuclear region, but still working their way through the ISM of the host.
+We then examine the emission line properties of these sources, in particular the W80 distribution of the [O~{\sc iii}] line, their position in the BPT diagram and the presence or absence of the high ionization [Ne~{\sc v}]~$\lambda$3426 emission line in order to compare the role of shocks in ionizing the emission line gas between the two samples. We assume a cosmology with $H_0=70\,{\rm km\,s^{-1}\,Mpc^{-1}}$, $\Omega_{\rm M}=0.3$ and $\Omega_{\Lambda}=0.7$.
+
+\section{Methods}
+
+\subsection{Sample selection}
+
+We used the 20260601 versions of the VLASS Single Epoch Continuum source catalogs from VLASS Epochs 2.1 and 3.2 available from the SE Continuum area of the VLASS data repository \footnote{\url{https://archive-new.nrao.edu/vlass}} to select the radio sources used in this study. These catalogs consist of both compact and extended (double or triple) sources, the latter being selected using the DRAGN Hunter algorithm of \citet{gordon23} (see \citet{kimball26} for more details of these catalogs).
+The VLASS catalogs were then matched to the DESI data release 1 {\sc agngal} value-added catalog (Juneau et al., in preparation\footnote{\url{https://data.desi.lbl.gov/public/dr1/vac/dr1/agngal/v1.0/}}) using a 1.5 arcsec match radius. We then selected objects with [O~{\sc i}]~6300\,\AA\ detected at $>5\sigma$ and redshifts between 0.15 and 0.5 (the redshift range being determined so as to include both the high ionization [Ne~{\sc v}]~3426\,\AA\ line and the low ionization [O~{\sc i}]~6300\,\AA\ line, together with H$\alpha$, in the spectra). 
+
+For this study, we then selected two subsamples. One with compact radio sources that were nevertheless resolved in VLASS (so neither confined to the nuclear region nor dominated by a single strongly beamed blazar-like jet component), but likely to be contained within the host galaxy, and one where the radio jets were of sufficient extent that their working surfaces are likely to have passed beyond the ISM of the host galaxy. The beamsize of VLASS is $\approx 2.5$\,arcsec, corresponding to 6--15~kpc in the redshift range of the sample. We therefore selected sources with projected physical sizes between 10~kpc and 15~kpc in size for the ``small'' sample (although the lower limit of 10~kpc is below the beamsize at $z=0.5$, objects can be reliably resolved in the source catalogs to a limit of about half the beamsize, as the flux density cut for components is made at 1.2~mJy, $\approx 7$--$10\sigma$; \citet{kimball26}). The ``large'' subsample was selected to have a projected minimum size of 25~kpc, large enough to ensure lobes extending outside of the host galaxy while still retaining a comparable number of objects in each sample. Each radio source and its putative identification were then examined by eye to ensure that the radio source was correctly classified as ``large'' or ``small'' and that its optical identification was correct. 
+Finally, we noted that, as VLASS, like all interferometric surveys, is brightness limited, the fluxes and hence radio luminosities of our ``small'' and ``large'' samples differed, with the typical ``small'' object being $\approx 10\times$ fainter than the typical ``large'' one. To make the luminosity distributions of the sample more comparable and to eliminate the lowest luminosity sources we therefore placed a lower bound of 3~GHz luminosity of $>10^{24}$~W\,Hz$^{-1}$ on both samples, which also ensured they all fall into the traditional ``radio loud'' category \citep[e.g.][]{miller90}, with radio luminosities dominated by jet emission. As a check to ensure that the small sample was not unduly dominated by objects with jets close to the line of sight that might have much larger intrinsic sizes, we compared the fraction of type-1 AGN in each sample, taking a source to be type-1 when the {\sc agngal} catalog reports a nonzero broad H$\alpha$ flux. We find 14 of the 47 small sources and 17 of the 30 large sources are type-1, suggesting no such bias.
+
+\subsection{Line measurements}
+
+We downloaded the DESI spectra for all objects in both samples and fit the emission lines with sums of Gaussian components. The [O~{\sc iii}] $\lambda\lambda$4959,5007 doublet was fit with narrow and broad components for each line, with the doublet amplitude ratio fixed at the theoretical value. The [O~{\sc i}] $\lambda$6300 line was fit in the same way; the [O~{\sc i}] fit is used for the line ratio and luminosity only, with W80 measured from the [O~{\sc iii}] profile. For the BPT line ratios we also fit H$\beta$ with narrow, broad, and very broad components, and H$\alpha$ simultaneously with the [N~{\sc ii}] $\lambda\lambda$6548,6583 doublet, with the [N~{\sc ii}] kinematics tied to H$\alpha$ and the doublet ratio fixed at 1/3 by atomic physics. A component was considered detected when its amplitude exceeded three times its fit uncertainty.
+
+From the total fitted profile of each set of [O~{\sc iii}]~$\lambda\lambda$4959,5007 lines we measured W80, the velocity width containing the central 80 percent of the line flux \citep{liu2013}, corrected for the instrumental resolution. Because W80 is measured from the summed profile, it does not depend on how the flux is divided between the Gaussian components. Each object was classified as a Seyfert, a LINER, or star forming on the [O~{\sc i}]/H$\alpha$ versus [O~{\sc iii}]/H$\beta$ diagram using the boundaries of \citet{kewley2006}. After applying the luminosity cut of $L_{\rm 3\,GHz} > 10^{24}$~W~Hz$^{-1}$ the final samples contain 47 small and 30 large sources with all four lines measured.
+
+In addition to the fitted lines, we made use of two further measurements. The first is the high ionization [Ne~{\sc v}]~$\lambda$3426 line. Its ionization potential of 97~eV is too high for stellar photoionization, and \citet{negus23} show that [Ne~{\sc v}] is an effective tracer of AGN activity, detected preferentially in more luminous AGN. We took the [Ne~{\sc v}] fluxes and their uncertainties from the {\sc agngal} catalog, and counted a source as detected when the flux exceeded three times its uncertainty. All 77 objects have spectral coverage of the line. The second is the Balmer decrement, the ratio of the narrow H$\alpha$ to H$\beta$ fluxes, which we use as an indicator of dust reddening: in the absence of dust the ratio is expected to be $\approx 3$ for AGN narrow-line regions \citep[e.g.][]{osterbrock89}, and dust raises it.
+
+\section{Results}
+
+Figure~\ref{fig:bpt} shows the two samples on the [O~{\sc i}]/H$\alpha$ versus [O~{\sc iii}]/H$\beta$ BPT diagram. The two samples differ in their mix of AGN types. The large sample almost entirely falls within the region of the diagram occupied by Seyfert galaxies: 26 of 30 classified objects are Seyferts, four are LINERs, and none fall in the star-forming region. The small sample is mixed, with 30 Seyferts, 14 LINERs, and three objects that fall within the region occupied by star-forming galaxies (though inspection of the DESI spectra showed that all three of these are AGN, one is a type-2 AGN with strong [Ne~{\sc v}] emission and two are type-1 AGNs). 
+
+
+\begin{figure}
+\plotone{fig_bpt.pdf}
+\caption{The two samples on the [O~{\sc i}]/H$\alpha$ versus [O~{\sc iii}]/H$\beta$ diagram, with the classification boundaries of \citet{kewley2006}. The large sample ($>25$~kpc) is almost entirely Seyfert, while the small sample (10--15~kpc) is a mix of Seyferts and LINERs. The arrow shows how the perpendicular distance from the Seyfert--LINER dividing line -- the SL (Seyfert--LINER) measure -- is defined.}
+\label{fig:bpt}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Figure~\ref{fig:w80} shows the W80 distributions. The small sources have broader [O~{\sc iii}] profiles, and the extreme tail above 1300~km~s$^{-1}$ belongs entirely to the small sample. To separate the effect of the jet from the effect of the AGN type we compared the Seyferts alone. The 30 small-sample Seyferts have a median W80 of 688~km~s$^{-1}$ against 513~km~s$^{-1}$ for the 26 large-sample Seyferts, a difference that is significant on a Kolmogorov--Smirnov (KS) test ($p = 0.0065$, where $p$ is the probability of the null hypothesis that the two distributions are from the same underlying sample) and a Mann--Whitney test ($p = 0.0026$). Within the small sample, the Seyferts and the LINERs show no detectable difference in W80 (medians 688 and 548~km~s$^{-1}$, KS $p = 0.42$), although the LINER bin is small. The line widths therefore track the size of the radio source rather than the AGN classification.
+
+\begin{figure}
+\plotone{fig_w80_by_class.pdf}
+\caption{[O~{\sc iii}] W80 by radio size and AGN type. Small-sample Seyferts are significantly broader than large-sample Seyferts, while Seyferts and LINERs within the small sample are indistinguishable. The large-sample LINER bin contains too few objects to plot.}
+\label{fig:w80}
+\end{figure}
+
+To test the significance of the separation on the BPT diagram, we computed, for every object, the perpendicular distance to the Seyfert--LINER dividing line of \citet{kewley2006}, with positive distances on the Seyfert side (Figure~\ref{fig:bptdist}), which we refer to as the ``SL measure''. The large sample has a median SL measure of 0.38 against 0.19 for the small sample. The difference is marginally significant on a Mann--Whitney test ($p = 0.029$) and an Anderson--Darling test ($p = 0.026$); the KS test gives $p = 0.12$, which is expected since most of the difference lies in the LINER tail rather than in the body of the distributions. 
+
+\begin{figure}
+\plotone{fig_bpt_distance.pdf}
+\caption{Histogram of the SL measure, the perpendicular distance of each object from the Seyfert--LINER dividing line of \citet{kewley2006}, with positive distances on the Seyfert side. The small sources sit systematically closer to the LINER boundary.}
+\label{fig:bptdist}
+\end{figure}
+
+We next used the [Ne~{\sc v}] detection rate as a diagnostic of the ionizing spectrum rather than as an AGN identifier. As noted above, [Ne~{\sc v}] traces gas photoionized by the UV continuum of an AGN accretion disk. In gas ionized by shocks, however, the shock velocities need to be high, $\gtrsim 600$~km~s$^{-1}$, before large amounts of [Ne~{\sc v}] are produced \citep{Allen08}. We therefore compared the [Ne~{\sc v}] detection rates of the large and small samples. In the large sample 60 per cent of sources are detected at $>3\sigma$, against 30 per cent of the small sample; at $>5\sigma$ the rates are 57 and 21 per cent. Restricting both samples to a matched redshift range of $0.30 < z < 0.45$ (20 objects each) leaves the difference in place (60 against 35 per cent), and the median [Ne~{\sc v}] flux uncertainties are nearly identical, so the difference is not driven by redshift or sensitivity.
+
+One remaining possibility is dust, since [Ne~{\sc v}] lies in the blue where extinction is strongest. The small sample is slightly dustier, with a median H$\alpha$/H$\beta$ of 4.00 against 3.56 for the large sample (Mann--Whitney $p = 0.023$). This modest difference cannot account for the [Ne~{\sc v}] gap, however: restricting both samples to H$\alpha$/H$\beta < 4$ widens the gap to 84 against 33 per cent. Within the large sample the [Ne~{\sc v}] non-detections do have higher decrements than the detections (medians 4.16 against 3.25, $p = 0.01$), but no such difference exists in the small sample ($p = 0.26$). The lower [Ne~{\sc v}] detection rate in the small sources therefore appears to reflect a real difference in the ionizing conditions rather than dust.
+
+
+\section{Discussion}
+All three measurements point the same way. The small radio sources, whose jets are still inside the host, have on average broader [O~{\sc iii}] profiles, sit closer to the LINER region of the BPT diagram and tend to lack [Ne~{\sc v}] emission, while the large sources, whose jets terminate outside the host, have narrower lines, frequently have detectable [Ne~{\sc v}] and are almost uniformly Seyferts. LINER-like line ratios can originate from either shocks \citep[both through direct shock heating and by photoionization by post-shock gas e.g.][]{Allen08}, or from hard ionizing spectra directly from an AGN \citep[e.g.][]{kewley2006}. In this case, however, the association with radio jets within the host galaxy and the lack of [Ne~{\sc v}] emission point strongly towards a shock origin. These results therefore favor the jets of the small sources driving shocks through the interstellar medium of their hosts and powering much of the line emission. There are, however, some small sources that are firmly in the Seyfert region of the BPT diagram, with a larger distance ($\gtrsim +0.3$) from the Seyfert-LINER divide than the shock models of \citet{Allen08} predict. In these cases we may be seeing AGN photoionization dominating even for objects with high W80. 
+
+In contrast to the majority of the small sources, the large sources lack shock signatures, consistent with the gas around the large sources having relaxed after the jet broke out of the galaxy, with the emission line gas now being photoionized principally by UV continuum emission from the accretion disk of the AGN. After breakout the jet working surfaces drive shocks into the much lower density circumgalactic medium, where cooling times are long and the shocks are no longer fully radiative \citep[e.g.][]{dopita03}, so that little optical line emission is expected from them even while the jet remains active.
+
+To ask how much of the jet kinetic power ends up radiated in the emission lines, we estimated the bulk kinetic power $Q$ of the jets following \citet{willott1999}, who calibrated $Q$ against the 151~MHz luminosity of FR~II radio sources using minimum-energy arguments together with a model for how a radio source grows into its surrounding medium,
+\begin{equation}
+Q \simeq 3\times10^{38} \, f^{3/2}
+\left(\frac{L_{151}}{10^{28}~{\rm W\,Hz^{-1}\,sr^{-1}}}\right)^{6/7}~{\rm W},
+\end{equation}
+where $f$ collects the uncertainties in the jet composition, the volume filling factor of the lobe plasma, the low-energy cut-off of the electron energy distribution, and any departure from the minimum-energy condition. \citet{willott1999} argue that $f$ lies between 1 and 20. We adopt $f=1$, so the values of $Q$ quoted here are lower limits; adopting $f=20$ would raise them by a factor of $\approx 90$, consistent with the study of \citet{cavagnolo10}. The relation is calibrated on FR~II sources and assumes a simple model for the surrounding density, so may not be appropriate for our confined sources, but we believe it is useful as an order of magnitude guide to the jet power. We converted each VLASS 3~GHz luminosity to 151~MHz assuming a spectral index of $\alpha = -0.7$.
+The median jet power is $\log_{10}(Q/{\rm W}) = 35.8$ for the large sample and 35.1 for the small sample.
+
+Figure~\ref{fig:loiq} compares the [O~{\sc i}] luminosity with the jet power. Most sources radiate more than one per cent of their jet power in [O~{\sc i}] alone, and the least powerful sources, which are confined, approach a few tens of per cent. Since [O~{\sc i}] is only a minor coolant, the total emission-line luminosity would then be an implausibly large fraction of $Q$, which suggests that $f=1$ is indeed a conservative lower limit on the jet power. Within each sample the Seyferts and LINERs occupy the same region of this diagram, consistent with the W80 results in that the radio source size, rather than the AGN classification, is what distinguishes the two samples.
+
+\begin{figure}
+\plotone{fig_loi_vs_q.pdf}
+\caption{[O~{\sc i}] luminosity against jet kinetic power $Q$, estimated from the radio luminosity following \citet{willott1999} with $f=1$. Filled black points are the large ($>25$~kpc) sample and open purple points the small (10--15~kpc) sample; circles are Seyferts and stars are LINERs.}
+\label{fig:loiq}
+\end{figure}
+
+Figure~\ref{fig:w80bpt} compares W80 directly against the SL measure. No strong correlation is present within either sample, which is not unexpected if a mix of shock heating and both AGN and shock photoionization contributes to the line emission in individual objects.
+
+\begin{figure}
+\plotone{fig_w80_bptdist.pdf}
+\caption{[O~{\sc iii}] W80 against SL measure. Symbols as in Figure~\ref{fig:loiq}.}
+\label{fig:w80bpt}
+\end{figure}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Conclusions}
+We compared the ionized gas in two samples of radio-loud AGN selected from VLASS and DESI DR1: 47 sources with 10--15~kpc jets still confined within their hosts, and 30 sources with $>25$~kpc jets that have broken out. The small sample has a somewhat lower median jet power than the large sample, so the differences we find cannot be attributed to more powerful jets in the confined sources.
+
+We found three differences between the samples. Among the Seyferts alone, the confined sources have broader [O~{\sc iii}] profiles. The confined sources also sit closer to or below the LINER boundary. Finally, we detect [Ne~{\sc v}] in the confined sources only half as often, and this difference is not explained by redshift, sensitivity, or dust. 
+
+These differences indicate different ionizing mechanisms at work in the two samples. In the sources whose jets have broken out the accretion disk is mostly responsible, since the line ratios are almost uniformly Seyfert-like and the frequent [Ne~{\sc v}] detections show that the hard UV continuum of the accretion disk reaches the line-emitting gas. In the confined sources the evidence points to significant contributions from shocks driven by the jet. No single measurement establishes this on its own, since broad lines do not identify their driver and LINER-like ratios can also be produced by a hard but dilute AGN radiation field. It is the combination that is decisive, because the LINER-like ratios and the disturbed kinematics appear specifically in the sources whose jets are still inside the host, and the [Ne~{\sc v}] deficit shows that the disk radiation is not the dominant ionizing source for much of their gas, which disfavors the dilute AGN field alternative. 
+The lack of correlation between W80 and BPT distance within the confined sample is consistent with the relative contributions of shock heating, shock photoionization and AGN photoionization varying from object to object.
+The [O~{\sc i}] luminosities, which exceed one per cent of the jet kinetic power in most sources, show that the jets carry more than enough energy to power the line emission. 
+Taken together, our results indicate that jets confined within the host drive shocks through the interstellar medium and power the bulk of the line emission of most of the small sample, while the gas in the escaped sources has relaxed and is photoionized principally by the AGN accretion disk.
+
+
+The dataset used in this study is available on Zenodo (doi to be added after review).
+
+\begin{acknowledgments}
+We thank Kristina Nyland and Pallavi Patil for helpful discussions. VL thanks the NRAO student program for support. The National Radio Astronomy Observatory is a facility of the National Science Foundation operated under cooperative agreement by Associated Universities, Inc.
+\end{acknowledgments}
+
+\begin{contribution}
+%%This section gives authors the space to recognize author contributions. The text inside this environment is NOT counted towards the total word quanta. At a minimum, manuscripts are expected to include this text:
+
+Both authors contributed equally to this paper.
+
+%% But authors are expected to provide more specific details, e.g. 
+%%
+%%SC was responsible for writing and submitting the manuscript.
+%%WWM came up with the initial research concept and edited the manuscript.
+%%OTS obtained the funding and edited the manuscript.
+%%EBF provided the formal analysis and validation. He also edited the manuscript.
+%%GEH Supervised the undergraduates, wrote the software and administers the project github and Zenodo repositories.
+%%
+%% Authors can use the Contributor Role Taxonomy (CRediT) at
+%% https://credit.niso.org
+%% for ideas on how write a good statement tailored to their needs.
+
+\end{contribution}
+
+%% To help institutions obtain information on the effectiveness of their 
+%% telescopes the AAS Journals has created a group of keywords for telescope 
+%% facilities.
+%
+%% Following the acknowledgments section, use the following syntax and the
+%% \facility{} or \facilities{} macros to list the keywords of facilities used 
+%% in the research for the paper.  Each keyword is check against the master 
+%% list during copy editing.  Individual instruments can be provided in 
+%% parentheses, after the keyword, but they are not verified.
+\facilities{VLA, Mayall(DESI)}
+
+%% Similar to \facility{}, there is the optional \software command to allow 
+%% authors a place to specify which programs were used during the creation of x
+%% the manuscript. Authors should list each code and include either a
+%% citation or url to the code inside ()s when available.
+\software{astropy \citep{astropy22}, matplotlib \citep{hunter07},
+          TOPCAT \citep{taylor05}, pyspeckit \citep{ginsburg22},
+          scipy \citep{virtanen20}, numpy \citep{harris20}}
+
+
+\bibliography{sample701}{}
+\bibliographystyle{aasjournalv7}
+
+
+
+\end{document}
+
+% End of file `sample7.tex'.
+%%%%%things done:
+deleted the balmer decrement plot and alos every place where it is mentioned, fixed the captions of the images so they match the plots
+%there was a small warning sign and got rid of them by deleting the double 'orcid' thing
+%new plot with SL
+%FIXED THE BPT diagram to have the correct ratio
+
+%%%%QUESTION: Type-1 vs type-2 AGN counts: - does this go in Results as a sentence?? OR table? %%%%JUST ADD IT AT THE END 
+%%what about breaking them into Sey and liner?%%%NO NEED FOR THIS 
+
+%%THERE MIGHT BE A HIGHER FRACTION OF QUASARS IF THEY WERE LOOKING TOWARDS US -- AND IT LOOKS 
+%%%from the note:add W80 to catalog file, large sample -- want W80 added as its own column to OI_sample_small.csv/OI_sample_large.csv??? %%%THIS IS GOOD AND CUT DOWN THE COLUMNS INTHE TABLES BC SOME OF THEM ARE NOT IMPORTANT 
+
+or a separate w80_catalog.csv keyed by TARGETID??
+%%%%ALSO I WOULD DO THIS BY : use HALPHA_BROAD_FLUX > 0 as the type-1 cut, ANY SIGNIFICANCE THRESHOLD FOR THAT, MAYBE 3SIGMA?? THAT IS WHAT I WROTE FOR NEV. OR IS A NONZERO FLUX GOOD FOR THIS CLASSIFICATION? %%anything above 0 in the nalpha broad flux
+

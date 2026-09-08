@@ -1,0 +1,45 @@
+No-broad-component fraction by sample, 2026-07-09
+
+Question from Mark: is a missing broad OIII component more or less common in the large vs small sample.
+Mark's reaction: he would have guessed the opposite (more broad in small sources), so result was verified.
+
+Using notes/2026-07-08_oiii_fits.csv, no broad = broad amplitude < 1.
+
+large sample: 3 of 16 no broad (19%)
+small sample: 18 of 52 no broad (35%)
+
+Verified with scripts/verify_broad_fraction.py:
+- membership: 16 large, 52 small, 0 overlap, 0 unmatched
+- cutoff sensitivity: large stays 3/16 at cutoffs 0.5, 1.0, 2.0. small moves 13, 18, 21.
+  So the small-sample fraction is cutoff-dependent but the direction (small has more
+  no-broad objects than large) holds at every cutoff.
+
+large, no broad:
+39627720899954742
+39633278411475906
+39633278679911735
+
+small, no broad:
+39628072978221639
+39627797739607596
+39627701220278777
+39628151122300474
+39633413145101909
+39627793146841316
+39627884159044712
+39627932431286732
+39633300565789659
+39632981106626503
+39633044872630201
+39628285621050199
+39633448842824854
+39627735831681916
+39627802344950353
+39627790470876239
+39628113818160875
+39627995295517087
+
+SUPERSEDED 2026-07-13. The no-broad fraction is a sensitivity effect, not physics.
+Above catalog OIII SNR 50, both samples are 100% broad-detected. The large sample
+lines are ~2x brighter, so its wings clear the 3-sigma bar more often. See
+notes/2026-07-13_contradiction_resolution.txt.

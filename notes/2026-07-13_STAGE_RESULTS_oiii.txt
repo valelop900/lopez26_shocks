@@ -1,0 +1,73 @@
+THE OBJECTS
+I looked at pictures of every object and kept the good ones.
+
+Good = the radio blob sits on a galaxy.
+After checking: 16 in the large sample (radio bigger than 20 kpc),
+60 in the small sample (radio 10-15 kpc).
+
+2 objects had to be thrown out when I tried to fit them:
+  - one has a dead spot in its spectrum right where the OIII lne should be,
+    so there is nothing to measure (missing data).
+  - one just would not fit at all.
+
+
+HOW I FIT THE LINE
+For each object I fit the OIII line with two bell curves added together:
+  - a narrow one (calm gas in the galaxy)
+  - a wide one (fast gas being pushed out, the outflow)
+I keep their widths in separate ranges so they can't swap jobs.
+I also fit the smaller partner line (4959)
+
+FIRST RESULT: THE "COUNT" - and why it is NOT real
+I counted how many objects have a real wide part.
+Rule: the wide part is real if it is at least 3 times bigger than its error.
+  - large sample: most objects have a wide part
+  - small sample: fewer objects have a wide part
+At first this looks like large sources have more outflows. But it is fake.
+The reason: the rule depends on how bright and clean the spectrum is.
+Bright lines pass the rule easily. Faint lines don't, even if the wide
+part is really there. My large sample lines are about twice as bright,
+so of course they pass more often.
+I proved this two ways:
+  - if I only compare the bright objects, both samples pass 100% of the time,
+    no difference at all.
+  - if I add noise to the large sample to make it as faint as the small one,
+    its pass rate drops down to match the small sample.
+So the count was measuring brightness, not outflows.
+(Same mistake I already caught in the OI line, which is much fainter.)
+
+SECOND RESULT: THE WIDTH - this is the real one
+Instead of counting yes/no, I measured how WIDE each line is.
+Width is a real number, so it does not have the brightness problem.
+I measured width three different ways on purpose. All three agree:
+the small sample is wider (more disturbed gas).
+  - my own combined width:        large 443   small 543
+  - a width from the whole line
+    shape (my most trusted one):  large 548   small 708
+  - the survey's own catalog width
+    (not my code at all):         large 214   small 227
+The last one is smaller and closer because it uses a simpler fit that
+misses the faint edges of the line, but it still leans the same way.
+All numbers are in km/s (a wider line means faster, more disturbed gas).
+
+A THING I CHECKED AND CLEARED
+A few objects got fit with their whole line put into the wide slot and
+nothing in the narrow slot. I worried this was faking the width result.
+I checked by eye: these are just single wide lines, not a mistake.
+When I remove them, the small sample is still wider. And my most trusted
+width measurement doesn't use the two slots at all, so it can't be fooled
+by this anyway. So this is not the cause of the result.
+
+
+WHAT THIS MEANS
+Small radio sources have wider OIII lines than large ones, meaning more
+disturbed gas. It shows up in every way I measured it.
+
+BUT: (p = 0.08).
+
+
+QUESTIONS TO ASK: 
+
+My fitting always uses two bell curves. The papers only add the second 
+one when the data really need it. Should I do it their way?
+

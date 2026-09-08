@@ -1,0 +1,189 @@
+2026-09-04  ZENODO RELEASE PREP
+
+Nothing was uploaded. No Zenodo account, no token, no contact with Zenodo.
+No existing file was deleted, overwritten or edited. All new work is in zenodo/.
+
+WHAT WAS DONE
+- Full inventory of data/, notes/, scripts/, plots/, checks/ and the project root,
+  categorised into release data / analysis scripts / scratch / do-not-redistribute.
+  Written to zenodo/INVENTORY.md.
+- Ran scripts/make_catalog_files.py. It runs clean and reproduces the existing
+  data/catalog_small.csv and data/catalog_large.csv byte-for-byte (backed them up to
+  zenodo/ first and diffed). 47 small, 30 large.
+  Note: plain `python` is not the nrao env in a non-login shell; had to call
+  ~/miniforge3/envs/nrao/bin/python directly.
+- The rounding step is NOT in make_catalog_files.py. Rather than edit that script, I put
+  the rounding in a new script zenodo/make_release_tables.py, which reads the catalogs and
+  writes the rounded release copies into zenodo/upload/. make_catalog_files.py untouched.
+- Built zenodo/upload/: catalog_small.csv, catalog_large.csv, README.md, columns.csv,
+  LICENSE (placeholder), CHECKSUMS.txt (sha256), and scripts/ with 13 scripts.
+- Wrote zenodo/metadata.json, zenodo/ZENODO_STEPS.md, zenodo/email_to_mark.txt.
+
+WHAT WAS CHECKED
+- Row counts 47 / 30. No duplicate TARGETIDs. No TARGETID in both samples.
+- Every released TARGETID is present in notes/2026-07-28_luminosity_check.csv.
+- Dtypes sensible: TARGETID int64, sample/Name/bpt_class string, everything else float64.
+- Rounding applied: RA/DEC 6, Z 5, Physical_Size 2, log_L_radio 3, w80 1, sl_distance 4.
+- All column names are clear enough to document; all 29 are described in columns.csv.
+- zenodo/check_release.py recomputes the frozen numbers from the release tables ONLY.
+  All of them reproduce, before and after rounding:
+    47 / 30
+    W80 median seyferts only  688.2 small, 512.5 large   (paper: 688, 513)
+    W80 KS p 0.0065, MW p 0.0026
+    sl_distance median 0.19 small, 0.38 large
+    NeV 3 sigma 30% small (14/47), 60% large (18/30)
+    NeV 5 sigma 21% small (10/47), 57% large (17/30)
+    Balmer median 4.00 small, 3.56 large, MW p 0.023
+    Type-1 14/47 small, 17/30 large
+    logQ median 35.50 small, 35.61 large  (paper: ~35.5, ~35.6)
+  Nothing failed. No measured value was changed.
+- Blank inverse variances were checked against the fluxes: blank _IVAR occurs if and only
+  if the flux is exactly 0.0, in all four cases (NeV and HALPHA_BROAD, both samples).
+  So open question 3 is a clean either/or with no hidden third case.
+- The two large sources with NaN Alpha (39628398418463562, 39627818971172910) are still
+  NaN in the master file too. checks/patch_lum_check.py filled their log_L_radio from
+  logL3, it did not fill Alpha. jet_power.py falls back to alpha=-0.7 for them, and my
+  check does the same, which is why the jet power medians match. Documented in the README.
+- All three decision switches in make_release_tables.py were smoke-tested. Flipping any of
+  INCLUDE_WISE_OII, MERGE_FILES or FILL_IVAR_ZERO still reproduces every frozen number.
+
+BLOCKED ON MARK
+- The four open questions. All still open: there is no 2026-09-04_mark_zenodo_notes.txt,
+  and nothing anywhere in notes/ mentions Zenodo, a data release or licensing. The only
+  Mark file is 2026-08-05_mark_handwritten_notes.txt, which is about jet power.
+  1. WISE mags + [OII] fluxes in or out.
+  2. One merged file or two.
+  3. Blank ivar or 0.
+  4. Who makes the deposit.
+- License. CC-BY-4.0 is a placeholder in LICENSE and metadata.json, not agreed.
+- DESI DR1 citation. No .bib anywhere and no DESI reference in notes/. Left as TODO in the
+  README rather than invented.
+- Willott 1999 volume/page. Mark's own 2026-08-05 note says to verify the normalization on
+  ADS and that has not been done. Flagged as TODO.
+- Emission line flux unit. I documented 1e-17 erg/s/cm2 as the FastSpecFit convention but
+  flagged it in the README as needing confirmation against the DESI DR1 documentation.
+
+NEEDS MY OWN CONFIRMATION (not Mark)
+- Which script made fig_bpt.pdf. Four scripts write that filename. I picked
+  scripts/plot_bpt_lumcut_POSTEDIT_ML.py because it is the most recently modified of the
+  three that write the matching PNG. plot_bpt_lumcut_v2.py and plot_bpt_lumcut_POSTEDIT.py
+  are byte-identical to each other.
+- Which script made fig_bpt_distance.pdf. Three write it. I picked checks/bpt_distance.py
+  because its mtime and its PNG both match the current PDF exactly.
+- Root-level plot_balmer_decrement.py differs from scripts/plot_balmer_decrement.py.
+  I released the scripts/ one as it is newer. Worth deleting one of them eventually.
+- ORCIDs for both authors are placeholders.
+
+I CAN DO NOW WITHOUT MARK
+- Fill in both ORCIDs.
+- Get the DESI DR1 citation off ADS and drop it into the README and metadata.json.
+- Verify the Willott 1999 volume/page and the FastSpecFit flux unit.
+- Confirm the two ambiguous figure scripts by re-running them and diffing the output PDFs.
+- Reserve the DOI on Zenodo as a private draft, if and only if question 4 says I own the
+  record. Reserving does not publish anything, and it would let the real DOI go into the
+  manuscript now instead of "doi to be added after review".
+
+LATER THE SAME DAY: checked the release against the bib file and the submitted manuscript
+(sample701.tex). Several of the items above are now closed.
+
+CLOSED BY THE BIB FILE / MANUSCRIPT
+- DESI DR1 citation: DESI Collaboration et al. 2026, AJ, 171, 285. In the README now.
+- Willott 1999: MNRAS, 309, 1017. The formula printed in the paper's Discussion,
+  Q = 3e38 f^(3/2) (L151 / 1e28 W/Hz/sr)^(6/7) W with f = 1, is exactly what jet_power.py
+  computes, and the paper's own "f = 20 would raise them by a factor of about 90" is only
+  true for the ^(3/2) form. Treating the normalization as verified.
+- Both ORCIDs: Valeria 0009-0009-0998-5049, Mark 0000-0002-3032-1783. In README and
+  metadata.json now.
+- Radio column provenance: the 20260601 VLASS Single Epoch Continuum source catalogs,
+  Epochs 2.1 and 3.2, associated with DRAGN Hunter (Gordon et al. 2023), described in
+  Kimball et al. 2026. columns.csv now says "VLASS SE Continuum catalog" and the README
+  cites both papers.
+- Emission line provenance: the DESI DR1 agngal value-added catalog (Juneau et al., in
+  prep), 1.5 arcsec match radius. NOT FastSpecFit, which is what I had assumed. Corrected
+  everywhere. The 1e-17 erg/s/cm2 unit is still unconfirmed and is now marked
+  "(unverified)" in columns.csv.
+- Type-1 definition: Mark's trailing note in the tex confirms broad Halpha flux > 0, which
+  is what check_release.py already does.
+- Selection: >5 sigma [OI] 6300 detection, and cosmology H0=70, OM=0.3, OL=0.7. Added to
+  the README.
+- Figure 1 script: plot_bpt_lumcut_POSTEDIT_ML.py is confirmed correct. It is the only
+  candidate that draws the arrow and the "SL" annotation described in the paper's Fig 1
+  caption.
+
+CROSS-CHECKED AGAINST THE MANUSCRIPT (all reproduce from the release tables)
+- BPT counts: small 30 seyfert / 14 liner / 3 sf, large 26 seyfert / 4 liner / 0 sf.
+- SL measure: MW p 0.029, Anderson-Darling p 0.026, KS p 0.12.
+- Small seyferts W80 688 vs small liners 548, KS p 0.42.
+- Matched redshift 0.30 < z < 0.45, n = 20 each, NeV 35% small vs 60% large.
+- Halpha/Hbeta < 4 in 33% small vs 84% large.
+
+CHECKED AGAINST THE COMPILED PDF, ALL FIVE FIGURES
+(rendered the pages with ghostscript, /usr/local/bin/gs, since pdftoppm is not installed)
+- Fig 1 BPT: counts match exactly, 26 large seyfert / 4 large liner / 30 small seyfert /
+  14 small liner / 3 small sf. But the plotted axes do NOT match the release, see below.
+- Fig 2 W80 boxes: exact match down to the whiskers and outliers.
+    small seyfert n=30  q1 534.5  med 688.2  q3 852.9  whisk 402-1283  out 2324,1575,1374
+    small liner   n=14  q1 444.1  med 548.2  q3 772.4  whisk 342-820   out 1392
+    large seyfert n=26  q1 427.4  med 512.5  q3 582.0  whisk 363-791   out 941
+  "extreme tail above 1300 belongs entirely to the small sample" is true: five small
+  sources above 1300, none large. Four are in the plotted classes, the fifth is the SF one.
+- Fig 3 SL histogram: bins np.arange(-1.0, 1.4, 0.15). small runs -0.72 to 0.68, large
+  -0.25 to 0.89. Matches the bars in the PDF.
+- Fig 5 W80 vs SL: n=74 (no SF), sl -0.72 to 0.89, w80 342 to 2324. Matches.
+- Text on p5: NeV non-detections vs detections in the large sample, medians 4.16 vs 3.25,
+  MW p = 0.01, and small p = 0.26. Both exact. Halpha/Hbeta < 4 subset: NeV detected in
+  84% of large (19 objects) and 33% of small (24 objects). Exact.
+
+TWO PROBLEMS FOUND - NOT FIXED, NEED MARK
+1. Jet power spectral index. There are two different calculations in the repo and the paper
+   uses both in one sentence. plot_loi_vs_q.py (Figure 4) converts 3 GHz to 151 MHz with a
+   FLAT alpha = -0.7, which is what the Discussion says. jet_power.py uses each source's own
+   Alpha with -0.7 only as a fallback. The medians quoted in that same sentence, 35.5 and
+   35.6, are the per-source ones. Flat gives 35.11 small and 35.76 large. Figure 4's x-axis
+   limits (41.6 to 44.6 in erg/s) confirm the figure is the flat version; per-source would
+   start at 40.7. A factor of ~4.5 between the samples would break "nearly identical median
+   jet powers" in the Conclusions. Decision 9 in the README, raised in the license email.
+2. The released flux columns do not reproduce the released bpt_class / sl_distance.
+   notes/2026-07-31_bpt_class_lumcut_v2.csv has log_oi_ha -1.77 to 0.30 and log_oiii_hb
+   -0.35 to 1.66, which is what Figure 1 plots. Recomputing those from the shipped agngal
+   fluxes gives -1.72 to -0.18 and -0.53 to 1.55: median offset 0.14 dex in x, 0.18 in y,
+   worst case 1.00 and 1.18. sl_distance then only reproduces to about 0.12 median, 0.67
+   worst. Same story for Figure 4's y-axis, which uses the pyspeckit [OI] flux, not
+   OI_6300_FLUX (ratio between the two runs 0.12 to 1.90, median 1.07). So Figures 2, 3 and
+   5 regenerate from the release and Figures 1 and 4 do not.
+   Added INCLUDE_FIT_RATIOS to zenodo/make_release_tables.py, which merges log_oi_ha and
+   log_oiii_hb in. Tested: with it on, sl_distance reproduces from the columns to 1e-4.
+   Left at False pending Mark. Documented as decision 11 and in the column notes.
+   The Balmer decrement and the [NeV] fractions DO come from the shipped columns and
+   reproduce exactly, so this is specific to the BPT ratios and the [OI] luminosity.
+
+MARK REPLIED 2026-09-04 1:12pm. FOUR THINGS SETTLED.
+- License: CC BY. LICENSE rewritten, no longer a placeholder. metadata.json note updated.
+  Still need to paste the full legal text in before publishing.
+- Jet power: he agreed to adjust the numbers and the statement, so the flat alpha = -0.7
+  version stands. Medians are 35.11 small and 35.76 large, which is the 35.1 / 35.8 I put
+  in the Discussion. check_release.py switched to flat alpha and now also verifies that
+  log_L_radio reproduces from Flux, D_L, Z and Alpha (max diff 0.000 dex, both samples).
+  NOTE: scripts/jet_power.py still does per-source alpha and returns 35.50 / 35.61, so it
+  now disagrees with the paper. I have NOT edited it, it is an existing analysis script.
+  It is listed as decision 9 in the README: correct it or drop it from the archive.
+- VLASS citation: Kimball et al. 2026. columns.csv and the README updated.
+- Flux unit: he is not certain, but reasons that the DESI spectra are in
+  1e-17 erg/s/cm2/Angstrom and the line fluxes are integrals over wavelength, so the
+  Angstrom drops out and the lines are 1e-17 erg/s/cm2. Adopted, "(unverified)" removed
+  from columns.csv, his reasoning recorded in the README so it is clear where it came from.
+
+He did NOT answer decisions 1-4, and I never asked him about the fitted BPT ratios
+(decision 8 now) because that email went out before I found it.
+
+STILL OPEN
+- Decisions 1-4 (WISE/[OII], one file or two, blank vs 0 ivar, who deposits). Never asked.
+- Whether to add log_oi_ha and log_oiii_hb so the BPT ratios and sl_distance are
+  reproducible from the tables. Switch is built and tested, left off. Ask Mark.
+- What to do about scripts/jet_power.py now that it disagrees with the paper.
+- The paper DOI.
+- Whether to ship the four figure scripts that are not in the paper.
+- Author name form on the deposit: the manuscript says "Valeria Lopez" at NRAO only, my
+  earlier note said "Alessandra V. Lopez Menjivar, Williams College and NRAO student
+  program". I used the manuscript form so the deposit matches the paper.
+- Paste the full CC BY 4.0 legal text into LICENSE.

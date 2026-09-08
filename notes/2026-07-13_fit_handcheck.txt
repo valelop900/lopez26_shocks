@@ -1,0 +1,13 @@
+39627802344950353 EXCLUDE, DESI spectrum has dead gap 5800-7500, OIII falls inside, unmeasurable (OI at 8772 unaffected)
+39627701220278777 EXCLUDE, fit returned None, already out of census
+Broad-detection screen of high-influence objects, 2026-07-13:
+39633256324269550 ok, genuine strong broad line, fit approximate (asymmetric profile)
+39633278679911735 RECLASSIFY to no-broad, broad comp is noise-sculpting (sigma pinned 30, invisible on plot)
+39633421936362225 RECLASSIFY single-component, faint line all in broad slot, narrow zero
+39628066753877605 RECLASSIFY single-component, real moderately-wide line all in broad slot
+39627844942299778 RECLASSIFY single-component, real line in broad slot, data dropout spike at 6890
+
+Pattern: lines with true width near/above the 4.5 A slot boundary get described entirely
+by the broad slot with narrow zeroed. These are single-component lines, not core+wing systems.
+Flux-weighted average is NOT immune to this. W80, measured on the summed profile,
+is the slot-independent one. Both were checked and both give the same answer.

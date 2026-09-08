@@ -1,0 +1,79 @@
+NRAO small sample QC notes, 2026-07-07
+File: OI_sample_small.csv, 67 objects, radio size 10-15 kpc
+Optical: PanSTARRS
+Rule (confirmed by Mark): host on the core = good. Faint radio and small offsets are fine. Flag only for clear offset onto empty sky, wrong galaxy, or multiple sources with no clear host.
+Format: row | name | RA | DEC | TARGETID | verdict | reason
+
+1. VLASS2.1SE J002624.12+053517.6 | 6.60050 | 5.58824 | 39627917604423296 | good | compact radio on clear central optical host
+2. VLASS2.1SE J003726.55+120303.0 | 9.36064 | 12.05085 | 39628072978221639 | good | compact radio on faint central optical host
+3. VLASS2.1SE J010237.32+042100.6 | 15.65552 | 4.35019 | 39627887631929650 | flag | radio offset from orange host, field crowded
+4. VLASS2.1SE J013924.96+041843.5 | 24.85398 | 4.31209 | 39627887787116738 | flag | no clear radio source at host position
+5. VLASS2.1SE J021451.15+061359.9 | 33.71314 | 6.23331 | 39627936101302939 | flag | radio blob offset from host, elongated, crowded field
+6. VLASS2.1SE J025928.45+001808.5 | 44.86853 | 0.30237 | 39627791519452623 | flag | no clear host at radio center, several nearby galaxies
+7. VLASS2.1SE J032941.57-021147.0 | 52.42321 | -2.19639 | 39627731247305171 | good | compact radio on central optical host
+8. VLASS2.1SE J034255.83+002913.6 | 55.73263 | 0.48711 | 39627797739607596 | good | compact radio near faint host, faint is fine
+9. VLASS2.1SE J040625.93-033030.3 | 61.60805 | -3.50843 | 39627701220278777 | good | compact radio near central host, slight offset
+10. VLASS2.1SE J074258.74+152058.5 | 115.74474 | 15.34959 | 39628151122300474 | good | compact radio near central host
+11. VLASS2.1SE J080751.58+105357.7 | 121.96494 | 10.89937 | 39628051121705326 | flag | radio offset from blue-white host, bright neighbor nearby
+12. VLASS2.1SE J085353.23-000029.2 | 133.47181 | -0.00812 | 39627786964439997 | good | compact radio on diffuse central host
+13. VLASS2.1SE J085431.77-024100.0 | 133.63238 | -2.68335 | 39627720530856784 | good | compact radio on central optical host
+14. VLASS2.1SE J092244.67+621244.1 | 140.68614 | 62.21225 | 39633413145101909 | good | resolved radio on bright optical host, small jets
+15. VLASS2.1SE J092722.81+001452.6 | 141.84503 | 0.24794 | 39627793146841316 | good | compact radio near central host, slight offset
+16. VLASS2.1SE J094414.00-003623.5 | 146.05833 | -0.60654 | 39627775098750148 | flag | radio offset from any galaxy, crowded field
+17. VLASS2.1SE J100007.98-023453.5 | 150.03324 | -2.58153 | 39627726847476452 | flag | radio offset from central host, several galaxies crowded
+18. VLASS2.1SE J101103.22-021445.0 | 152.76343 | -2.24583 | 39627732933411165 | good | compact radio near central host
+19. VLASS2.1SE J101248.00-001950.5 | 153.20001 | -0.33070 | 39627781255991349 | good | compact radio near central host, slight offset
+20. VLASS2.1SE J103719.96+093002.6 | 159.33318 | 9.50072 | 39628016040543831 | good | compact radio near central spiral host
+21. VLASS2.1SE J104020.28+033844.2 | 160.08449 | 3.64562 | 39627877989223494 | flag | radio between galaxies, no clear host, crowded field
+22. VLASS2.1SE J104210.96+001048.7 | 160.54568 | 0.18021 | 39627793461412815 | flag | two radio components offset from orange host galaxy
+23. VLASS2.1SE J105220.89-035738.3 | 163.08703 | -3.96066 | 39627690856155179 | good | compact radio on central optical host
+24. VLASS2.1SE J105454.96+061453.2 | 163.72900 | 6.24812 | 39627938269759075 | flag | multiple radio components, no clear galaxy host
+25. VLASS2.1SE J111341.49+040153.8 | 168.42288 | 4.03164 | 39627884159044712 | good | compact radio near central orange host
+26. VLASS2.1SE J113558.91+055925.3 | 173.99547 | 5.99037 | 39627932431286732 | good | compact radio near central orange host
+27. VLASS2.1SE J113807.80+011800.1 | 174.53248 | 1.30003 | 39627817855484468 | flag | radio between galaxies, no clear host, crowded field
+28. VLASS2.1SE J114119.75-005247.3 | 175.33228 | -0.87983 | 39627763509888688 | good | compact radio near central faint host
+29. VLASS2.1SE J114122.79+532624.2 | 175.34497 | 53.44007 | 39633300565789659 | good | compact radio slightly offset from central host
+30. VLASS2.1SE J114203.44+005135.7 | 175.51434 | 0.85992 | 39627805792665991 | good | compact radio on central blue-white host
+31. VLASS2.1SE J120447.93+481241.6 | 181.19970 | 48.21156 | 39633220311974884 | good | core on host plus separate source, host on core (Mark rule)
+32. VLASS2.1SE J124543.65+485902.2 | 191.43189 | 48.98395 | 39633232441901479 | flag | radio at top edge, offset from central host
+33. VLASS2.1SE J125259.74+625301.9 | 193.24894 | 62.88387 | 39633421936362225 | good | compact radio near central host, slight offset
+34. VLASS2.1SE J130318.42+241840.8 | 195.82675 | 24.31133 | 39628357163291500 | good | compact radio near central orange host
+35. VLASS2.1SE J131631.31+350537.3 | 199.13045 | 35.09371 | 39632981106626503 | good | compact radio near central orange host
+36. VLASS2.1SE J140718.44+513204.5 | 211.82682 | 51.53459 | 39633271411181499 | flag | multiple radio components offset from central host
+37. VLASS2.1SE J141557.25+495334.6 | 213.98856 | 49.89296 | 39633248430590790 | good | compact radio on central blue-white host
+38. VLASS2.1SE J150222.48+355815.5 | 225.59366 | 35.97099 | 39633001180564999 | good | compact radio near central host, edge-on galaxy nearby
+39. VLASS2.1SE J150239.30+375229.2 | 225.66374 | 37.87480 | 39633035070541521 | good | compact radio near central orange host
+40. VLASS2.1SE J150830.02+502312.8 | 227.12509 | 50.38691 | 39633256324269550 | good | compact radio on central orange host
+41. VLASS2.1SE J152633.79+273036.4 | 231.64078 | 27.51012 | 39628428458069240 | good | compact radio near central orange host
+42. VLASS2.1SE J152807.43+380749.0 | 232.03095 | 38.13029 | 39633044696469315 | good | compact radio near central orange host
+43. VLASS2.1SE J152942.20+350851.3 | 232.42583 | 35.14759 | 39632986513082595 | good | core plus small lobe on faint central host
+44. VLASS2.1SE J153125.38+353340.5 | 232.85577 | 35.56126 | 39632991453973599 | flag | two radio blobs on two separate galaxies, not one source
+45. VLASS2.1SE J160624.71+363256.7 | 241.60298 | 36.54910 | 39633011158812653 | good | compact radio near central orange host
+46. VLASS2.1SE J161723.11+322818.2 | 244.34630 | 32.47174 | 39632931425094933 | good | compact radio near central orange host
+47. VLASS2.1SE J162124.72+381008.9 | 245.35300 | 38.16914 | 39633044872630201 | good | compact radio on central host, minor extra source
+48. VLASS2.1SE J162330.34+314611.8 | 245.87643 | 31.76996 | 39628518027432308 | good | compact radio near central orange host, slight offset
+49. VLASS2.1SE J165242.19+270336.8 | 253.17579 | 27.06023 | 39628418026834277 | good | compact radio on central blue-white host
+50. VLASS2.1SE J172206.08+565452.1 | 260.52533 | 56.91450 | 39633349756585024 | good | compact radio on central blue-white host
+51. VLASS2.1SE J172708.27+210316.5 | 261.78448 | 21.05461 | 39628285621050199 | good | compact radio near faint central host
+52. VLASS2.1SE J174818.58+653422.7 | 267.07743 | 65.57297 | 39633448842824854 | good | compact radio near central orange host
+53. VLASS2.1SE J180456.57+531200.6 | 271.23569 | 53.20017 | 39633297914988797 | good | compact radio near central orange host
+54. VLASS2.1SE J181129.81+510919.9 | 272.87422 | 51.15553 | 39633268273841249 | good | compact radio near central orange host
+55. VLASS2.1SE J212507.49+035857.3 | 321.28120 | 3.98260 | 39627886721763939 | flag | multiple components, no clear host at radio center
+56. VLASS2.1SE J214255.94-021106.9 | 325.73306 | -2.18527 | 39627735831681916 | good | compact radio near central orange host
+57. VLASS2.1SE J215538.95+151509.2 | 328.91230 | 15.25258 | 39628154578408447 | good | compact radio near central orange host
+58. VLASS2.1SE J220016.92+003726.8 | 330.07049 | 0.62414 | 39627802344950353 | good | compact radio near central orange host
+59. VLASS2.1SE J223956.27+001152.8 | 339.98448 | 0.19801 | 39627796468735639 | good | compact radio near central orange host
+60. VLASS2.1SE J224927.18-000511.4 | 342.36323 | -0.08651 | 39627790470876239 | good | compact radio near central orange host
+61. VLASS2.1SE J224947.50+132504.5 | 342.44793 | 13.41792 | 39628113818160875 | good | compact radio on central orange host
+62. VLASS2.1SE J231301.70+082921.0 | 348.25709 | 8.48919 | 39627995295517087 | good | compact radio near central orange host
+63. VLASS2.1SE J232418.25+113114.7 | 351.07604 | 11.52075 | 39628066753877605 | good | compact radio on central blue-white host
+64. VLASS2.1SE J233240.89-011558.0 | 353.17039 | -1.26612 | 39627760452246218 | good | compact radio near central orange host, slight offset
+65. VLASS2.1SE J233313.19+004912.5 | 353.30496 | 0.82017 | 39627808774818067 | good | core plus jet near host, host on core (Mark rule)
+66. VLASS2.1SE J233516.62+022447.2 | 353.81923 | 2.41313 | 39627851061790687 | good | compact radio near central orange host
+67. VLASS2.1SE J233558.41-005000.2 | 353.99338 | -0.83340 | 39627772544427287 | good | compact radio near central blue-white host
+
+Summary
+Total: 67
+Good: 52
+Flag: 15
+Flag rows: 3, 4, 5, 6, 11, 16, 17, 21, 22, 24, 27, 32, 36, 44, 55

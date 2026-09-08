@@ -1,0 +1,294 @@
+2026-09-08 ZENODO PREP. MAKING THE SCRIPTS AND THE TABLES AGREE WITH THE PAPER.
+
+Note: zenodo/sample701_current.tex does not exist. There is no .tex file anywhere in the
+project. I worked from the manuscript text pasted in the last session plus the compiled
+PDF, which is what I had checked the numbers against before.
+
+1. JET POWER, FLAT ALPHA
+scripts/jet_power.py now uses alpha_151 = -0.7 for the 3 GHz -> 151 MHz step, same as
+plot_loi_vs_q.py and the paper. Alpha is still used for the K-correction, which is where
+the catalog value belongs.
+It was also reading data/VLASS3_2_OI_*.csv, which is stale. The small file there has 44
+rows and only 21 of them are in the release 47, so it could never have printed the paper's
+medians no matter what alpha it used. It now reads data/catalog_%s.csv.
+Prints:
+  large 30 25.02 35.76
+  small 47 24.26 35.11
+which rounds to 35.8 and 35.1, the numbers in the Discussion.
+
+plot_loi_vs_q.py no longer recomputes Q. It merges logQ from data/catalog_%s_Q.csv, so
+the two scripts cannot drift. Max |old logQ - new logQ| over the 77 plotted objects is
+1.42e-14, well under the 1e-6 I wanted. Figure regenerated, still 77 of 77 objects.
+
+Pre-edit copies of jet_power.py, plot_loi_vs_q.py, the two _Q.csv files and
+fig_loi_vs_q.pdf are in zenodo/backup_before_edit/.
+
+README: jet_power.py is no longer marked "Superseded", it is the script that writes the
+logQ table plot_loi_vs_q.py reads. Decision 9 is gone, replaced by a line under decisions
+settled saying both scripts use flat alpha = -0.7 as stated in the paper.
+columns.csv: Alpha kept, described as the catalog spectral index used for the
+K-correction, NOT used in the paper's jet power estimate.
+
+2. FITTED LINE FLUXES NOW SHIP
+INCLUDE_FIT_RATIOS is gone, the block is permanent. The tables now carry
+  fit_HB_FLUX, fit_OIII_5007_FLUX, fit_HA_FLUX, fit_NII_6584_FLUX, fit_OI_6300_FLUX
+in 1e-17 erg/s/cm2, plus log_oi_ha and log_oiii_hb in dex. 36 columns, 0 nulls in the
+seven new ones. The agngal columns are untouched and still there.
+
+Fluxes are sqrt(2pi) * amp * (sigma_kms/c) * lam0*(1+Z), narrow + broad summed. The very
+broad component of Ha and Hb is the BLR and is left out, same as the BPT script. [NII]
+6584 uses the Ha sigmas because its kinematics are tied to Ha in the fits.
+
+Checks from the release tables only:
+  FIG 1
+    max |recomputed - log_oi_ha|   = 5.0e-05   (rounding only, 2.3e-16 before rounding)
+    max |recomputed - log_oiii_hb| = 5.0e-05
+    x -1.77 to 0.30, y -0.35 to 1.66, exactly the paper's ranges
+    reapplying the Kewley boundaries returns bpt_class for all 77
+    max |recomputed sl - sl_distance| = 4.9e-05
+  FIG 4
+    max |logQ from tables - jet_power.py| = 1.6e-06
+    n=74 after dropping the 3 SF sources, x 41.91 to 44.26, y 40.24 to 41.89
+    y matches the plotted range in the PDF
+Figures 1 and 4 now regenerate. The reproducibility table in the README is all Yes.
+
+README and columns.csv both say which set of fluxes goes with what: fit_ columns for
+Figures 1, 3, 4 (y-axis) and 5 and for sl_distance / bpt_class / the two log ratios, per
+Section 2.2. agngal columns are the DESI reference values and are what [NeV] detection
+and the Balmer decrement use.
+
+Small thing, not worth fixing: fit_OI_6300_FLUX uses lam0 = 6300.3 and plot_loi_vs_q.py
+uses 6300, a 2e-5 dex difference.
+
+3. FLUX UNIT, NO FITS FILE
+There is no agngal FITS file in data/. The only FITS there are the VLASS cutouts in
+data/vlass_cutouts_small/. So there is no TUNIT keyword to read and the README keeps
+Mark's reasoning for 1e-17 erg/s/cm2 as-is, attributed to him.
+
+4. CHECKSUMS AND CHECK
+CHECKSUMS.txt regenerated, 18 files, all verify OK. check_release.py rerun, every frozen
+number still comes out of the release tables:
+  47 small / 30 large, 0 duplicates, 0 overlap
+  W80 seyferts only 688.2 / 512.5, KS p 0.0065, MW p 0.0026
+  sl_distance median 0.19 / 0.38
+  NeV 3 sigma 30% / 60%, 5 sigma 21% / 57%
+  balmer 4.00 / 3.56, MW p 0.023
+  type1 14/47 and 17/30
+  log_L_radio from Flux max diff 0.000 both samples
+  logQ median 35.11 small, 35.76 large
+
+--- second pass, same day ---
+
+5. FLUX UNIT NOW DOCUMENTED, NOT INFERRED
+The units are the FastSpecFit data model, FASTSPEC table (HDU03):
+  LINENAME_FLUX       1e-17 erg / (cm2 s), Gaussian-integrated emission-line flux
+  LINENAME_FLUX_IVAR  1e+34 cm4 s2 / erg2, inverse variance in LINENAME_FLUX
+https://fastspecfit.readthedocs.io/en/3.4.3/fastspec.html. I fetched the page and the two
+strings are verbatim.
+This is the same number Mark reasoned his way to on 2026-09-04, so nothing in the tables
+changes, only where the unit comes from. README now cites the data model in both places
+(the column notes and the decisions settled entry) instead of repeating his reasoning.
+columns.csv: the six IVAR rows now read 1e34 cm4 s2/erg2 instead of (1e-17 erg/s/cm2)^-2.
+Same quantity written the way the data model writes it.
+There was no FastSpecFit item in decisions pending to remove. The flux unit had already
+been moved to decisions settled when Mark answered on 09-04, so nothing was deleted.
+
+6. TEX AND BIB STILL NOT ON DISK
+zenodo/sample701_current.tex and zenodo/sample701_current.bib do not exist. Nothing was
+added since this morning, so the file-based cross-check is skipped again.
+I did check the README citations against the bib text pasted into the session, and they
+match: DESI DR1 doi 10.3847/1538-3881/ae4c43 (AJ 171, 285, 2026), Kimball et al. 2026
+arXiv:2606.27414, VLASS Lacy et al. 2020 PASP 132 035001, Willott et al. 1999 MNRAS 309
+1017, Gordon et al. 2023 ApJS 267 37, Kewley et al. 2006 MNRAS 372 961. Software list
+matches too. That is a check against pasted text, not against a file in the repo, so it
+should be redone once the files land.
+
+7. [OI] REST WAVELENGTH
+Both make_release_tables.py and plot_loi_vs_q.py now use 6300.30. Only the plot script
+changed, it had 6300 flat; make_release_tables.py already had 6300.3 and was just written
+out to two decimals to match.
+The shift is log10(6300.30/6300) = 2.07e-05 dex, under the 1e-4 I wanted. After the change
+fit_OI_6300_FLUX and the flux the plot script computes agree to 5.5e-16 fractional, so the
+two are now the same number rather than nearly the same.
+Nothing else moved: log_oi_ha still -1.77 to 0.30, log_oiii_hb still -0.35 to 1.66, ratios
+still reproduce to 5.0e-05, Figure 4 y-axis still 40.24 to 41.89, 77 of 77 plotted.
+Note this cancels out of log_oi_ha anyway, it only shifts the Figure 4 y-axis.
+
+8. CHECKSUMS AND CHECK, AGAIN
+Tables and Figure 4 regenerated, the two edited scripts recopied into upload/scripts/,
+CHECKSUMS.txt regenerated, 18 files, all verify OK. check_release.py rerun and every
+number is unchanged from the first pass above.
+
+--- third pass, after Valeria met Mark ---
+
+9. ALL FOUR DECISIONS SETTLED, APPLIED
+- One file. zenodo/upload/catalog_lopez_lacy_2026.csv, 77 rows, 36 columns, small then
+  large, keyed by TARGETID with the sample column separating them. catalog_small.csv and
+  catalog_large.csv deleted from zenodo/upload; the working copies in data/ are untouched
+  and are still what make_release_tables.py reads.
+- Blank, not 0, for inverse variance with no measurement. README now says what blank means
+  and that it is IVAR = 0 in the source agngal catalog, the DESI convention for no
+  constraint.
+- WISE and [OII] stay out. README says where to get them, and I had to add the agngal VAC
+  URL to the citations because it was not actually in the README yet, only in the paper's
+  footnote: https://data.desi.lbl.gov/public/dr1/vac/dr1/agngal/v1.0/
+- Valeria deposits, Mark second creator. metadata.json already had both with the right
+  ORCIDs and NRAO, so nothing needed changing there.
+All three switches removed from make_release_tables.py, since there is nothing left to
+switch. check_release.py reads the one file and filters on sample; still 47 and 30.
+
+Also fixed while in there: the Files table in the README had Figures 4 and 5 swapped
+(plot_loi_vs_q.py is Figure 4, plot_w80_vs_bptdist_paper.py is Figure 5, per the tex). The
+reproducibility table further down already had it right.
+
+10. WILLOTT NORMALIZATION, CHECKED, NOTHING CHANGED
+jet_power.py does divide by 4pi. It computes L3 as the total luminosity in W/Hz, scales it
+to 151 MHz, then has L151_sr = L151 / (4*np.pi) on its own line before that goes into
+Q = 3e38 * (L151_sr/1e28)**(6/7). So the Willott input is per steradian, as it should be.
+Medians with the division are 35.11 and 35.76, which is what the paper prints. Without it
+they would be 36.05 and 36.70. The difference is log10(4pi)*6/7 = 0.9422, the -0.94 dex
+expected. Reported to Valeria, code left alone.
+
+11. PACKAGING
+- LICENSE now holds the full CC BY 4.0 legal text, fetched from
+  https://creativecommons.org/licenses/by/4.0/legalcode.txt, under a short header saying
+  what it covers and that DESI and VLASS carry their own terms.
+- MANIFEST.txt, one block per file with size, sha256 and a description. Written by the new
+  zenodo/make_manifest.py, which fails loudly if a file has no description.
+  CHECKSUMS.txt covers everything except itself and MANIFEST.txt; MANIFEST covers
+  everything except itself. Not circular, and both are documented that way in the README.
+- zenodo/lopez_lacy_2026_release_draft.zip, 20 entries, files at the archive root rather
+  than inside an upload/ folder so the README's scripts/... paths are right. Round-tripped
+  it through /tmp and shasum -c passed on the extracted copy.
+- zenodo/ZENODO_STEPS.md rewritten as plain numbered steps for the web form, now that the
+  owner is known. Reserve the DOI at step 4, save and stop at step 13.
+- zenodo/description_for_zenodo.txt, 249 words, plain prose.
+
+12. CHECKS
+Regenerated in order: table, CHECKSUMS, MANIFEST, zip. 18 files, all verify OK.
+check_release.py output identical to the earlier passes, every frozen number reproduces
+from the single file.
+
+STILL OPEN
+- The paper DOI. Everything else on the deposit is ready.
+- Redo the tex/bib cross-check against the real files once they are in zenodo/.
+
+--- fourth pass, tex and bib now on disk ---
+
+13. CROSS-CHECK AGAINST THE REAL TEX AND BIB
+zenodo/sample701_current.tex and .bib are finally on disk, so the check that was skipped
+twice is done against files rather than pasted text.
+Every number in the paper reproduces from catalog_lopez_lacy_2026.csv. No mismatches:
+47/30, bpt 30/14/3 and 26/4/0, type1 14/47 and 17/30, W80 seyferts 688/513 with KS 0.0065
+and MW 0.0026, W80 small seyfert vs liner 688/548 KS 0.42, W80 > 1300 all in the small
+sample (5 vs 0), SL 0.19/0.38 with MW 0.029 AD 0.026 KS 0.12, NeV 30/60 and 21/57, matched
+z 0.30-0.45 20 each 35 vs 60, balmer 4.00/3.56 MW 0.023, low dust 33 vs 84, large NeV
+nondet vs det 4.16/3.25 MW 0.01 and small 0.26, logQ 35.11/35.76.
+Citations: all README entries match the bib exactly. Two gaps found and fixed, see 14.
+Figures: the five \plotone filenames in the tex are fig_bpt, fig_w80_by_class,
+fig_bpt_distance, fig_loi_vs_q, fig_w80_bptdist in that order, labels fig:bpt, fig:w80,
+fig:bptdist, fig:loiq, fig:w80bpt. Checked at the source rather than by name: each script's
+savefig writes exactly the filename the tex includes. The README Files table maps all five
+correctly, which it did not before the Figure 4/5 swap was fixed in pass 9.
+
+14. ALLEN 2008 ADDED, GORDON DOI ADDED
+Allen08 was cited three times in the tex and was not in the README at all. Added to the BPT
+bullet (ApJS 178, 20, doi 10.1086/589652) and given its own Shock models bullet, since the
+tex uses it both alongside BPT/VO87 for the diagram and separately for the shock grid: the
+velocity needed to make NeV, LINER ratios from shock heating and post-shock photoionization,
+and the predicted SL distance.
+Gordon 2023 now carries doi 10.3847/1538-4365/acda30.
+
+15. CHECK_RELEASE.PY NOW COVERS THE WHOLE PAPER
+It was computing about two thirds of the paper's numbers. Six blocks added: bpt class
+counts, small-sample seyfert vs liner W80, the three SL p-values, the matched-z NeV rates,
+the low-dust NeV rates, and the balmer split by NeV detection. The README table of how the
+paper's numbers map to the columns gained the matching six rows, so the table and the
+script agree again.
+anderson_ksamp is called with variant='midrank' so it does not print a deprecation warning
+over the output.
+Note the small-sample balmer medians print as 4.03 nondet vs 3.86 det. The paper only
+quotes p = 0.26 for the small sample, not the medians, so there is nothing to compare
+those two against and nothing disagrees.
+
+16. TWO DEFECTS IN THE ARCHIVE, BOTH FIXED
+- A Finder .DS_Store had appeared in zenodo/upload and was picked up by the first
+  regenerated CHECKSUMS. Removed before rebuilding. It would have shipped otherwise.
+- check_release.py read 'zenodo/upload/catalog_lopez_lacy_2026.csv', a project-relative
+  path, but the README tells the reader to run it from the archive root. Extracted from the
+  zip it raised FileNotFoundError, so the one script the README asks a reviewer to run did
+  not run. It now resolves the catalog relative to its own file, one level up, which is
+  correct both in zenodo/upload/scripts and in the extracted archive. Verified by running
+  it from a clean unzip in /tmp.
+  Side effect: zenodo/check_release.py, the outer copy, is now a stale duplicate that
+  points at the wrong place. The canonical file is zenodo/upload/scripts/check_release.py.
+  Left on disk, not deleted. Flagged to Valeria.
+
+17. COUNTS, CHECKSUMS, MANIFEST, ZIP
+19 files in the archive. CHECKSUMS lists 17, excluding itself and MANIFEST.txt; MANIFEST
+lists 18, excluding only itself. Earlier passes wrote "18 files" for CHECKSUMS, which was
+counting the .DS_Store; 17 is the correct number.
+Regenerated in order: CHECKSUMS, MANIFEST, zip. Zip is 49610 bytes, 20 entries, files at
+the archive root. Round-tripped through /tmp: shasum -c passes, every MANIFEST hash
+matches, and check_release.py runs from the extracted copy and prints every frozen number
+unchanged.
+
+STILL OPEN
+- The paper DOI, unchanged.
+- Whether to delete the outer zenodo/check_release.py now that the archive copy is
+  canonical.
+
+--- fifth pass, path fixes and the dotfile guard ---
+
+18. OUTER CHECK_RELEASE.PY DELETED
+zenodo/check_release.py removed after diffing it against zenodo/upload/scripts/check_release.py
+and confirming they were byte-identical. The archive copy is canonical. Its path is
+relative to its own file, so it runs from the repo, from the extracted zip, or from any
+cwd. Nothing referenced the outer copy except stale .claude permission entries.
+
+19. THE SAME PATH PROBLEM ELSEWHERE
+make_release_tables.py had it. It reads data/ and notes/ and writes zenodo/upload/, all
+project-relative, so it only ran from the project root. It now chdirs to the project root
+derived from __file__. Ran it from /tmp: the table comes out with sha256
+3a55fc45c694ab539ff62a0b78c5f3630426dfd50145cf9dafa52973d1e7f0da, identical to before, so
+the fix changed no value.
+make_manifest.py had it too, worse: it did a bare os.chdir('zenodo/upload'). Now anchored
+to __file__ as well and also runs from anywhere.
+Not fixed, deliberately: make_catalog_files.py, jet_power.py and the eight figure scripts
+are all working-directory-dependent. The README already says they are shipped as they were
+run against the original data/ notes/ plots/ layout and are documentation, not a pipeline.
+check_release.py is the one the README tells a reader to run, and it works.
+
+20. DOTFILE GUARD
+The .DS_Store got in because CHECKSUMS.txt was being built by a shell one-liner over
+whatever happened to be in the folder. That one-liner is gone. make_manifest.py now writes
+CHECKSUMS.txt, MANIFEST.txt and the zip from a single file list that skips dotfiles, so
+the three cannot disagree with each other and cannot pick up Finder droppings. It prints
+what it skipped rather than skipping silently, and still fails loudly on a file with no
+description.
+Tested by planting .DS_Store in both zenodo/upload and zenodo/upload/scripts and rerunning:
+0 occurrences in the zip, in CHECKSUMS.txt or in MANIFEST.txt, both reported as skipped.
+Removed them afterwards.
+Also added a project-level .gitignore covering .DS_Store, ._*, __pycache__ and *.pyc. The
+project is not a git repository, so that file does nothing today; the script-level filter
+is the guard that actually works. I first put a .gitignore inside zenodo/upload and took
+it back out, since a dotfile in the release folder is the thing being guarded against.
+CHECKSUMS.txt is now hashed after it is written and listed in MANIFEST.txt. MANIFEST still
+leaves out only itself.
+
+21. FILE COUNT, CONSISTENT EVERYWHERE
+  19  files in zenodo/upload
+  19  rows in the README Files table, checked name by name against the folder, no
+      difference in either direction
+  19  entries in lopez_lacy_2026_release_draft.zip, files at the archive root, no
+      directory entries now that the zip is built with zipfile
+  18  blocks in MANIFEST.txt, everything except MANIFEST.txt itself
+  17  lines in CHECKSUMS.txt, everything except itself and MANIFEST.txt
+Verified from a clean unzip in /tmp: 19 files extracted, 0 checksum failures, 18 manifest
+blocks with every size and sha256 matching, and check_release.py runs from the extracted
+copy and prints every frozen number unchanged.
+zenodo/INVENTORY.md still said "the two catalog CSVs" from before the merge; it now says
+19 files and lists MANIFEST.txt.
+
+STILL OPEN
+- The paper DOI. Nothing else.

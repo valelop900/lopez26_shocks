@@ -1,0 +1,21 @@
+# Raw data obtained from public archives, not ours to redistribute
+data/spectra/
+data/vlass_cutouts_small/
+*.fits
+*.fits.gz
+
+# Third-party papers
+papers/
+
+# Superseded copies kept only as a local safety net
+zenodo/backup_before_edit/
+
+# macOS and Python droppings
+.DS_Store
+._*
+__pycache__/
+*.pyc
+.Rhistory
+
+# Local tool config
+.claude/

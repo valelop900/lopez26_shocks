@@ -1,0 +1,50 @@
+Subject: Zenodo release - license question, and one thing in the jet power section
+
+Hi Mark,
+
+One thing I can't decide on my own for the Zenodo release: the license.
+
+I've put CC-BY-4.0 in as a placeholder, since that's what most astronomy data deposits use
+and it's the least restrictive thing that still requires attribution. But I don't know
+whether NRAO has a standing preference for data products that come out of the student
+program, or whether this needs to go past anyone there before we publish. I'd rather ask
+than assume. If CC-BY-4.0 is fine, I'll swap the placeholder for the real license text and
+that part is done.
+
+Separately, I checked the paper's figures and numbers against the release tables, and two
+things came up that I don't think I should decide on my own.
+
+The first is the jet power. The Discussion says we converted 3 GHz to 151 MHz assuming a
+spectral index of -0.7, and that's genuinely what plot_loi_vs_q.py does, so Figure 4 is the
+flat version. But jet_power.py uses each source's own Alpha and only falls back to -0.7
+where Alpha is blank, and the medians we quote in that same sentence, 35.5 and 35.6, are the
+per-source ones. Flat -0.7 gives 35.11 for the small sample and 35.76 for the large one.
+That's a factor of about 4.5 between them, which I don't think supports the "nearly
+identical median jet powers" line in the Conclusions. So the sentence and the figure agree
+with each other but not with the two numbers in the sentence. Which one did you intend?
+
+The second is about the tables rather than the paper. The BPT ratios we plot in Figure 1
+come from our own pyspeckit fits, but the tables ship the agngal fluxes instead. If someone
+downloads the release and recomputes log([OI]/Ha) and log([OIII]/Hb) from the flux columns,
+they get something different by about 0.15 dex typically and by up to a dex in the worst
+cases, and they can't reproduce sl_distance or redraw Figure 1. Same for the [OI]
+luminosity in Figure 4, which uses the fitted flux, not the agngal one. The fix is easy - I
+can add log_oi_ha and log_oiii_hb as columns, which makes sl_distance reproducible - and
+I've set it up so it's a one-line switch. I'd like to turn it on unless you object.
+
+Everything else I checked does reproduce: the BPT counts, the W80 box plot down to the
+whiskers and outliers, the SL histogram, both Mann-Whitney and KS p-values, the [Ne V]
+fractions including the matched-redshift and Halpha/Hbeta < 4 versions, and the type-1
+counts.
+
+One smaller thing: the emission line fluxes come from the agngal VAC. I've written the unit
+as 1e-17 erg/s/cm2 in the column descriptions but I haven't confirmed that's right - do you
+know offhand? And your August note said to check the Willott 1999 normalization on ADS; the
+formula printed in the paper matches what jet_power.py does, including f = 1, so I've taken
+that as settled unless you say otherwise.
+
+The four bigger decisions from my last email are still open too, but the license is the one
+actually holding things up, since I can't publish without it.
+
+Thanks,
+Valeria

@@ -1,0 +1,53 @@
+VLASS QC verdicts - small sample (VLASS3.2_OI_small.csv)
+2026-07-31
+Renders: plots/vlass_qc_v3/
+
+ 1  J005023.43+272945.2   good  compact, centered
+ 2  J005855.05+225806.9   good  bright compact (edge crop faint, ignore)
+ 3  J020447.21+194439.9   good  compact, faint diagonal texture in field
+ 4  J074900.10+351823.1   good  bright compact
+ 5  J081242.67+415931.5   good  compact; unrelated blob south of cross
+ 6  J082213.64+361457.2   good  compact, centered
+ 7  J083449.58+264116.0   good  compact; unrelated bright source upper left
+ 8  J083851.10+252714.1   good  two blobs straddling cross, marginally resolved double
+ 9  J084016.64+471857.2   good  bright compact
+10  J094016.21+404914.4   good  compact, slightly elongated
+11  J110534.63+411427.9   good  bright, slightly elongated N-S
+12  J122348.40-005250.5   good  faint but clear compact
+13  J123539.69-012043.6   good  bright compact, centered
+14  J124432.55-031714.0   good  compact at cross
+15  J124610.82+013957.5   good  faint compact; unrelated sources west and lower right
+16  J130209.41+040427.0   good  faint but clear compact
+17  J130552.06+074935.5   good  compact at cross
+18  J130749.00+471016.4   good ID, extended  bent double lobe with hotspots, not compact
+19  J131824.45+403542.6   good  compact; unrelated source lower right
+20  J135036.46-032041.2   good  bright, knot NE of core, marginally resolved
+21  J141719.71+021102.2   good  compact; faint diagonal striping in field
+22  J141817.70+034639.3   good  bright compact, slightly elongated
+23  J141853.80+151454.2   good  compact, centered
+24  J145325.67+410710.8   good ID, structured  knots N and S of core, small triple
+25  J145410.16+195648.4   good  faint compact
+26  J145836.45+011939.1   good  compact, elongated E-W
+27  J154019.58-020505.5   good  compact
+28  J160533.14+091745.8   good  compact
+29  J160631.81+141115.2   good  bright compact
+30  J161223.32+113532.0   good  compact
+31  J161431.68+152421.3   good  bright core with fainter knot SW, marginally resolved
+32  J161500.58+061524.7   good  faint compact
+33  J161611.48+060140.9   FLAG  nothing at cross in any of 3 crops, all partial tiles
+34  J162009.31+125742.4   good  compact, slightly elongated
+35  J163753.84-002520.4   good  faint compact (edge strip crop, ignore)
+36  J164524.90+110727.4   good  faint compact
+37  J164827.78+064151.7   good  bright compact
+38  J171658.90+164155.7   good  compact, elongated E-W
+39  J173710.15+171635.7   good  bright compact
+40  J220547.98+262257.8   good  compact; diagonal striping in field, source clean
+41  J223004.21+303805.0   good  compact at cross
+42  J231245.52+274503.5   good  bright compact, elongated N-S
+43  J081012.85+162316.8   good  faint compact at cross, SNR 9.0 (VLASS1.2 epoch cutout,
+                                sent by Mark separately 2026-07-31)
+
+No cutout:
+    J072012.49+444036.6   QSO, z=0.486, still not received
+
+43 with cutouts, 42 good, 1 flagged
