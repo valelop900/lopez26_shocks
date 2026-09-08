@@ -1,28 +1,37 @@
-# Evidence for strong shocks in the ISM of small radio sources
+# lopez26_shocks
 
-Lopez & Lacy 2026, submitted to ApJL. arXiv: TBD.
+Code for Lopez & Lacy 2026, "Evidence for strong shocks in the ISM of small radio sources",
+submitted to ApJL.
 
-Analysis code for a study of two samples of radio-loud AGN at 0.15 < z < 0.5, drawn from a
-cross-match of the VLA Sky Survey with DESI DR1: 47 sources 10-15 kpc across, whose jets are
-still inside the host galaxy, and 30 sources larger than 25 kpc, whose jets have broken out
-of it. We compare the two in [OIII] W80, position on the [OI]/Ha versus [OIII]/Hb diagram,
-and [NeV] 3426 detection rate. The small sources have broader lines, sit closer to the LINER
-region and mostly lack [NeV], which points to jet-driven shocks powering much of their line
-emission rather than photoionization by the AGN.
+Two samples of radio-loud AGN at 0.15 < z < 0.5, from a cross-match of VLASS with DESI DR1:
+47 sources 10-15 kpc across, whose jets are still inside the host galaxy, and 30 sources
+larger than 25 kpc, whose jets have broken out. We compare them in [OIII] W80, position on
+the [OI]/Ha versus [OIII]/Hb diagram, and [NeV] 3426 detection rate. The small sources have
+broader lines, sit closer to the LINER region and mostly lack [NeV], which points to
+jet-driven shocks powering much of their line emission rather than AGN photoionization.
 
-The catalog behind the paper is released separately on Zenodo, doi to be added. The DESI
-spectra and the VLASS source catalogs are not in this repository; they come from the public
-DESI DR1 and VLASS archives.
+Last Updated: 2026-09-08
+
+Data: the catalog is on Zenodo, DOI TBD. The DESI spectra and VLASS catalogs come from the
+public archives, not from here.
 
 Figures:
 
-| Figure | Script |
-|---|---|
-| 1, [OI] BPT diagram | `scripts/plot_bpt_lumcut_POSTEDIT_ML.py` |
-| 2, W80 by BPT class | `scripts/plot_w80_by_class.py` |
-| 3, SL measure distributions | `checks/bpt_distance.py` |
-| 4, [OI] luminosity vs jet power | `scripts/plot_loi_vs_q.py` |
-| 5, W80 vs SL measure | `scripts/plot_w80_vs_bptdist_paper.py` |
+- Fig 1, [OI] BPT diagram: `scripts/plot_bpt_lumcut_POSTEDIT_ML.py`
+- Fig 2, W80 by BPT class: `scripts/plot_w80_by_class.py`
+- Fig 3, SL measure distributions: `checks/bpt_distance.py`
+- Fig 4, [OI] luminosity vs jet power: `scripts/plot_loi_vs_q.py`
+- Fig 5, W80 vs SL measure: `scripts/plot_w80_vs_bptdist_paper.py`
 
-The scripts read from `data/` and `notes/` and write to `plots/`, and are meant to be run
-from the project root.
+Scripts read from `data/` and `notes/` and write to `plots/`. Run them from the project root.
+
+## To do
+
+- Adding the Zenodo DOI here and in the paper once the draft record is created and the DOI
+  reserved.
+- Adding the arXiv link once we post.
+- Filling in `related_identifiers` in `zenodo/metadata.json`, currently `TODO-PAPER-DOI`,
+  after ApJL accepts.
+- Deciding what stays in the repo before it goes public: the four raw cross-match CSVs in
+  `data/`, the QC and talk material in `plots/`, and `scripts/old/`.
+- Pinning the environment. There is no `environment.yml` yet.

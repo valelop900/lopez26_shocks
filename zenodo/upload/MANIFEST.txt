@@ -4,17 +4,17 @@ MANIFEST.txt is not listed here because its own hash would change as it is writt
 
 CHECKSUMS.txt
   size    1554 bytes
-  sha256  1a9b8852a2e7a9e8eb18c92408aae36e8f337f59513b909e37683ae10f2f95b0
+  sha256  de9e96d6abb16f50240ade9ad14ec24ab7111c49a69f7ee787d2eea21f57b587
   SHA-256 of every file in this archive except itself and MANIFEST.txt.
 
 LICENSE
-  size    19282 bytes
-  sha256  6ee008c8fbc8bbcb8c80445de89e596500a03b7218d60bacd7fb5534c7c8d015
+  size    19244 bytes
+  sha256  0d2584f79eb79549d32abe2c266dc93f880a6bfb3d8fea5c29643c9fe42eff43
   Creative Commons Attribution 4.0 International, full legal text.
 
 README.md
-  size    16478 bytes
-  sha256  fde1b783e37f0f51504325522d0034cae7d2d76dd5eae2e52c10d8b64b1c14cf
+  size    16120 bytes
+  sha256  88d21f7b359eab1d02205fd4cb90fa3ade9823df0e63b48ec91950e199fa8a5d
   Description of the release, sample definitions, column notes, and how each number in the paper maps to the columns.
 
 catalog_lopez_lacy_2026.csv

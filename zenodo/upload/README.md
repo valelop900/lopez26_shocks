@@ -195,7 +195,7 @@ Please cite the paper above. In addition:
   doi:10.1088/1538-3873/ab63eb
 - **VLASS Single Epoch Continuum catalogs** (the `Name`, `Flux`, `E_Flux`, `LAS`, `Alpha`
   columns; 20260601 versions, Epochs 2.1 and 3.2): Kimball, A., et al. 2026,
-  arXiv:2606.27414. This is the reference to use for these columns (M. Lacy, 2026-09-04).
+  arXiv:2606.27414. This is the reference to use for these columns.
   The DRAGN Hunter association method is Gordon, Y. A., Rudnick, L., Andernach, H., et al.
   2023, ApJS, 267, 37. doi:10.3847/1538-4365/acda30
 - **DESI DR1 `agngal` value-added catalog** (the emission line columns): Juneau, S., et al.,
@@ -232,10 +232,10 @@ same columns.
    filled in once ApJL accepts the paper. The Zenodo DOI is reserved at draft stage and can
    go into the manuscript before then.
 
-## Decisions settled
+## Release notes
 
-- **License: CC BY 4.0.** Confirmed by Mark Lacy, 2026-09-04.
-- **Jet power spectral index: flat alpha = -0.7.** Confirmed by Mark Lacy, 2026-09-04. The
+- **License: CC BY 4.0.**
+- **Jet power spectral index: flat alpha = -0.7.** The
   medians are log Q = 35.1 for the small sample and 35.8 for the large sample, and the
   Conclusions no longer claim the two samples have nearly identical median jet powers.
   `jet_power.py` and `plot_loi_vs_q.py` both use alpha = -0.7 for the 3 GHz to 151 MHz
@@ -244,21 +244,15 @@ same columns.
 - **Fitted line fluxes are shipped.** The five `fit_` columns and `log_oi_ha` /
   `log_oiii_hb` are now always written, so every figure in the paper regenerates from these
   tables.
-- **VLASS attribution: Kimball et al. (2026).** Confirmed by Mark Lacy, 2026-09-04.
+- **VLASS attribution: Kimball et al. (2026).**
 - **`agngal` flux unit: 1e-17 erg / (cm2 s), inverse variance 1e+34 cm4 s2 / erg2.** This
   is the FastSpecFit data model, FASTSPEC table (HDU03),
-  https://fastspecfit.readthedocs.io/en/3.4.3/fastspec.html. It agrees with what Mark Lacy
-  reasoned on 2026-09-04 from the DESI spectral units, so it is now documented rather than
-  inferred.
-
-Settled with Mark Lacy on 2026-09-08:
-
+  https://fastspecfit.readthedocs.io/en/3.4.3/fastspec.html.
 - **One file, not two.** The release is a single `catalog_lopez_lacy_2026.csv` of 77 rows
   keyed by `TARGETID`, with `sample` separating small from large.
 - **Blank, not 0, for inverse variance** where there is no measurement. See the column notes
   above.
 - **WISE magnitudes and [OII] fluxes stay out.** They were not used in the paper and are
   available from the `agngal` VAC by `TARGETID`.
-- **Valeria Lopez makes the deposit**, with Mark Lacy as second creator. Both are listed in
-  `metadata.json` with their ORCIDs and the NRAO affiliation, in the name form used on the
-  submitted manuscript.
+- **Creators.** Both authors are listed in `metadata.json` with their ORCIDs and the NRAO
+  affiliation, in the name form used on the submitted manuscript.
