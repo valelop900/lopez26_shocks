@@ -39,6 +39,6 @@
       }
     ],
     "communities": [],
-    "notes": "Ready to upload as a draft; do not publish yet. The license (cc-by-4.0) was confirmed by Mark Lacy on 2026-09-04, and the release format was settled with him on 2026-09-08. Valeria Lopez owns the deposit, Mark Lacy is the second creator. One thing is still outstanding: the related_identifiers entry must be replaced with the real ApJL DOI once the paper is accepted. Reserve the Zenodo DOI at draft stage so it can go into the manuscript first."
+    "notes": "Ready to upload as a draft; do not publish yet. Valeria Lopez owns the deposit, Mark Lacy is the second creator. One thing is still outstanding: the related_identifiers entry must be replaced with the real ApJL DOI once the paper is accepted. Reserve the Zenodo DOI at draft stage so it can go into the manuscript first."
   }
 }
