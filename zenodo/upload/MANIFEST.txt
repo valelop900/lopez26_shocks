@@ -4,7 +4,7 @@ MANIFEST.txt is not listed here because its own hash would change as it is writt
 
 CHECKSUMS.txt
   size    1554 bytes
-  sha256  de9e96d6abb16f50240ade9ad14ec24ab7111c49a69f7ee787d2eea21f57b587
+  sha256  cc9761c701bd08d18457b7e175a1428188566bf5cc50c2a87283032d98ec9562
   SHA-256 of every file in this archive except itself and MANIFEST.txt.
 
 LICENSE
@@ -19,7 +19,7 @@ README.md
 
 catalog_lopez_lacy_2026.csv
   size    31560 bytes
-  sha256  3a55fc45c694ab539ff62a0b78c5f3630426dfd50145cf9dafa52973d1e7f0da
+  sha256  2f2cd1c579a59bfb64066570fddb118ae88be0eec5dc34505dbe9cd37fa87412
   The release table. 77 rows keyed by TARGETID, 47 small then 30 large, 36 columns.
 
 columns.csv
