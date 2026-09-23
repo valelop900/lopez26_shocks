@@ -12,4 +12,6 @@ themselves are in `figures/`. The line fits they read are in `notes/`. The raw V
 cross-match tables, the DESI spectra and the VLASS cutouts come from the public archives and are
 not redistributed here, so the few scripts that read them will not run as shipped.
 
+The code is MIT licensed (`LICENSE`). The data release in `zenodo/upload/` is CC BY 4.0, same as the Zenodo record.
+
 Zenodo DOI and arXiv link to be added once the record and preprint are up.
