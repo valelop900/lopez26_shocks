@@ -71,6 +71,7 @@
 !/scripts
 /scripts/*
 !/scripts/paperstyle.py
+!/scripts/figcheck.py
 !/scripts/fig_bpt_2panel.py
 !/scripts/fig_w80_2panel.py
 !/scripts/plot_loi_vs_q.py

@@ -32,13 +32,13 @@
     "language": "eng",
     "related_identifiers": [
       {
-        "identifier": "TODO-PAPER-DOI",
+        "identifier": "10.3847/PAPER-DOI-PENDING",
         "relation": "isSupplementTo",
         "resource_type": "publication-article",
         "scheme": "doi"
       }
     ],
     "communities": [],
-    "notes": "Ready to upload as a draft; do not publish yet. Valeria Lopez owns the deposit, Mark Lacy is the second creator. One thing is still outstanding: the related_identifiers entry must be replaced with the real ApJL DOI once the paper is accepted. Reserve the Zenodo DOI at draft stage so it can go into the manuscript first."
+    "notes": "One table of 77 radio-loud AGN (47 with 10-15 kpc jets, 30 with jets larger than 25 kpc) keyed by DESI TARGETID, with VLASS radio properties, DESI DR1 emission-line fluxes, Gaussian line fits, [OIII] W80 and BPT classification. columns.csv describes every column. The scripts folder rebuilds the paper figures and check_release.py reproduces every statistic in the paper from the table. The ApJL DOI in related_identifiers is a placeholder until the paper is accepted."
   }
 }

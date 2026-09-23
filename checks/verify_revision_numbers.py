@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from scipy.stats import ks_2samp, mannwhitneyu, anderson_ksamp, spearmanr
 
-# every number in the revised paper, from the release catalog and the fit tables in notes/.
+# every number quoted in the paper, from the release catalog and the fit tables in notes/.
 # the WISE block at the end is the one exception, W3 only exists in the raw cross-match files.
 
 d = pd.read_csv('zenodo/upload/catalog_lopez_lacy_2026.csv')
@@ -56,7 +56,7 @@ for name, s in [('small', sm), ('large', lg)]:
     print('balmer %s: NeV nondet %.2f (n=%d)  det %.2f (n=%d)  MW p = %.2f' % (name, nd.median(), len(nd), de.median(), len(de), mannwhitneyu(nd, de).pvalue))
 print()
 
-# jet power, willott with f=1, flat alpha=-0.7 to 151 MHz, per steradian
+# jet power, willott with f=1, flat alpha=-0.7 to 151 MHz, L151 in W/Hz/sr
 mpc_to_m = 3.086e22
 for name, s in [('small', sm), ('large', lg)]:
     L3 = 4*np.pi * (s['D_L']*mpc_to_m)**2 * (s['Flux']*1e-29) * (1 + s['Z'])**(-1 - s['Alpha'].fillna(-0.7))
@@ -155,7 +155,7 @@ print('W1-W2 median small %.2f  large %.2f   fraction > 0.8: small %.0f%%  large
          100*((ws['W1mag'] - ws['W2mag']) > 0.8).mean(), 100*((wl['W1mag'] - wl['W2mag']) > 0.8).mean()))
 print()
 
-print('--- broad vs narrow [OIII]/Hb, per component, 2 sigma on each amplitude')
+print('--- broad vs narrow [OIII]/Hb, each component at 2 sigma')
 def load(*fs):
     return pd.concat([pd.read_csv('notes/' + f) for f in fs], ignore_index=True)
 oiii = load('2026-07-08_oiii_fits.csv', '2026-07-22_oiii_fits_new_large.csv', '2026-07-31_oiii_fits_new_small24.csv')

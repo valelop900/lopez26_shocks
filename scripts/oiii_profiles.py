@@ -5,9 +5,11 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import paperstyle
+import figcheck
 
-# referee major 1. same two-gaussian model as fit_oiii_all.py except the broad centroid can move +-20 A, and keep the
-# centroids so the broad component velocity offset can be reported.
+# makes fig_oiii_profiles.pdf: [OIII] profiles of the broadest small sources with the two-gaussian fit.
+# same model as fit_oiii_all.py but the broad centroid can move +-20 A, and the offset is kept.
+# reads data/catalog_small.csv and data/spectra/. run from the project root.
 
 small = pd.read_csv('data/catalog_small.csv')
 hi = small[small['w80'] > 1000].sort_values('w80', ascending=False)
@@ -77,17 +79,17 @@ for ax, tid in zip(axes, show):
     r = out[out['TARGETID'] == tid].iloc[0]
     vel = c * (x - 5006.8*(1 + r['Z'])) / (5006.8*(1 + r['Z']))
     m = (vel > -4000) & (vel < 3000)
-    ax.step(vel[m], y[m], where='mid', color='k', lw=0.8, label='data')
+    ax.step(vel[m], y[m], where='mid', color='k', label='data')
     tot = sum(g(x, v[3*k], v[3*k+1], v[3*k+2]) for k in range(4))
-    ax.plot(vel[m], tot[m], 'r-', lw=1, label='total fit')
-    ax.plot(vel[m], g(x, v[0], v[1], v[2])[m], 'b--', lw=0.8, label='narrow')
-    ax.plot(vel[m], g(x, v[3], v[4], v[5])[m], 'g--', lw=0.8, label='broad')
-    ax.axvline(0, color='0.6', lw=0.5)
-    ax.axvline(r['dv_broad_kms'], color='g', lw=0.5, ls=':')
+    ax.plot(vel[m], tot[m], 'r-', label='total fit')
+    ax.plot(vel[m], g(x, v[0], v[1], v[2])[m], 'b--', label='narrow')
+    ax.plot(vel[m], g(x, v[3], v[4], v[5])[m], 'g--', label='broad')
+    ax.axvline(0, color='0.6', lw=0.8)
+    ax.axvline(r['dv_broad_kms'], color='g', lw=0.8, ls=':')
     ax.set_ylabel(r'F$_\lambda$ (10$^{-17}$ erg s$^{-1}$ cm$^{-2}$ $\mathrm{\AA}^{-1}$)')
     ax.set_xlabel(r'v - v(narrow [O III]) (km s$^{-1}$)')
-axes[0].legend()
+figcheck.place_legend(axes[0], 'profiles left')
 plt.tight_layout()
 plt.savefig('plots/fig_oiii_profiles.pdf')
-plt.savefig('plots/fig_oiii_profiles.png', dpi=150)
+plt.savefig('plots/fig_oiii_profiles.png', dpi=paperstyle.PNG_DPI)
 print('saved plots/fig_oiii_profiles.pdf')
