@@ -13,13 +13,13 @@
 !/plots
 !/zenodo
 
-# figures: only the five PDFs that go in the paper
+# figures: only the five PDFs that go in the revised paper
 /figures/*
-!/figures/fig_bpt.pdf
-!/figures/fig_w80_by_class.pdf
-!/figures/fig_bpt_distance.pdf
+!/figures/fig_bpt_2panel.pdf
+!/figures/fig_w80_2panel.pdf
 !/figures/fig_loi_vs_q.pdf
-!/figures/fig_w80_bptdist.pdf
+!/figures/fig_oiii_profiles.pdf
+!/figures/fig_examples.pdf
 
 # data: only the four small catalogs the kept scripts read.
 # the VLASS x DESI cross-match tables, the DESI spectra and the VLASS cutouts
