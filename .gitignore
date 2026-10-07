@@ -51,6 +51,7 @@
 !/notes/2026-07-31_oi_fits_new_small24.csv
 !/notes/2026-07-31_oiii_fits_new_small24.csv
 !/notes/2026-07-31_w80_new_small24.csv
+!/notes/2026-09-18_oiii_dv_all.csv
 
 # plots: the scripts write here, so the empty directory has to exist.
 # none of the actual plots are tracked; the five paper ones live in figures/.

@@ -2,7 +2,7 @@
 
 Code for Lopez & Lacy 2026, "Evidence for strong shocks in the ISM of small radio sources",
 submitted to ApJL. Two samples of radio-loud AGN at 0.15 < z < 0.5 from a cross-match of VLASS
-with DESI DR1: 47 sources 10-15 kpc across and 30 larger than 25 kpc. The small ones have
+with DESI DR1: 45 sources 10-15 kpc across and 32 larger than 25 kpc. The small ones have
 broader [OIII], sit closer to the LINER region of the [OI] BPT diagram and mostly lack [NeV].
 
 The data release is in `zenodo/upload/`. Run `zenodo/upload/scripts/check_release.py` to

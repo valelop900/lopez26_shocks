@@ -6,14 +6,17 @@ Lopez, V. and Lacy, M., 2026, ApJL. DOI to be added on publication.
 
 One table of 77 radio-loud AGN at 0.15 < z < 0.5, drawn from a cross-match of the VLA Sky Survey
 (VLASS) with DESI Data Release 1 spectroscopy, with [O I] 6300 detected above 5 sigma and a
-rest-frame 3 GHz luminosity above 10^24 W/Hz. The small sample (47 sources) has projected radio
-sizes of 10-15 kpc, jets still inside the host galaxy. The large sample (30 sources) has sizes
+rest-frame 3 GHz luminosity above 10^24 W/Hz. The small sample (45 sources) has projected radio
+sizes of 10-15 kpc, jets still inside the host galaxy. The large sample (32 sources) has sizes
 above 25 kpc, jets that have broken out. For each source the table gives the VLASS radio
 properties, the DESI DR1 `agngal` emission-line fluxes and inverse variances, Gaussian line
 fits for H-beta, [O III] 5007, H-alpha, [N II] 6584 and [O I] 6300, the two BPT line ratios,
 the [O III] W80 line width corrected for instrumental resolution, the BPT class, and the SL
 measure (perpendicular distance from the Seyfert/LINER line). Rows are keyed by DESI `TARGETID`;
 the `sample` column is `small` or `large`.
+For two sources (TARGETIDs 39627808774818067 and 39627709696969353) `LAS` and `Physical_Size` give
+the 5 sigma extent of the radio emission in the VLASS image rather than the catalog LAS, because the
+catalog component is one part of a larger source.
 
 ## Files
 
