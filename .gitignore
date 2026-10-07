@@ -90,6 +90,3 @@ __pycache__/
 .Rhistory
 *.fits
 *.fits.gz
-
-.claude/
-Claude outputs/
