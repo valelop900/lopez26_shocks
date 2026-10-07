@@ -3,7 +3,6 @@ import pandas as pd
 from scipy.stats import ks_2samp, mannwhitneyu, anderson_ksamp
 
 # every number quoted in the paper, from the release catalog and the fit tables in notes/.
-# the WISE block at the end is the one exception, W3 only exists in the raw cross-match files.
 
 d = pd.read_csv('zenodo/upload/catalog_lopez_lacy_2026.csv')
 sm = d[d['sample'] == 'small']
@@ -132,29 +131,6 @@ ul_l = (3/np.sqrt(lg[~lg['nev3']]['NEV_3426_FLUX_IVAR']) / lg[~lg['nev3']]['OIII
 print('3sig NeV/[OIII] upper limit, nondetections: small median %.3f  large %.3f  ratio small/large %.1f' % (ul_s, ul_l, ul_s/ul_l))
 print()
 
-print('--- WISE 12um (reads data/OI_sample_*.csv and data/VLASS3_2_OI_*.csv, the only place W1-W4 survive)')
-frames = []
-for f in ['data/OI_sample_small.csv', 'data/OI_sample_large.csv', 'data/VLASS3_2_OI_small.csv', 'data/VLASS3_2_OI_large.csv']:
-    r = pd.read_csv(f)
-    k = 'TARGETID' if 'TARGETID' in r.columns else 'TARGETID_1'
-    frames.append(r[[k, 'W1mag', 'W2mag', 'W3mag']].rename(columns={k: 'TARGETID'}))
-w = pd.concat(frames).dropna(subset=['W3mag']).drop_duplicates('TARGETID')
-ww = pd.concat([sm, lg]).merge(w, on='TARGETID')
-fnu = 31.674e-23 * 10**(-0.4 * ww['W3mag'])
-ww['logL12'] = np.log10(4*np.pi*(ww['D_L']*3.086e24)**2 * (3e10/12e-4) * fnu)
-ws, wl = ww[ww['sample'] == 'small'], ww[ww['sample'] == 'large']
-print('n with W3: small %d  large %d' % (len(ws), len(wl)))
-print('log L12 median small %.2f  large %.2f  MW p = %.2f' % (ws['logL12'].median(), wl['logL12'].median(), mannwhitneyu(ws['logL12'], wl['logL12']).pvalue))
-print('log L[OIII] on the same objects: small %.2f  large %.2f' % (ws['logL'].median(), wl['logL'].median()))
-off_s = ws['logL'] - ws['logL12']; off_l = wl['logL'] - wl['logL12']
-print('log L[OIII] - log L12: small %.2f  large %.2f  MW p = %.3f' % (off_s.median(), off_l.median(), mannwhitneyu(off_s, off_l).pvalue))
-lo = max(ws['logL12'].quantile(0.25), wl['logL12'].quantile(0.25)); hi = min(ws['logL12'].quantile(0.75), wl['logL12'].quantile(0.75))
-print('matched L12 window %.2f-%.2f: NeV small %s  large %s' % (lo, hi, rate(ws[(ws['logL12'] > lo) & (ws['logL12'] < hi)]), rate(wl[(wl['logL12'] > lo) & (wl['logL12'] < hi)])))
-print('W1-W2 median small %.2f  large %.2f   fraction > 0.8: small %.0f%%  large %.0f%%'
-      % ((ws['W1mag'] - ws['W2mag']).median(), (wl['W1mag'] - wl['W2mag']).median(),
-         100*((ws['W1mag'] - ws['W2mag']) > 0.8).mean(), 100*((wl['W1mag'] - wl['W2mag']) > 0.8).mean()))
-print()
-
 print('--- broad vs narrow [OIII]/Hb, each component at 2 sigma')
 def load(*fs):
     return pd.concat([pd.read_csv('notes/' + f) for f in fs], ignore_index=True)
@@ -189,4 +165,3 @@ print('0.30<z<0.45     p = %.2f' % fisher(zs, zl))
 print('Ha/Hb < 4       p = %.3f' % fisher(sm[sm['bd'] < 4], lg[lg['bd'] < 4]))
 print('seyferts only   p = %.3f' % fisher(sy_s, sy_l))
 print('hardness cut    p = %.2f' % fisher(sy_s[sy_s['oiii_hb'] > cut], sy_l[sy_l['oiii_hb'] > cut]))
-print('L12 window      p = %.3f' % fisher(ws[(ws['logL12'] > lo) & (ws['logL12'] < hi)], wl[(wl['logL12'] > lo) & (wl['logL12'] < hi)]))
