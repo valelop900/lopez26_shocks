@@ -54,9 +54,20 @@ here. From the root of that repository:
     python scripts/oiii_profiles.py        # [O III] profiles; also needs data/spectra/
     python scripts/fig_examples.py         # radio contours on optical images; fetches cutouts online
 
-`plot_bpt.py` writes the BPT classification table the other scripts read. `jet_power.py`
-writes the jet-power table `plot_loi_vs_q.py` reads. `paperstyle.py` and `figcheck.py` are
-imported by the figure scripts. `make_release_tables.py` builds `catalog_lopez_lacy_2026.csv`.
+What each script does:
+
+| script | what it makes |
+|---|---|
+| `check_release.py` | every statistic in the paper, from the table alone |
+| `fig_bpt_2panel.py` | the BPT diagram and the SL histogram |
+| `fig_w80_2panel.py` | W80 by class, and W80 against the SL measure |
+| `plot_loi_vs_q.py` | [O I] luminosity against jet power |
+| `oiii_profiles.py` | [O III] profiles of the broadest small sources; needs the DESI spectra |
+| `fig_examples.py` | one small and one large source with VLASS contours; fetches cutouts online |
+| `plot_bpt.py` | the BPT classification table the figure scripts read |
+| `jet_power.py` | the jet-power table `plot_loi_vs_q.py` reads |
+| `make_release_tables.py` | builds `catalog_lopez_lacy_2026.csv` |
+| `paperstyle.py` | matplotlib settings and figure sizes, imported by the figure scripts |
 
 ## Data sources
 

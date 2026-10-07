@@ -67,12 +67,11 @@
 !/zenodo/metadata.json
 !/zenodo/description_for_zenodo.txt
 
-# scripts that make the revised figures, plus the two checks the revision relies on.
+# scripts that make the figures, plus the number check.
 # everything else in scripts/ and checks/ stays out.
 !/scripts
 /scripts/*
 !/scripts/paperstyle.py
-!/scripts/figcheck.py
 !/scripts/fig_bpt_2panel.py
 !/scripts/fig_w80_2panel.py
 !/scripts/plot_loi_vs_q.py
@@ -80,7 +79,6 @@
 !/scripts/fig_examples.py
 !/checks
 /checks/*
-!/checks/apply_w80_refit.py
 !/checks/verify_revision_numbers.py
 
 # never, anywhere

@@ -5,7 +5,6 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import paperstyle
-import figcheck
 
 # makes fig_oiii_profiles.pdf: [OIII] profiles of the broadest small sources with the two-gaussian fit.
 # same model as fit_oiii_all.py but the broad centroid can move +-20 A, and the offset is kept.
@@ -57,15 +56,11 @@ for i, r in hi.iterrows():
 out = pd.DataFrame(rows, columns=['TARGETID', 'Z', 'w80', 'w80_refit', 'bpt_class', 'narrow_sigma_kms', 'broad_sigma_kms',
                                   'narrow_amp', 'broad_amp', 'dv_broad_kms', 'dv_err_kms', 'broad_at_limit'])
 out.to_csv('notes/2026-09-13_oiii_profiles_highw80.csv', index=False)
-print(out.round(1).to_string(index=False))
-print()
 blue = out[out['dv_broad_kms'] < -2*out['dv_err_kms']]
 red = out[out['dv_broad_kms'] > 2*out['dv_err_kms']]
 print('of %d small sources with W80 > 1000: broad component blueshifted at >2 sigma: %d, redshifted: %d, consistent with zero: %d'
       % (len(out), len(blue), len(red), len(out) - len(blue) - len(red)))
 print('broad centroid pinned at the +-5 A fit limit:', int(out['broad_at_limit'].sum()))
-print('note: +-5 A at these redshifts is only +-%.0f to +-%.0f km/s, so a larger outflow offset could not have been fit'
-      % (c*5/(5006.8*(1+out['Z'].max())), c*5/(5006.8*(1+out['Z'].min()))))
 
 # two panels: the -925 km/s object and the cleanest of the other high-W80 fits.
 # 39628066753877605 left out, its narrow core at +250 km/s was missed by the fit.
@@ -88,7 +83,7 @@ for ax, tid in zip(axes, show):
     ax.axvline(r['dv_broad_kms'], color='g', lw=0.8, ls=':')
     ax.set_ylabel(r'F$_\lambda$ (10$^{-17}$ erg s$^{-1}$ cm$^{-2}$ $\mathrm{\AA}^{-1}$)')
     ax.set_xlabel(r'v - v(narrow [O III]) (km s$^{-1}$)')
-figcheck.place_legend(axes[0], 'profiles left')
+axes[0].legend(loc='upper right')
 plt.tight_layout()
 plt.savefig('plots/fig_oiii_profiles.pdf')
 plt.savefig('plots/fig_oiii_profiles.png', dpi=paperstyle.PNG_DPI)

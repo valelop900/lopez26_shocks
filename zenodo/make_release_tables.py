@@ -14,8 +14,7 @@ rounding = {'RA': 6, 'DEC': 6, 'Z': 5, 'Physical_Size': 2,
 sm = pd.read_csv('data/catalog_small.csv')
 lg = pd.read_csv('data/catalog_large.csv')
 
-# the pyspeckit line fits behind Section 2.2 of the paper. these are what Figures 1, 3, 4
-# and 5 and the sl_distance column are built from, so they have to ship.
+# the line fits used for the BPT ratios and the sl_distance column
 def load(*names):
     return pd.concat([pd.read_csv('notes/' + n) for n in names],
                      ignore_index=True).drop_duplicates('TARGETID')

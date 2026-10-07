@@ -3,8 +3,8 @@ One block per file: size in bytes, SHA-256, and what it is.
 MANIFEST.txt is not listed here because its own hash would change as it is written.
 
 CHECKSUMS.txt
-  size    2074 bytes
-  sha256  6dfa696ad4992e4239fcc2cb1f1b2621bdc8bf414b9680a83f5220632a820a55
+  size    1227 bytes
+  sha256  f2aaac6894259b304176686cd3e8c989cfbddddfea3d0883734795c1db60611c
   SHA-256 of every file in this archive except itself and MANIFEST.txt.
 
 LICENSE
@@ -13,8 +13,8 @@ LICENSE
   Creative Commons Attribution 4.0 International, full legal text.
 
 README.md
-  size    5283 bytes
-  sha256  c2cc18ddf78ea97d46cee262db886653dcd4d9318a290f6d963678f5efe934f1
+  size    5832 bytes
+  sha256  74c31fd02ac73d86d8d3086bc28a595269b9de0402d57fac34561ca2e88d3c37
   Description of the release, sample definitions, column notes, and how each number in the paper maps to the columns.
 
 catalog_lopez_lacy_2026.csv
@@ -27,19 +27,14 @@ columns.csv
   sha256  8e41480d49c7c008db64bb038605e175cad18722df033b3c28bee20dababbb02
   Name, unit, dtype, description and source for every column of the release table.
 
-scripts/bpt_distance.py
-  size    1850 bytes
-  sha256  7a9292e340f35cc57e0baf02a1c5e8d4f20025ec8477e3518d0c006ad3b487a7
-  SL measure histograms and the three two-sample tests, single panel.
-
 scripts/check_release.py
   size    4413 bytes
   sha256  78bb8773d0d5b540b61e191221a7b04d1e92e63878c2d1b6bb2eba4d30fcc778
   Recomputes every number quoted in the paper from the release table alone.
 
 scripts/fig_bpt_2panel.py
-  size    3877 bytes
-  sha256  cddcb6d1dfab0ebd050c7fd3c02ad3d7cf07638f484e2992c3d7afa7f80e4a6c
+  size    3748 bytes
+  sha256  139f1940b3a7d2f1068e384a82fa4cd3a548989570b2634cd7ed195cb607b18d
   fig_bpt_2panel.pdf, the BPT diagram and the SL histogram side by side.
 
 scripts/fig_examples.py
@@ -48,33 +43,23 @@ scripts/fig_examples.py
   fig_examples.pdf, one small and one large source with VLASS contours on Legacy Survey images. Fetches the cutouts online.
 
 scripts/fig_w80_2panel.py
-  size    3534 bytes
-  sha256  6a6ad69456bd30c45b8e8c71c4db5df3783f42676b843dc17f53ef816ffbb58f
+  size    3546 bytes
+  sha256  1fc80c4a7a2cf1533497fd7f7d1c7d93631348318cc51471c0efa5c3be144607
   fig_w80_2panel.pdf, W80 by class and W80 against SL side by side.
-
-scripts/figcheck.py
-  size    3227 bytes
-  sha256  365d389c503b776cdf71f52784a8a2bd7ceecafe63908383b9f9fb2278d05e56
-  Places legends and labels where they do not sit on plotted data.
 
 scripts/jet_power.py
   size    1027 bytes
   sha256  cda89d939519b8882b5892c432351e77b30b55fd29bbf35b992f17e7c1607afb
   Jet power from the VLASS flux density following Willott et al. (1999). Writes the logQ table that plot_loi_vs_q.py reads.
 
-scripts/make_catalog_files.py
-  size    2061 bytes
-  sha256  3330df7f1c748be03ddf2442eb6c5c1a61abe855b4552582f74c4559f2b2d624
-  Builds the working catalog from the VLASS x DESI cross-match and the line fit outputs.
-
 scripts/make_release_tables.py
-  size    3121 bytes
-  sha256  3112ae749bb3863f875517d6f678c8bab2e1b124ac7cbe7ceeab445b5facc7e3
+  size    3025 bytes
+  sha256  3470d6676f0a5d0264cb53feae35996c2b6596434b492253d1fcf191c274611a
   Applies release rounding, adds the fitted line fluxes, and writes the release table.
 
 scripts/oiii_profiles.py
-  size    4898 bytes
-  sha256  b9ec543f34097338ceb58a35ae02ef2f2fef18b890a017095e5ba6d3c5de98f5
+  size    4620 bytes
+  sha256  d6ab5d4ca3794cc3574f30a4eb90ec37cfea4ad7541dde3a7f8faaaba885e849
   fig_oiii_profiles.pdf, [OIII] profiles of the broadest small sources with their fits. Needs the DESI spectra.
 
 scripts/paperstyle.py
@@ -82,43 +67,13 @@ scripts/paperstyle.py
   sha256  5fe58c478141060a93fa147c1ab98f62e95ba4ab2a2145c05ca7fe932c5af9c5
   Shared matplotlib settings and figure sizes used by the figure scripts.
 
-scripts/plot_balmer_decrement.py
-  size    2528 bytes
-  sha256  bb79baeec1f111b3f033de253ae36dc548dba15b6294158f3eb406e3cb115752
-  Balmer decrement figure, not in the paper.
-
 scripts/plot_bpt.py
-  size    5467 bytes
-  sha256  521600805c47fce86014579edf11138532394cc4fc1262f746371f4188be6b78
+  size    4724 bytes
+  sha256  229e9c9e37297a0158cab487a6ab5ce88a2336e9282b4e53d8aab9c6531106c2
   The [OI] BPT diagram, single panel. Also writes the BPT classification table the other scripts read.
 
 scripts/plot_loi_vs_q.py
-  size    3016 bytes
-  sha256  fa6dba41d073e2502420132aa3d7b7f431f37f73fecebfea6d977ec49ab9244c
+  size    3029 bytes
+  sha256  558eee46d9d2cf40717d226b17b91e1eccfd254db863768b98b05b509f904062
   fig_loi_vs_q.pdf, [OI] luminosity against jet power.
-
-scripts/plot_oiii_nev.py
-  size    2478 bytes
-  sha256  74e7a9c62936f7573149a1e6f200d95031097f3328a8a7d7066720601c827179
-  Rest-frame [OIII]/Hb against [NeV]/Hb, not in the paper.
-
-scripts/plot_oiii_oii.py
-  size    2403 bytes
-  sha256  ac6d88e42dfd36cd61e38aebfe6b4303469f48f3b0ccedd517ca978d27aab3ed
-  Rest-frame [OIII] against [OII], not in the paper.
-
-scripts/plot_w80_by_class.py
-  size    2213 bytes
-  sha256  34666251fdb64b61b68f3b85e276bd3e29e267a14a495106af7dc06fc3f1750c
-  W80 by sample and BPT class, box plot, single panel.
-
-scripts/plot_w80_nev_small.py
-  size    2759 bytes
-  sha256  8d2f1c5f5a9269440fe3f11fc570da8c9e1df3cf2d161a30b131676c78ee1083
-  W80 against [NeV] for the small sample, not in the paper.
-
-scripts/plot_w80_vs_bptdist_paper.py
-  size    2188 bytes
-  sha256  6c6c24579f7e3b927d002675f5f69d3750d83c1ae9c52478cafda746e6de56fd
-  W80 against the SL measure, single panel.
 

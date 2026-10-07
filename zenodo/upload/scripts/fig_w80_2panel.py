@@ -2,7 +2,6 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import paperstyle
-import figcheck
 
 # makes fig_w80_2panel.pdf: W80 by sample and class, and W80 against the SL measure.
 # reads the W80, classification and luminosity tables in notes/. run from the project root.
@@ -63,7 +62,7 @@ for s, cl, mk in [('large', 'seyfert', 'o'), ('large', 'liner', '*'),
 ax2.axvline(0, color='gray', ls=':')
 ax2.set_xlabel('SL measure')
 ax2.set_ylabel(r'[O III] W80 (km s$^{-1}$)')
-figcheck.place_legend(ax2, 'w80 vs sl')
+ax2.legend(loc='upper center', bbox_to_anchor=(0.5, -0.22), ncol=2)
 print('scatter points:', sum(len(m[(m['sample'] == s) & (m['bpt_class'] == cl)]) for s in ['large', 'small'] for cl in ['seyfert', 'liner']), '(sf not plotted)',
       ' max small W80 plotted %.1f' % m[(m['sample'] == 'small') & (m['bpt_class'] != 'sf')]['w80'].max())
 

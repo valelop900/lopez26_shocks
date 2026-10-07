@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 import matplotlib.patheffects as pe
 import matplotlib.patches as mpatches
 import paperstyle
-import figcheck
 
 # makes fig_bpt_2panel.pdf: the [OI] BPT diagram and the SL-measure histogram.
 # reads the classification table and the luminosity table in notes/. run from the project root.
@@ -67,10 +66,10 @@ ax.annotate('SL', xy=(xh, yh), xytext=(6, -2), textcoords='offset points', color
 ax.set_xlabel(r'log [O I] 6300 / H$\alpha$')
 ax.set_ylabel(r'log [O III] 5007 / H$\beta$')
 
-figcheck.place_text(ax, 'bpt', 'Seyfert', [(-2.3, 1.75), (0.2, 1.8), (-1.0, 1.8)])
-figcheck.place_text(ax, 'bpt', 'LINER', [(0.35, 0.05), (0.3, -0.35), (-0.55, -0.6), (0.35, 0.3)])
-figcheck.place_text(ax, 'bpt', 'star forming', [(-2.35, -0.45), (-2.35, -0.9), (-1.6, -1.0)])
-figcheck.place_legend(ax, 'bpt')
+ax.text(-2.3, 1.75, 'Seyfert')
+ax.text(0.35, 0.05, 'LINER')
+ax.text(-2.35, -0.45, 'star forming')
+ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.22), ncol=2)
 
 # ---- SL histogram ----
 d = (df['log_oiii_hb'] - 1.18*df['log_oi_ha'] - 1.30) * np.cos(np.arctan(1.18))
@@ -85,7 +84,7 @@ ax2.hist(sm, bins=bins, weights=np.ones(len(sm))/len(sm), histtype='stepfilled',
 ax2.axvline(0, color='k', ls='--')
 ax2.set_xlabel('SL measure')
 ax2.set_ylabel('fraction of sample')
-figcheck.place_legend(ax2, 'sl hist')
+ax2.legend(loc='upper center', bbox_to_anchor=(0.5, -0.22), ncol=2)
 
 plt.tight_layout()
 plt.savefig('plots/fig_bpt_2panel.pdf')

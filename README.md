@@ -5,8 +5,11 @@ submitted to ApJL. Two samples of radio-loud AGN at 0.15 < z < 0.5 from a cross-
 with DESI DR1: 45 sources 10-15 kpc across and 32 larger than 25 kpc. The small ones have
 broader [OIII], sit closer to the LINER region of the [OI] BPT diagram and mostly lack [NeV].
 
-The data release is in `zenodo/upload/`. Run `zenodo/upload/scripts/check_release.py` to
-reproduce every number quoted in the paper from the released catalog. The scripts that make the
+The data release is in `zenodo/upload/`. To reproduce every number quoted in the paper from the
+released catalog:
+
+    python zenodo/upload/scripts/check_release.py
+ The scripts that make the
 five paper figures are in `zenodo/upload/scripts/` and run from the project root; the figures
 themselves are in `figures/`. The line fits they read are in `notes/`. The raw VLASS x DESI
 cross-match tables, the DESI spectra and the VLASS cutouts come from the public archives and are

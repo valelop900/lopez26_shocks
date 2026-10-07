@@ -2,7 +2,6 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import paperstyle
-import figcheck
 
 # makes fig_loi_vs_q.pdf: [OI] luminosity against jet power.
 # reads the [OI] fit tables and luminosity table in notes/ and data/catalog_*_Q.csv. run from the project root.
@@ -61,7 +60,7 @@ ax.set_xlim(m['logQ_erg'].min()-0.3, m['logQ_erg'].max()+0.3)
 ax.set_ylim(m['logL_OI'].min()-0.3, m['logL_OI'].max()+0.3)
 ax.set_xlabel(r'log Q (erg s$^{-1}$)')
 ax.set_ylabel(r'log L[O I] (erg s$^{-1}$)')
-figcheck.place_legend(ax, 'loi vs q')
+ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.22), ncol=1)
 plt.tight_layout()
 plt.savefig('plots/fig_loi_vs_q.png', dpi=paperstyle.PNG_DPI)
 plt.savefig('plots/fig_loi_vs_q.pdf')

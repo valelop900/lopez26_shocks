@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from scipy.stats import ks_2samp, mannwhitneyu, anderson_ksamp, spearmanr
+from scipy.stats import ks_2samp, mannwhitneyu, anderson_ksamp
 
 # every number quoted in the paper, from the release catalog and the fit tables in notes/.
 # the WISE block at the end is the one exception, W3 only exists in the raw cross-match files.
@@ -178,16 +178,6 @@ print('narrow component only, log[OIII]/Hb median: small %.2f (n=%d)  large %.2f
          mannwhitneyu(nn[nn['sample'] == 'small']['y_narrow'], nn[nn['sample'] == 'large']['y_narrow']).pvalue))
 print()
 
-print('--- robustness to the flagged small sources (vlass_extent_check)')
-sure = [39627808774818067, 39627709696969353]
-maybe = sure + [39628383604179664, 39627790470876239, 39628518027432308]
-for lab, drop in [('drop 2', sure), ('drop 5', maybe)]:
-    s = sm[~sm['TARGETID'].isin(drop)]
-    ssy = s[s['bpt_class'] == 'seyfert']['w80']
-    print('%s: n=%d  W80 sey KS p = %.4f  SL MW p = %.3f  NeV 3sig small %s  large %s'
-          % (lab, len(s), ks_2samp(ssy, ls).pvalue, mannwhitneyu(s['sl_distance'], lg['sl_distance']).pvalue, rate(s), rate(lg)))
-
-print()
 print('--- fisher exact p on the NeV detection counts, small vs large')
 from scipy.stats import fisher_exact
 def fisher(a, b, col='nev3'):
@@ -200,5 +190,3 @@ print('Ha/Hb < 4       p = %.3f' % fisher(sm[sm['bd'] < 4], lg[lg['bd'] < 4]))
 print('seyferts only   p = %.3f' % fisher(sy_s, sy_l))
 print('hardness cut    p = %.2f' % fisher(sy_s[sy_s['oiii_hb'] > cut], sy_l[sy_l['oiii_hb'] > cut]))
 print('L12 window      p = %.3f' % fisher(ws[(ws['logL12'] > lo) & (ws['logL12'] < hi)], wl[(wl['logL12'] > lo) & (wl['logL12'] < hi)]))
-print('drop 2          p = %.3f' % fisher(sm[~sm['TARGETID'].isin(sure)], lg))
-print('drop 5          p = %.3f' % fisher(sm[~sm['TARGETID'].isin(maybe)], lg))
