@@ -13,7 +13,7 @@ released catalog:
 five paper figures are in `zenodo/upload/scripts/` and run from the project root; the figures
 themselves are in `figures/`. The line fits they read are in `notes/`. The raw VLASS x DESI
 cross-match tables, the DESI spectra and the VLASS cutouts come from the public archives and are
-not redistributed here, so the few scripts that read them will not run as shipped.
+not redistributed here, so `oiii_profiles.py` (which needs the DESI spectra) and `fig_examples.py` (which fetches cutouts online) will not run from the release alone.
 
 The code is MIT licensed (`LICENSE`). The data release in `zenodo/upload/` is CC BY 4.0, same as the Zenodo record.
 
