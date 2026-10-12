@@ -1,10 +1,8 @@
 import numpy as np
 import pandas as pd
 
-# jet power from Willott et al. 1999, Q = 3e38 * (L151/1e28)^(6/7) W
-# radio luminosity from VLASS flux and D_L, then extrapolate 3 GHz -> 151 MHz
-# the 3 GHz -> 151 MHz step uses a flat alpha = -0.7, as stated in the paper.
-# Alpha is still used for the K-correction, which is where the catalog value belongs.
+# Willott et al. 1999, Q = 3e38 (L151/1e28)^(6/7) W
+# I go from 3 GHz to 151 MHz with alpha = -0.7 and use the catalog Alpha only for the K-correction
 
 mpc_to_m = 3.086e22
 mjy_to_si = 1e-29   # W/m^2/Hz

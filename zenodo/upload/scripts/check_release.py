@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 from scipy.stats import ks_2samp, mannwhitneyu, anderson_ksamp
 
-# the catalog sits one level up from this script
+# catalog is one level up
 here = os.path.dirname(os.path.abspath(__file__))
 d = pd.read_csv(os.path.join(here, '..', 'catalog_lopez_lacy_2026.csv'))
 sm = d[d['sample'] == 'small']

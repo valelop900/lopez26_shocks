@@ -3,8 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import paperstyle
 
-# makes fig_loi_vs_q.pdf: [OI] luminosity against jet power.
-# reads the [OI] fit tables and luminosity table in notes/ and data/catalog_*_Q.csv. run from the project root.
+# plots [OI] luminosity vs jet power from the notes/ fit tables and data/catalog_*_Q.csv, run from the project root
 
 LARGE_COLOR = 'black'
 SMALL_COLOR = '#5B2C6F'
@@ -29,7 +28,7 @@ m = m.merge(bpt[['TARGETID', 'bpt_class']], on='TARGETID')
 m = m.merge(fits[['TARGETID', 'oi_flux']], on='TARGETID')
 m = m[m['log_L_radio'] > 24]
 m = m[(m['sample'] == 'small') | (m['Physical_Size'] > 25)]
-print('plotted objects:', len(m), 'of 77')
+print('plotted', len(m), 'of 77')
 
 q = pd.concat([pd.read_csv('data/catalog_small_Q.csv'),
                pd.read_csv('data/catalog_large_Q.csv')], ignore_index=True)
@@ -63,7 +62,7 @@ ax.tick_params(labelsize=paperstyle.TICK1)
 ax.legend(loc='lower right', fontsize=8, framealpha=1)
 plt.tight_layout()
 
-# the two reference lines are labelled along the lines, at the angle they have on the page
+# label the two lines along the lines
 x0, x1 = ax.get_xlim()
 p0 = ax.transData.transform((x0 + 0.05, x0 + 0.05))
 p1 = ax.transData.transform((x0 + 0.55, x0 + 0.55))

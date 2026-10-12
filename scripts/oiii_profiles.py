@@ -6,9 +6,8 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import paperstyle
 
-# makes fig_oiii_profiles.pdf: [OIII] profiles of the broadest small sources with the two-gaussian fit.
-# same model as fit_oiii_all.py but the broad centroid can move +-20 A, and the offset is kept.
-# reads data/catalog_small.csv and data/spectra/. run from the project root.
+# plots the [OIII] profiles of the broadest small sources with the two gaussian fit
+# same model as fit_oiii_all.py but I let the broad centroid move +-20 A, needs data/spectra/, run from the project root
 
 small = pd.read_csv('data/catalog_small.csv')
 hi = small[small['w80'] > 1000].sort_values('w80', ascending=False)
@@ -42,7 +41,7 @@ for i, r in hi.iterrows():
     e = sp.specfit.parinfo.errors
 
     dv = c * (v[4] - v[1]) / v[1]
-    # W80 from this fit, same recipe as w80_new_small24.py but with the offset kept
+    # W80 from this fit, keeping the offset
     vv = np.linspace(-5000, 5000, 20001)
     prof = v[0]*np.exp(-0.5*(vv/(c*v[2]/v[1]))**2) + v[3]*np.exp(-0.5*((vv-dv)/(c*v[5]/v[4]))**2)
     cs = np.cumsum(prof)/prof.sum()
@@ -58,12 +57,11 @@ out = pd.DataFrame(rows, columns=['TARGETID', 'Z', 'w80', 'w80_refit', 'bpt_clas
 out.to_csv('notes/2026-09-13_oiii_profiles_highw80.csv', index=False)
 blue = out[out['dv_broad_kms'] < -2*out['dv_err_kms']]
 red = out[out['dv_broad_kms'] > 2*out['dv_err_kms']]
-print('of %d small sources with W80 > 1000: broad component blueshifted at >2 sigma: %d, redshifted: %d, consistent with zero: %d'
+print('W80>1000 small %d  blue %d  red %d  zero %d'
       % (len(out), len(blue), len(red), len(out) - len(blue) - len(red)))
-print('broad centroid pinned at the +-5 A fit limit:', int(out['broad_at_limit'].sum()))
+print('at limit', int(out['broad_at_limit'].sum()))
 
-# two panels: the -925 km/s object and the cleanest of the other high-W80 fits.
-# 39628066753877605 left out, its narrow core at +250 km/s was missed by the fit.
+# I leave out 39628066753877605, the fit missed its narrow core
 show = [39628159028563219, 39633349756585024]
 def g(x, a, mu, s):
     return a * np.exp(-0.5 * ((x - mu) / s)**2)

@@ -20,7 +20,7 @@ m = oiii.merge(oi, on="TARGETID", suffixes=("", "_oi"))
 m = m.merge(hb, on="TARGETID", suffixes=("", "_hb"))
 m = m.merge(ha, on="TARGETID", suffixes=("", "_ha"))
 
-# cut to the final sample... luminosity and size, no repeats!
+# keep the final sample, luminosity and size cut, no repeats
 lum = pd.read_csv("notes/2026-07-28_luminosity_check.csv").drop_duplicates("TARGETID")
 final = lum[lum["log_L_radio"] > 24]
 is_large = final["sample"].str.lower().str.contains("large")
@@ -92,11 +92,10 @@ ax.plot(xk, kewley(xk), 'k-', lw=1)
 xs = np.linspace(-1.12, 0.4, 50)
 ax.plot(xs, syliner(xs), 'k--', lw=1)
 
-# arrow along the SL direction, from the point x=0.2 on the divide
+# the SL arrow starts at x=0.2 on the divide
 xt=0.2
 yt=syliner(xt)
-# set x position for head to be xh, calculate yh on a line perpendicular to
-# the S-L divide
+# put the head on the perpendicular
 xh=-0.15
 m2=-1/1.18
 c2=yt-xt*m2

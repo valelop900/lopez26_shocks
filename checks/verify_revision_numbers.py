@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from scipy.stats import ks_2samp, mannwhitneyu, anderson_ksamp
 
-# every number quoted in the paper, from the release catalog and the fit tables in notes/.
+# recomputes every number in the paper from the release table and the notes/ fit tables
 
 d = pd.read_csv('zenodo/upload/catalog_lopez_lacy_2026.csv')
 sm = d[d['sample'] == 'small']
@@ -55,7 +55,7 @@ for name, s in [('small', sm), ('large', lg)]:
     print('balmer %s: NeV nondet %.2f (n=%d)  det %.2f (n=%d)  MW p = %.2f' % (name, nd.median(), len(nd), de.median(), len(de), mannwhitneyu(nd, de).pvalue))
 print()
 
-# jet power, willott with f=1, flat alpha=-0.7 to 151 MHz, L151 in W/Hz/sr
+# willott jet power, f=1, alpha=-0.7 to 151 MHz
 mpc_to_m = 3.086e22
 for name, s in [('small', sm), ('large', lg)]:
     L3 = 4*np.pi * (s['D_L']*mpc_to_m)**2 * (s['Flux']*1e-29) * (1 + s['Z'])**(-1 - s['Alpha'].fillna(-0.7))
@@ -78,31 +78,27 @@ print('L_OI/Q > 0.01: %d of %d (%.0f%%)   small %d/%d  large %d/%d'
          ((frac > -2) & (both['sample'] == 'large')).sum(), (both['sample'] == 'large').sum()))
 print()
 
-# ---- new for the revision ----
-print('--- broad [OIII] offsets, free-centroid refit')
 dv = pd.read_csv('notes/2026-09-18_oiii_dv_all.csv').drop(columns='w80').merge(d[['TARGETID', 'w80']], on='TARGETID')
 dv['det'] = dv['broad_amp'] > 3 * dv['broad_err']
 hi = dv[(dv['sample'] == 'small') & (dv['w80'] > 1300)]
-print('small W80 > 1300: n=%d, broad detected %d, of which dv < -150: %d, dv > +150: %d'
+print('small W80>1300 n %d  broad det %d  dv<-150 %d  dv>150 %d'
       % (len(hi), hi['det'].sum(), (hi['det'] & (hi['dv'] < -150)).sum(), (hi['det'] & (hi['dv'] > 150)).sum()))
 hi = dv[(dv['sample'] == 'small') & (dv['w80'] > 1000) & dv['det']]
-print('small W80 > 1000, broad detected: n=%d, dv < -150: %d, |dv| < 150: %d' % (len(hi), (hi['dv'] < -150).sum(), (hi['dv'].abs() < 150).sum()))
+print('small W80>1000 broad det n %d  dv<-150 %d  |dv|<150 %d' % (len(hi), (hi['dv'] < -150).sum(), (hi['dv'].abs() < 150).sum()))
 for name in ['small', 'large']:
     x = dv[(dv['sample'] == name) & dv['det']]
-    print('median broad offset %s: %+.0f km/s (n=%d)' % (name, x['dv'].median(), len(x)))
+    print('broad offset median %s %+.0f km/s  n %d' % (name, x['dv'].median(), len(x)))
 print()
 
-print('--- NeV vs W80 within each sample')
 for name, s in [('small', sm), ('large', lg)]:
     de, nd = s[s['nev3']], s[~s['nev3']]
-    print('%s: det median W80 %.0f (n=%d)  nondet %.0f (n=%d)  MW p = %.2f' % (name, de['w80'].median(), len(de), nd['w80'].median(), len(nd), mannwhitneyu(de['w80'], nd['w80']).pvalue))
+    print('W80 %s NeV det %.0f (n=%d)  nondet %.0f (n=%d)  MW p %.2f' % (name, de['w80'].median(), len(de), nd['w80'].median(), len(nd), mannwhitneyu(de['w80'], nd['w80']).pvalue))
     hiw = s[s['w80'] > s['w80'].median()]; low = s[s['w80'] <= s['w80'].median()]
-    print('%s: NeV rate above median W80 (%.0f) %s   below %s' % (name, s['w80'].median(), rate(hiw), rate(low)))
+    print('NeV %s above median W80 (%.0f) %s  below %s' % (name, s['w80'].median(), rate(hiw), rate(low)))
 for cl in ['seyfert', 'liner', 'sf']:
     print('small NeV rate by class %s: %s' % (cl, rate(sm[sm['bpt_class'] == cl])))
 print()
 
-print('--- NeV vs AGN type, luminosity, hardness')
 for s in (sm, lg):
     s['logL'] = np.log10(4*np.pi*(s['D_L']*3.086e24)**2 * s['OIII_5007_FLUX']*1e-17)
     s['oiii_hb'] = s['OIII_5007_FLUX'] / s['HBETA_FLUX']
@@ -111,7 +107,7 @@ print('seyferts only NeV 3sig: small %s  large %s' % (rate(sy_s), rate(sy_l)))
 print('log L[OIII] median small %.2f  large %.2f' % (sm['logL'].median(), lg['logL'].median()))
 print('[OIII]/Hb median seyferts small %.2f  large %.2f' % (sy_s['oiii_hb'].median(), sy_l['oiii_hb'].median()))
 cut = 5
-print('hardness matched (seyferts with [OIII]/Hb > %d): small %s  large %s' % (cut, rate(sy_s[sy_s['oiii_hb'] > cut]), rate(sy_l[sy_l['oiii_hb'] > cut])))
+print('seyferts [OIII]/Hb > %d: small %s  large %s' % (cut, rate(sy_s[sy_s['oiii_hb'] > cut]), rate(sy_l[sy_l['oiii_hb'] > cut])))
 tol = 0.15
 lgs = lg.sort_values('logL'); used = set(); pairs = []
 for i, r in sm.sort_values('logL').iterrows():
@@ -120,18 +116,17 @@ for i, r in sm.sort_values('logL').iterrows():
     if abs(lgs.loc[j, 'logL'] - r['logL']) < tol:
         used.add(j); pairs.append((r['nev3'], lgs.loc[j, 'nev3']))
 p = np.array(pairs)
-print('L[OIII] matched 1:1 within %.2f dex: %d pairs, NeV small %.0f%% (%d)  large %.0f%% (%d)'
+print('L[OIII] matched within %.2f dex: %d pairs  NeV small %.0f%% (%d)  large %.0f%% (%d)'
       % (tol, len(p), 100*p[:, 0].mean(), p[:, 0].sum(), 100*p[:, 1].mean(), p[:, 1].sum()))
 de = d[d['nev3']]
 de_s, de_l = de[de['sample'] == 'small'], de[de['sample'] == 'large']
 r_s = de_s['NEV_3426_FLUX'] / de_s['OIII_5007_FLUX']; r_l = de_l['NEV_3426_FLUX'] / de_l['OIII_5007_FLUX']
-print('NeV/[OIII] among detections: small median %.3f (n=%d)  large %.3f (n=%d)  MW p = %.3f' % (r_s.median(), len(r_s), r_l.median(), len(r_l), mannwhitneyu(r_s, r_l).pvalue))
+print('NeV/[OIII] detections median small %.3f (n=%d)  large %.3f (n=%d)  MW p %.3f' % (r_s.median(), len(r_s), r_l.median(), len(r_l), mannwhitneyu(r_s, r_l).pvalue))
 ul_s = (3/np.sqrt(sm[~sm['nev3']]['NEV_3426_FLUX_IVAR']) / sm[~sm['nev3']]['OIII_5007_FLUX']).median()
 ul_l = (3/np.sqrt(lg[~lg['nev3']]['NEV_3426_FLUX_IVAR']) / lg[~lg['nev3']]['OIII_5007_FLUX']).median()
-print('3sig NeV/[OIII] upper limit, nondetections: small median %.3f  large %.3f  ratio small/large %.1f' % (ul_s, ul_l, ul_s/ul_l))
+print('NeV/[OIII] 3sig limit nondet median small %.3f  large %.3f  ratio %.1f' % (ul_s, ul_l, ul_s/ul_l))
 print()
 
-print('--- broad vs narrow [OIII]/Hb, each component at 2 sigma')
 def load(*fs):
     return pd.concat([pd.read_csv('notes/' + f) for f in fs], ignore_index=True)
 oiii = load('2026-07-08_oiii_fits.csv', '2026-07-22_oiii_fits_new_large.csv', '2026-07-31_oiii_fits_new_small24.csv')
@@ -145,23 +140,22 @@ for comp in ['narrow', 'broad']:
 b2 = m.dropna(subset=['y_narrow', 'y_broad'])
 for name in ['small', 'large']:
     x = b2[b2['sample'] == name]
-    print('%s: broad lower than narrow in %d of %d, median broad-narrow %+.2f dex' % (name, (x['y_broad'] < x['y_narrow']).sum(), len(x), (x['y_broad'] - x['y_narrow']).median()))
-print('all: broad lower in %d of %d' % ((b2['y_broad'] < b2['y_narrow']).sum(), len(b2)))
+    print('%s broad below narrow %d of %d  median diff %+.2f dex' % (name, (x['y_broad'] < x['y_narrow']).sum(), len(x), (x['y_broad'] - x['y_narrow']).median()))
+print('all broad below narrow %d of %d' % ((b2['y_broad'] < b2['y_narrow']).sum(), len(b2)))
 nn = m.dropna(subset=['y_narrow'])
-print('narrow component only, log[OIII]/Hb median: small %.2f (n=%d)  large %.2f (n=%d)  MW p = %.3f'
+print('narrow log[OIII]/Hb median small %.2f (n=%d)  large %.2f (n=%d)  MW p %.3f'
       % (nn[nn['sample'] == 'small']['y_narrow'].median(), (nn['sample'] == 'small').sum(),
          nn[nn['sample'] == 'large']['y_narrow'].median(), (nn['sample'] == 'large').sum(),
          mannwhitneyu(nn[nn['sample'] == 'small']['y_narrow'], nn[nn['sample'] == 'large']['y_narrow']).pvalue))
 print()
 
-print('--- fisher exact p on the NeV detection counts, small vs large')
 from scipy.stats import fisher_exact
 def fisher(a, b, col='nev3'):
     t = [[a[col].sum(), len(a) - a[col].sum()], [b[col].sum(), len(b) - b[col].sum()]]
     return fisher_exact(t)[1]
-print('3sig            p = %.3f' % fisher(sm, lg))
-print('5sig            p = %.3f' % fisher(sm, lg, 'nev5'))
-print('0.30<z<0.45     p = %.2f' % fisher(zs, zl))
-print('Ha/Hb < 4       p = %.3f' % fisher(sm[sm['bd'] < 4], lg[lg['bd'] < 4]))
-print('seyferts only   p = %.3f' % fisher(sy_s, sy_l))
-print('hardness cut    p = %.2f' % fisher(sy_s[sy_s['oiii_hb'] > cut], sy_l[sy_l['oiii_hb'] > cut]))
+print('fisher 3sig p %.3f' % fisher(sm, lg))
+print('fisher 5sig p %.3f' % fisher(sm, lg, 'nev5'))
+print('fisher 0.30<z<0.45 p %.2f' % fisher(zs, zl))
+print('fisher Ha/Hb<4 p %.3f' % fisher(sm[sm['bd'] < 4], lg[lg['bd'] < 4]))
+print('fisher seyferts p %.3f' % fisher(sy_s, sy_l))
+print('fisher [OIII]/Hb>5 p %.2f' % fisher(sy_s[sy_s['oiii_hb'] > cut], sy_l[sy_l['oiii_hb'] > cut]))

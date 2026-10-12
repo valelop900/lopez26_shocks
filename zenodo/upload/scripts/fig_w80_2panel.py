@@ -3,9 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import paperstyle
 
-# makes fig_w80_2panel.pdf: W80 by sample and class, and W80 against the SL measure with
-# [NeV] detections filled. reads the W80, classification and luminosity tables in notes/ and
-# data/catalog_*.csv for [NeV]. run from the project root.
+# makes the W80 box plot and W80 vs SL with [NeV] detections filled, run from the project root
 
 LARGE_COLOR = 'black'
 SMALL_COLOR = '#5B2C6F'
@@ -27,11 +25,11 @@ m = m.merge(size, on='TARGETID')
 m = m.merge(cat[['TARGETID', 'nev_det']], on='TARGETID')
 m = m[m['log_L_radio'] > 24]
 m = m[(m['sample'] == 'small') | (m['Physical_Size'] > 25)]
-print('matched:', len(m), ' max small W80: %.1f' % m[m['sample'] == 'small']['w80'].max())
+print('matched', len(m), ' max small W80 %.1f' % m[m['sample'] == 'small']['w80'].max())
 
 fig, (ax, ax2) = plt.subplots(1, 2, figsize=paperstyle.TWO_PANEL)
 
-# ---- box plot ----
+# box plot
 groups = [('small', 'seyfert'), ('small', 'liner'), ('large', 'seyfert')]
 data, names, box_sample = [], [], []
 for s, cl in groups:
@@ -50,9 +48,9 @@ for flier, s in zip(bp['fliers'], box_sample):
     flier.set(markeredgecolor=col, markerfacecolor=col if s == 'large' else 'none', marker='o', markersize=5)
 ax.set_ylabel(r'[O III] W80 (km s$^{-1}$)', fontsize=paperstyle.LABEL2)
 ax.tick_params(axis='y', labelsize=paperstyle.TICK2)
-print('box: max small W80 plotted %.1f' % max(data[0].max(), data[1].max()))
+print('box max small W80 %.1f' % max(data[0].max(), data[1].max()))
 
-# ---- W80 vs SL, filled = [NeV] detected at 3 sigma ----
+# W80 vs SL, fill the symbol when [NeV] is detected
 m['bpt_dist'] = (m['log_oiii_hb'] - 1.18 * m['log_oi_ha'] - 1.30) / np.sqrt(1.18**2 + 1)
 for s, det in [('large', True), ('large', False), ('small', True), ('small', False)]:
     sub = m[(m['sample'] == s) & (m['nev_det'] == det)]
@@ -66,7 +64,7 @@ ax2.set_xlabel('SL measure', fontsize=paperstyle.LABEL2)
 ax2.set_ylabel(r'[O III] W80 (km s$^{-1}$)', fontsize=paperstyle.LABEL2)
 ax2.tick_params(labelsize=paperstyle.TICK2)
 ax2.legend(loc='upper right', fontsize=7)
-print('scatter points: %d   NeV detected: small %d/%d  large %d/%d' % (len(m), (m['nev_det'] & (m['sample'] == 'small')).sum(), (m['sample'] == 'small').sum(),
+print('scatter points %d  NeV det small %d/%d  large %d/%d' % (len(m), (m['nev_det'] & (m['sample'] == 'small')).sum(), (m['sample'] == 'small').sum(),
       (m['nev_det'] & (m['sample'] == 'large')).sum(), (m['sample'] == 'large').sum()))
 top = m[m['sample'] == 'small'].sort_values('w80', ascending=False).head(5)
 for i, r in top.iterrows():

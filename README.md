@@ -1,21 +1,21 @@
 # lopez26_shocks
 
-Code for Lopez & Lacy 2026, "Evidence for strong shocks in the ISM of small radio sources",
-submitted to ApJL. Two samples of radio-loud AGN at 0.15 < z < 0.5 from a cross-match of VLASS
-with DESI DR1: 44 sources 10-15 kpc across and 33 larger than 25 kpc. The small ones have
-broader [OIII], sit closer to the LINER region of the [OI] BPT diagram and mostly lack [NeV].
+Code for Lopez and Lacy 2026, "Evidence for strong shocks in the ISM of small radio sources",
+submitted to ApJL. We take two samples of radio-loud AGN at 0.15 < z < 0.5 from VLASS matched to
+DESI DR1. 44 sources are 10 to 15 kpc across and 33 are larger than 25 kpc. The small ones have
+broader [OIII], sit closer to the LINER side of the [OI] BPT diagram and mostly lack [NeV].
 
-The data release is in `zenodo/upload/`. To reproduce every number quoted in the paper from the
-released catalog:
+The data release lives in `zenodo/upload/`. This gives every number in the paper from the
+released table:
 
     python zenodo/upload/scripts/check_release.py
 
-The scripts that make the
-five paper figures are in `zenodo/upload/scripts/` and run from the project root; the figures
-themselves are in `figures/`. The line fits they read are in `notes/`. The raw VLASS x DESI
-cross-match tables, the DESI spectra and the VLASS cutouts come from the public archives and are
-not redistributed here, so `oiii_profiles.py` (which needs the DESI spectra) and `fig_examples.py` (which fetches cutouts online) will not run from the release alone.
+The figure scripts live in `zenodo/upload/scripts/` and run from the project root. The figures
+are in `figures/` and the line fit tables the scripts read are in `notes/`. We do not include the
+raw VLASS and DESI tables, the DESI spectra or the VLASS cutouts, they are public. So
+`oiii_profiles.py` (needs the spectra) and `fig_examples.py` (fetches cutouts online) do not run
+from the release alone.
 
-The code is MIT licensed (`LICENSE`). The data release in `zenodo/upload/` is CC BY 4.0, same as the Zenodo record.
+The code is MIT (`LICENSE`). The data in `zenodo/upload/` are CC BY 4.0, same as the Zenodo record.
 
-Zenodo DOI and arXiv link to be added once the record and preprint are up.
+We will add the Zenodo DOI and the arXiv link when we have them.

@@ -5,8 +5,7 @@ import matplotlib.patheffects as pe
 import matplotlib.patches as mpatches
 import paperstyle
 
-# makes fig_bpt_2panel.pdf: the [OI] BPT diagram and the SL-measure histogram.
-# reads the classification table and the luminosity table in notes/. run from the project root.
+# makes the BPT diagram and the SL histogram from the notes/ tables, run from the project root
 
 LARGE_COLOR = 'black'
 SMALL_COLOR = '#5B2C6F'
@@ -31,7 +30,7 @@ def syliner(x):
 
 fig, (ax, ax2) = plt.subplots(1, 2, figsize=paperstyle.TWO_PANEL)
 
-# ---- BPT ----
+# BPT
 ax.set_xlim(-2.5, 0.9)
 ax.set_ylim(-1.8, 2.3)
 styles = {
@@ -61,7 +60,7 @@ ax.text(-0.05, 0.0, 'LINER', fontsize=14)
 ax.text(-2.35, -1.2, 'star\nforming', fontsize=14)
 ax.legend(loc='lower right', fontsize=9)
 
-# ---- SL histogram ----
+# SL histogram
 d = (df['log_oiii_hb'] - 1.18*df['log_oi_ha'] - 1.30) * np.cos(np.arctan(1.18))
 lg = d[df['sample'] == 'large']
 sm = d[df['sample'] == 'small']
@@ -79,9 +78,7 @@ ax2.legend(loc='upper left')
 
 plt.tight_layout()
 
-# SL arrow. pick a point on the S-L divide at x = xt, then put the head at x = xh on the line
-# perpendicular to the divide. the perpendicular is taken as it appears on the page, so the
-# slope is scaled by the ratio of the two axes' data-units-per-inch after the layout is fixed.
+# the arrow points away from the divide, perpendicular on the page since the two axes have different scales
 pos = ax.get_position()
 w_in, h_in = fig.get_size_inches()
 sx = (ax.get_xlim()[1] - ax.get_xlim()[0]) / (pos.width * w_in)

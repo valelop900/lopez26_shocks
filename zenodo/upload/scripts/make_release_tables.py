@@ -9,7 +9,7 @@ rounding = {'RA': 6, 'DEC': 6, 'Z': 5, 'Physical_Size': 2,
 sm = pd.read_csv('data/catalog_small.csv')
 lg = pd.read_csv('data/catalog_large.csv')
 
-# the line fits used for the BPT ratios and the sl_distance column
+# these line fits go into the BPT ratios and sl_distance
 def load(*names):
     return pd.concat([pd.read_csv('notes/' + n) for n in names],
                      ignore_index=True).drop_duplicates('TARGETID')
@@ -26,8 +26,7 @@ fits = oiii.merge(oi, on='TARGETID', suffixes=('', '_oi'))
 fits = fits.merge(hb, on='TARGETID', suffixes=('', '_hb'))
 fits = fits.merge(ha, on='TARGETID', suffixes=('', '_ha'))
 
-# integrate the Gaussians. narrow + broad only, the very broad component of Ha and Hb is
-# the BLR and is left out, same as the BPT script.
+# I use narrow + broad only, very broad is the BLR
 def gauss(lam0, pairs):
     t = 0.
     for amp, sig in pairs:
@@ -43,14 +42,14 @@ fit['fit_OI_6300_FLUX'] = gauss(6300.30, [('oi_narrow_amp', 'oi_narrow_sigma_kms
                                           ('oi_broad_amp', 'oi_broad_sigma_kms')])
 fit['fit_HA_FLUX'] = gauss(6562.8, [('ha_narrow_amp', 'ha_narrow_sigma_kms'),
                                     ('ha_broad_amp', 'ha_broad_sigma_kms')])
-# [NII] kinematics are tied to Ha, so it has no sigma of its own
+# [NII] follows Ha, so it has no sigma of its own
 fit['fit_NII_6584_FLUX'] = gauss(6583.5, [('nii_narrow_amp', 'ha_narrow_sigma_kms'),
                                           ('nii_broad_amp', 'ha_broad_sigma_kms')])
 
 bpt = pd.read_csv('notes/2026-07-31_bpt_class_lumcut_v2.csv')
 fit = fit.merge(bpt[['TARGETID', 'log_oi_ha', 'log_oiii_hb']], on='TARGETID')
 
-# one file, small then large, keyed by TARGETID with the sample column telling them apart
+# write small then large, keyed by TARGETID
 d = pd.concat([sm, lg], ignore_index=True)
 d = d.merge(fit, on='TARGETID', how='left')
 for col, n in rounding.items():

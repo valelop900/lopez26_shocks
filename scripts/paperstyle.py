@@ -23,15 +23,15 @@ mpl.rcParams['ytick.major.width'] = 0.8
 mpl.rcParams['pdf.fonttype'] = 42
 mpl.rcParams['savefig.bbox'] = 'tight'
 
-# inches. two-panel figures span both columns, one-panel fits one column
+# figure sizes in inches
 TWO_PANEL = (7.0, 3.5)
 ONE_PANEL = (3.5, 3.2)
 
-# marker areas (points^2). circles at markersize 5 / 4, stars twice that so they read the same
+# marker areas, stars twice the circles so they look the same size
 S2 = {'o': 25, '*': 50, '^': 25}
 S1 = {'o': 16, '*': 32, '^': 16}
 PNG_DPI = 300
 
-# axis label and tick label sizes, two-panel figures and the single-column one
+# label and tick sizes for two-panel and single-column figures
 LABEL2, TICK2 = 14, 12
 LABEL1, TICK1 = 11, 10

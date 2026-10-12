@@ -6,8 +6,7 @@ from astropy.io import fits
 import matplotlib.pyplot as plt
 import paperstyle
 
-# makes fig_examples.pdf: one small and one large source, VLASS contours on Legacy Survey r band.
-# reads data/catalog_*.csv and fetches the cutouts from legacysurvey.org. run from the project root.
+# plots one small and one large source with VLASS contours on the Legacy r band, fetches the cutouts online, run from the project root
 
 small = pd.read_csv('data/catalog_small.csv')
 large = pd.read_csv('data/catalog_large.csv')

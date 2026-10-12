@@ -1,4 +1,4 @@
-# only the files listed below are tracked
+# git only tracks the files I list here
 
 /*
 
@@ -11,7 +11,7 @@
 !/plots
 !/zenodo
 
-# paper figures
+# the paper figures
 /figures/*
 !/figures/fig_bpt_2panel.pdf
 !/figures/fig_w80_2panel.pdf
@@ -19,15 +19,15 @@
 !/figures/fig_oiii_profiles.pdf
 !/figures/fig_examples.pdf
 
-# catalogs the scripts read
-# (raw VLASS/DESI tables, spectra and cutouts are public, not included)
+# the catalogs the scripts read
+# I leave out the raw VLASS and DESI tables, the spectra and the cutouts, they are public
 /data/*
 !/data/catalog_small.csv
 !/data/catalog_large.csv
 !/data/catalog_small_Q.csv
 !/data/catalog_large_Q.csv
 
-# line fit tables the scripts read
+# the line fit tables the scripts read
 /notes/*
 !/notes/2026-07-08_oiii_fits.csv
 !/notes/2026-07-09_oi_fits.csv
@@ -48,11 +48,11 @@
 !/notes/2026-07-31_w80_new_small24.csv
 !/notes/2026-09-18_oiii_dv_all.csv
 
-# scripts save plots here
+# the scripts save plots here
 /plots/*
 !/plots/.gitkeep
 
-# zenodo files
+# the zenodo files
 /zenodo/*
 !/zenodo/upload
 !/zenodo/make_release_tables.py
@@ -60,7 +60,7 @@
 !/zenodo/metadata.json
 !/zenodo/description_for_zenodo.txt
 
-# figure scripts
+# the figure scripts
 !/scripts
 /scripts/*
 !/scripts/paperstyle.py
@@ -70,7 +70,7 @@
 !/scripts/oiii_profiles.py
 !/scripts/fig_examples.py
 
-# number check
+# the number check
 !/checks
 /checks/*
 !/checks/verify_revision_numbers.py

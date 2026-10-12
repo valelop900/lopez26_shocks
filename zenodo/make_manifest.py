@@ -2,9 +2,7 @@ import hashlib
 import os
 import zipfile
 
-# Writes CHECKSUMS.txt, MANIFEST.txt and the release zip from one file list, so the three
-# can never disagree about what is in the archive. Dotfiles are skipped, which is what
-# keeps Finder's .DS_Store out. Runs from anywhere; paths are taken from this file.
+# writes CHECKSUMS.txt, MANIFEST.txt and the zip from one file list and skips dotfiles
 
 desc = {
     'catalog_lopez_lacy_2026.csv': 'The release table. 77 rows keyed by TARGETID, 44 small then 33 large, 40 columns.',
@@ -39,7 +37,7 @@ for root, dirs, names in os.walk('.'):
             files.append(f)
 files.sort()
 
-# the two files this script writes belong in the archive whether or not they exist yet
+# the two files this script writes go in the archive too
 listed = [f for f in files if f not in ('CHECKSUMS.txt', 'MANIFEST.txt')]
 files = sorted(listed + ['CHECKSUMS.txt', 'MANIFEST.txt'])
 
@@ -52,8 +50,7 @@ for f in listed:
     out.write('%s  %s\n' % (sha[f], f))
 out.close()
 
-# CHECKSUMS.txt is hashed after it is written, so MANIFEST covers it; MANIFEST leaves out
-# only itself, whose own hash would change as it is written.
+# MANIFEST lists everything but itself
 sha['CHECKSUMS.txt'] = hashlib.sha256(open('CHECKSUMS.txt', 'rb').read()).hexdigest()
 
 out = open('MANIFEST.txt', 'w')
