@@ -1,6 +1,4 @@
-# Ignore everything by default and allow back only what belongs in the repo.
-# Written this way on purpose: a new file has to be named here to be committed,
-# so nothing private can slip in by accident.
+# only the files listed below are tracked
 
 /*
 
@@ -13,7 +11,7 @@
 !/plots
 !/zenodo
 
-# figures: only the five PDFs that go in the revised paper
+# paper figures
 /figures/*
 !/figures/fig_bpt_2panel.pdf
 !/figures/fig_w80_2panel.pdf
@@ -21,18 +19,15 @@
 !/figures/fig_oiii_profiles.pdf
 !/figures/fig_examples.pdf
 
-# data: only the four small catalogs the kept scripts read.
-# the VLASS x DESI cross-match tables, the DESI spectra and the VLASS cutouts
-# come from the public archives and are not ours to redistribute.
+# catalogs the scripts read
+# (raw VLASS/DESI tables, spectra and cutouts are public, not included)
 /data/*
 !/data/catalog_small.csv
 !/data/catalog_large.csv
 !/data/catalog_small_Q.csv
 !/data/catalog_large_Q.csv
 
-# notes: only the line-fit and classification tables the kept scripts read, by name.
-# the scripts use these paths as written, so they have to stay at notes/.
-# every .txt in here is a working note and stays out.
+# line fit tables the scripts read
 /notes/*
 !/notes/2026-07-08_oiii_fits.csv
 !/notes/2026-07-09_oi_fits.csv
@@ -53,13 +48,11 @@
 !/notes/2026-07-31_w80_new_small24.csv
 !/notes/2026-09-18_oiii_dv_all.csv
 
-# plots: the scripts write here, so the empty directory has to exist.
-# none of the actual plots are tracked; the five paper ones live in figures/.
+# scripts save plots here
 /plots/*
 !/plots/.gitkeep
 
-# zenodo: the deposit itself plus the scripts that build it.
-# the manuscript, the emails, the inventory, the backups and the zip stay out.
+# zenodo files
 /zenodo/*
 !/zenodo/upload
 !/zenodo/make_release_tables.py
@@ -67,8 +60,7 @@
 !/zenodo/metadata.json
 !/zenodo/description_for_zenodo.txt
 
-# scripts that make the figures, plus the number check.
-# everything else in scripts/ and checks/ stays out.
+# figure scripts
 !/scripts
 /scripts/*
 !/scripts/paperstyle.py
@@ -77,11 +69,13 @@
 !/scripts/plot_loi_vs_q.py
 !/scripts/oiii_profiles.py
 !/scripts/fig_examples.py
+
+# number check
 !/checks
 /checks/*
 !/checks/verify_revision_numbers.py
 
-# never, anywhere
+# junk
 .DS_Store
 ._*
 __pycache__/
