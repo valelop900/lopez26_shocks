@@ -3,8 +3,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import paperstyle
 
-# makes fig_w80_2panel.pdf: W80 by sample and class, and W80 against the SL measure.
-# reads the W80, classification and luminosity tables in notes/. run from the project root.
+# makes fig_w80_2panel.pdf: W80 by sample and class, and W80 against the SL measure with
+# [NeV] detections filled. reads the W80, classification and luminosity tables in notes/ and
+# data/catalog_*.csv for [NeV]. run from the project root.
 
 LARGE_COLOR = 'black'
 SMALL_COLOR = '#5B2C6F'
@@ -12,16 +13,18 @@ LABELS = {'seyfert': 'Seyfert', 'liner': 'LINER'}
 SAMPLE = {'large': 'large (>25 kpc)', 'small': 'small (10-15 kpc)'}
 S = paperstyle.S2
 
-w1 = pd.read_csv('notes/2026-07-13_resolution_w80.csv')
-w2 = pd.read_csv('notes/2026-07-22_w80_new_large.csv')
-w3 = pd.read_csv('notes/2026-07-31_w80_new_small24.csv')
-w = pd.concat([w1, w2, w3], ignore_index=True)
+w = pd.concat([pd.read_csv('notes/2026-07-13_resolution_w80.csv'),
+               pd.read_csv('notes/2026-07-22_w80_new_large.csv'),
+               pd.read_csv('notes/2026-07-31_w80_new_small24.csv')], ignore_index=True)
 
 bpt = pd.read_csv('notes/2026-07-31_bpt_class_lumcut_v2.csv')
 size = pd.read_csv('notes/2026-07-28_luminosity_check.csv')[['TARGETID', 'Physical_Size', 'log_L_radio']]
+cat = pd.concat([pd.read_csv('data/catalog_small.csv'), pd.read_csv('data/catalog_large.csv')], ignore_index=True)
+cat['nev_det'] = (cat['NEV_3426_FLUX'] * np.sqrt(cat['NEV_3426_FLUX_IVAR']) > 3) & (cat['NEV_3426_FLUX'] > 0)
 
 m = w.merge(bpt, on='TARGETID', suffixes=('_w', ''))
 m = m.merge(size, on='TARGETID')
+m = m.merge(cat[['TARGETID', 'nev_det']], on='TARGETID')
 m = m[m['log_L_radio'] > 24]
 m = m[(m['sample'] == 'small') | (m['Physical_Size'] > 25)]
 print('matched:', len(m), ' max small W80: %.1f' % m[m['sample'] == 'small']['w80'].max())
@@ -45,26 +48,29 @@ for patch, s in zip(bp['boxes'], box_sample):
 for flier, s in zip(bp['fliers'], box_sample):
     col = LARGE_COLOR if s == 'large' else SMALL_COLOR
     flier.set(markeredgecolor=col, markerfacecolor=col if s == 'large' else 'none', marker='o', markersize=5)
-ax.set_ylabel(r'[O III] W80 (km s$^{-1}$)')
+ax.set_ylabel(r'[O III] W80 (km s$^{-1}$)', fontsize=paperstyle.LABEL2)
+ax.tick_params(axis='y', labelsize=paperstyle.TICK2)
 print('box: max small W80 plotted %.1f' % max(data[0].max(), data[1].max()))
 
-# ---- W80 vs SL ----
+# ---- W80 vs SL, filled = [NeV] detected at 3 sigma ----
 m['bpt_dist'] = (m['log_oiii_hb'] - 1.18 * m['log_oi_ha'] - 1.30) / np.sqrt(1.18**2 + 1)
-for s, cl, mk in [('large', 'seyfert', 'o'), ('large', 'liner', '*'),
-                  ('small', 'seyfert', 'o'), ('small', 'liner', '*')]:
-    sub = m[(m['sample'] == s) & (m['bpt_class'] == cl)]
-    if s == 'large':
-        ax2.scatter(sub['bpt_dist'], sub['w80'], marker=mk, color=LARGE_COLOR,
-                    s=S[mk], label='%s %s' % (SAMPLE[s], LABELS[cl]))
-    else:
-        ax2.scatter(sub['bpt_dist'], sub['w80'], marker=mk, facecolors='none',
-                    edgecolors=SMALL_COLOR, s=S[mk], linewidths=1.0, label='%s %s' % (SAMPLE[s], LABELS[cl]))
+for s, det in [('large', True), ('large', False), ('small', True), ('small', False)]:
+    sub = m[(m['sample'] == s) & (m['nev_det'] == det)]
+    col = LARGE_COLOR if s == 'large' else SMALL_COLOR
+    mk = 'o' if s == 'large' else '*'
+    ax2.scatter(sub['bpt_dist'], sub['w80'], marker=mk, s=25 if mk == 'o' else 60, facecolors=col if det else 'none',
+                edgecolors=col, linewidths=1.0, label='%s, [Ne V] %s' % (s, 'detected' if det else 'not detected'))
 ax2.axvline(0, color='gray', ls=':')
-ax2.set_xlabel('SL measure')
-ax2.set_ylabel(r'[O III] W80 (km s$^{-1}$)')
-ax2.legend(loc='upper center', bbox_to_anchor=(0.5, -0.22), ncol=2)
-print('scatter points:', sum(len(m[(m['sample'] == s) & (m['bpt_class'] == cl)]) for s in ['large', 'small'] for cl in ['seyfert', 'liner']), '(sf not plotted)',
-      ' max small W80 plotted %.1f' % m[(m['sample'] == 'small') & (m['bpt_class'] != 'sf')]['w80'].max())
+ax2.set_ylim(top=2800)
+ax2.set_xlabel('SL measure', fontsize=paperstyle.LABEL2)
+ax2.set_ylabel(r'[O III] W80 (km s$^{-1}$)', fontsize=paperstyle.LABEL2)
+ax2.tick_params(labelsize=paperstyle.TICK2)
+ax2.legend(loc='upper right', fontsize=7)
+print('scatter points: %d   NeV detected: small %d/%d  large %d/%d' % (len(m), (m['nev_det'] & (m['sample'] == 'small')).sum(), (m['sample'] == 'small').sum(),
+      (m['nev_det'] & (m['sample'] == 'large')).sum(), (m['sample'] == 'large').sum()))
+top = m[m['sample'] == 'small'].sort_values('w80', ascending=False).head(5)
+for i, r in top.iterrows():
+    print('  %d  W80 %.0f  %s  NeV %s' % (r['TARGETID'], r['w80'], r['bpt_class'], 'detected' if r['nev_det'] else 'not detected'))
 
 plt.tight_layout()
 plt.savefig('plots/fig_w80_2panel.pdf')

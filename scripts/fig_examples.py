@@ -33,10 +33,10 @@ for ax, tid in zip(axes, ids):
     noise = 1.4826 * np.nanmedian(np.abs(rad - np.nanmedian(rad)))
     ax.imshow(np.arcsinh(opt / np.nanstd(opt)), origin='lower', cmap='gray_r')
     ax.contour(rad, levels=noise * np.array([3, 6, 12, 24, 48]), colors='red', linewidths=1.0)
-    ax.set_title('%s  z=%.3f  %.0f kpc' % ({'small': 'small (10-15 kpc)', 'large': 'large (>25 kpc)'}[row['sample']], row['Z'], row['Physical_Size']))
+    ax.set_title('%s  z=%.3f  %.0f kpc' % ({'small': 'small (10-15 kpc)', 'large': 'large (>25 kpc)'}[row['sample']], row['Z'], row['Physical_Size']), fontsize=paperstyle.LABEL2)
     ax.set_xticks([]); ax.set_yticks([])
     ax.plot([8, 8 + 10/0.262], [8, 8], 'k-', lw=2)
-    ax.text(8, 12, '10"')
+    ax.text(8, 12, '10"', fontsize=paperstyle.TICK2)
 
 plt.tight_layout()
 plt.savefig('plots/fig_examples.pdf')

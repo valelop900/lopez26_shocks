@@ -141,7 +141,7 @@ for comp in ['narrow', 'broad']:
     fo = m['oiii_%s_amp' % comp] * m['oiii_%s_sigma_kms' % comp] * 5006.8
     fh = m['hb_%s_amp' % comp] * m['hb_%s_sigma_kms' % comp] * 4861.3
     ok = (fo > 0) & (fh > 0) & (m['oiii_%s_amp' % comp] > 2*m['oiii_%s_amp_err' % comp]) & (m['hb_%s_amp' % comp] > 2*m['hb_%s_amp_err' % comp])
-    m['y_' + comp] = np.log10(fo / fh).where(ok)
+    m['y_' + comp] = np.log10(fo.where(ok) / fh.where(ok))
 b2 = m.dropna(subset=['y_narrow', 'y_broad'])
 for name in ['small', 'large']:
     x = b2[b2['sample'] == name]

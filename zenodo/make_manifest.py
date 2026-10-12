@@ -7,7 +7,7 @@ import zipfile
 # keeps Finder's .DS_Store out. Runs from anywhere; paths are taken from this file.
 
 desc = {
-    'catalog_lopez_lacy_2026.csv': 'The release table. 77 rows keyed by TARGETID, 45 small then 32 large, 36 columns.',
+    'catalog_lopez_lacy_2026.csv': 'The release table. 77 rows keyed by TARGETID, 44 small then 33 large, 40 columns.',
     'columns.csv': 'Name, unit, dtype, description and source for every column of the release table.',
     'README.md': 'Description of the release, sample definitions, column notes, and how each number in the paper maps to the columns.',
     'LICENSE': 'Creative Commons Attribution 4.0 International, full legal text.',
@@ -39,7 +39,7 @@ for root, dirs, names in os.walk('.'):
             files.append(f)
 files.sort()
 
-# the two generated files belong in the archive whether or not they exist yet
+# the two files this script writes belong in the archive whether or not they exist yet
 listed = [f for f in files if f not in ('CHECKSUMS.txt', 'MANIFEST.txt')]
 files = sorted(listed + ['CHECKSUMS.txt', 'MANIFEST.txt'])
 

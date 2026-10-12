@@ -1,14 +1,14 @@
 name,unit,dtype,description,source
 TARGETID,,int64,DESI unique target identifier,DESI DR1
-sample,,string,"Sample flag: ""small"" (10-15 kpc, 47 rows) or ""large"" (>25 kpc, 30 rows). Filter on this to separate the two samples",This work
+sample,,string,"Sample flag: ""small"" (10-15 kpc, 44 rows) or ""large"" (>25 kpc, 33 rows). Filter on this to separate the two samples",This work
 Name,,string,VLASS radio component name,VLASS SE Continuum catalog (Kimball et al. 2026)
 RA,deg,float64,Right ascension (J2000) of the radio source,VLASS SE Continuum catalog (Kimball et al. 2026)
 DEC,deg,float64,Declination (J2000) of the radio source,VLASS SE Continuum catalog (Kimball et al. 2026)
 Z,,float64,DESI spectroscopic redshift,DESI DR1
 Flux,mJy,float64,VLASS 3 GHz total flux density,VLASS SE Continuum catalog (Kimball et al. 2026)
 E_Flux,mJy,float64,Uncertainty on Flux,VLASS SE Continuum catalog (Kimball et al. 2026)
-LAS,arcsec,float64,Largest angular size of the radio source,VLASS SE Continuum catalog (Kimball et al. 2026)
-Physical_Size,kpc,float64,Projected linear size from LAS and redshift,This work
+LAS,arcsec,float64,"Largest angular size of the radio source; for 39628383604179664, 39627709696969353, 39627808774818067 remeasured from the VLASS image because the catalog component is one part of a larger source",VLASS SE Continuum catalog (Kimball et al. 2026)
+Physical_Size,kpc,float64,"Projected linear size from LAS and redshift; for 39628383604179664, 39627709696969353, 39627808774818067 from the remeasured LAS",This work
 Alpha,,float64,"Catalog radio spectral index (S ~ nu^alpha), used to K-correct the 3 GHz luminosity. NOT used in the paper's jet power estimate, which converts 3 GHz to 151 MHz with a flat alpha = -0.7. Blank for 2 large sources; -0.7 assumed for those",VLASS SE Continuum catalog (Kimball et al. 2026)
 E_Alpha,,float64,Uncertainty on Alpha,VLASS SE Continuum catalog (Kimball et al. 2026)
 D_L,Mpc,float64,Luminosity distance,This work
@@ -35,3 +35,7 @@ fit_NII_6584_FLUX,1e-17 erg/s/cm2,float64,"Fitted [NII] 6584 flux, narrow + broa
 fit_OI_6300_FLUX,1e-17 erg/s/cm2,float64,"Fitted [OI] 6300 flux, narrow + broad components. This is the flux behind the y-axis of paper Figure 4","This work, pyspeckit fits (paper Section 2.2)"
 log_oi_ha,dex,float64,log10(fit_OI_6300_FLUX / fit_HA_FLUX). x-axis of paper Figure 1,"This work, pyspeckit fits (paper Section 2.2)"
 log_oiii_hb,dex,float64,log10(fit_OIII_5007_FLUX / fit_HB_FLUX). y-axis of paper Figure 1,"This work, pyspeckit fits (paper Section 2.2)"
+Common name,,string,"Common catalog name of the radio source where one exists, else blank",NED
+Host galaxy image,,string,"Host morphology from the optical image: E, S, interacting, merger, BCG, or blank if unclear",This work
+Merger_flg,,int64,"1 if the host shows signs of interaction or merging in the optical image, else 0",This work
+Host galaxy image source,,string,Image used for the host classification: LDR10 (Legacy Surveys DR10) or EUCLID,This work

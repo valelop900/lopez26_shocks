@@ -24,10 +24,14 @@ mpl.rcParams['pdf.fonttype'] = 42
 mpl.rcParams['savefig.bbox'] = 'tight'
 
 # inches. two-panel figures span both columns, one-panel fits one column
-TWO_PANEL = (7.0, 3.1)
+TWO_PANEL = (7.0, 3.5)
 ONE_PANEL = (3.5, 3.2)
 
 # marker areas (points^2). circles at markersize 5 / 4, stars twice that so they read the same
 S2 = {'o': 25, '*': 50, '^': 25}
 S1 = {'o': 16, '*': 32, '^': 16}
 PNG_DPI = 300
+
+# axis label and tick label sizes, two-panel figures and the single-column one
+LABEL2, TICK2 = 14, 12
+LABEL1, TICK1 = 11, 10
