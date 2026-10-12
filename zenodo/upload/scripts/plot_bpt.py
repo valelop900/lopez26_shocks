@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.patheffects as pe
 import matplotlib.patches as mpatches
+import paperstyle
 
 def load(*files):
     return pd.concat([pd.read_csv("notes/" + f) for f in files], ignore_index=True)
@@ -67,10 +68,8 @@ print(pd.crosstab(out["sample"], out["bpt_class"]))
 xv =x.values
 yv =y.values
 
-#ML - make an axis instance to better control the plotting 
 fig=plt.figure(figsize=(6, 6))
 ax=fig.add_subplot(111,xlim=(-2.5,0.7),ylim=(-1.2,2.0))
-ax.set_aspect=1
 
 
 styles = {
@@ -93,9 +92,7 @@ ax.plot(xk, kewley(xk), 'k-', lw=1)
 xs = np.linspace(-1.12, 0.4, 50)
 ax.plot(xs, syliner(xs), 'k--', lw=1)
 
-mslope, b = 1.18, 1.30
-# pick the Seyfert-side point with the largest perpendicular distance ABOVE the line
-# (ML) pick a point on the line corresponding to x=0.2
+# arrow along the SL direction, from the point x=0.2 on the divide
 xt=0.2
 yt=syliner(xt)
 # set x position for head to be xh, calculate yh on a line perpendicular to
@@ -105,30 +102,17 @@ m2=-1/1.18
 c2=yt-xt*m2
 yh=m2*xh+c2
 
-#signed_d = (yv - mslope * xv - b) / np.sqrt(1 + mslope**2)
-#cand = (cls == "seyfert") & (signed_d > 0)
-#idx = np.where(cand)[0][np.argmax(signed_d[cand])]
-#xp, yp = xv[idx], yv[idx]
-#xf = (xp + mslope * (yp - b)) / (1 + mslope**2)
-#yf =mslope * xf + b
-#plt.annotate("", xy=(xp, yp), xytext=(xf, yf),
-#             arrowprops=dict(arrowstyle="->", color="tab:red", lw=2), zorder=6)
 arrow=mpatches.FancyArrowPatch((xt,yt),(xh,yh),mutation_scale=20,color='r')
 ax.add_patch(arrow)
 ax.annotate("SL", xy=(xh, yh), xytext=(8, -2),
              textcoords="offset points", color="tab:red", fontweight="bold",
-             path_effects=[pe.withStroke(linewidth=3, foreground="white")],fontsize=14)
+             path_effects=[pe.withStroke(linewidth=3, foreground="white")])
 
-##########################################################################
-
-ax.text(-2.2, 1.4, "Seyfert",fontsize=14)
-ax.text(-0.5, 0.0, "LINER",fontsize=14)
-ax.text(-2.2, -0.3, "star forming",fontsize=14)
-ax.set_xlabel(r"log [OI]6300 / H$\alpha$",fontsize=14)
-ax.set_ylabel(r"log [OIII]5007 / H$\beta$",fontsize=14)
-#ax.xlim(-2.5, 0.5)
-#ax.ylim(-1.5, 2.2)
+ax.text(-2.2, 1.4, "Seyfert")
+ax.text(-0.5, 0.0, "LINER")
+ax.text(-2.2, -0.3, "star forming")
+ax.set_xlabel(r"log [OI]6300 / H$\alpha$")
+ax.set_ylabel(r"log [OIII]5007 / H$\beta$")
 ax.legend(loc='lower left')
-#ax.tight_layout()
 plt.savefig("plots/2026-07-31_bpt_oi_lumcut_v2.png", dpi=150)
 plt.savefig("plots/fig_bpt.pdf")

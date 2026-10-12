@@ -3,9 +3,12 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import paperstyle
 
+# makes fig_loi_vs_q.pdf: [OI] luminosity against jet power.
+# reads the [OI] fit tables and luminosity table in notes/ and data/catalog_*_Q.csv. run from the project root.
+
 LARGE_COLOR = 'black'
 SMALL_COLOR = '#5B2C6F'
-MARKERS = {'seyfert': ('o', 45), 'liner': ('*', 110)}
+MARKERS = {'seyfert': ('o', paperstyle.S1['o']), 'liner': ('*', paperstyle.S1['*'])}
 LABELS = {'seyfert': 'Seyfert', 'liner': 'LINER'}
 c = 299792.458
 mpc_to_cm = 3.086e24
@@ -36,7 +39,6 @@ dL = m['D_L'] * mpc_to_cm
 m['logL_OI'] = np.log10(m['oi_flux'] * 1e-17 * 4*np.pi * dL**2)
 
 fig, ax = plt.subplots(figsize=paperstyle.ONE_PANEL)
-ax.set_aspect('equal', adjustable='box')
 for s in ['large', 'small']:
     for cl in ['seyfert', 'liner']:
         sub = m[(m['sample'] == s) & (m['bpt_class'] == cl)]
@@ -44,21 +46,30 @@ for s in ['large', 'small']:
         if s == 'large':
             ax.scatter(sub['logQ_erg'], sub['logL_OI'], marker=mk, s=ms,
                        facecolors=LARGE_COLOR, edgecolors=LARGE_COLOR,
-                       label='large (>25 kpc) %s (n=%d)' % (LABELS[cl], len(sub)))
+                       label='large %s (%d)' % (LABELS[cl], len(sub)))
         else:
             ax.scatter(sub['logQ_erg'], sub['logL_OI'], marker=mk, s=ms,
-                       facecolors='none', edgecolors=SMALL_COLOR, linewidths=1.3,
-                       label='small (10-15 kpc) %s (n=%d)' % (LABELS[cl], len(sub)))
+                       facecolors='none', edgecolors=SMALL_COLOR, linewidths=1.0,
+                       label='small %s (%d)' % (LABELS[cl], len(sub)))
 
 lo, hi = 41, 45
-ax.plot([lo, hi], [lo, hi], 'k--', lw=0.8, label='L[OI] = Q')
-ax.plot([lo, hi], [lo-2, hi-2], 'k:', lw=0.8, label='1% of Q')
-ax.set_xlim(m['logQ_erg'].min()-0.3, m['logQ_erg'].max()+0.3)
-ax.set_ylim(m['logL_OI'].min()-0.3, m['logL_OI'].max()+0.85)
-ax.set_xlabel(r'log Q (erg s$^{-1}$)')
-ax.set_ylabel(r'log L[O I] (erg s$^{-1}$)')
-ax.legend(loc='upper left', fontsize=6, handletextpad=0.3, borderpad=0.4, labelspacing=0.25)
+ax.plot([lo, hi], [lo, hi], 'k--')
+ax.plot([lo, hi], [lo-2, hi-2], 'k:')
+ax.set_xlim(m['logQ_erg'].min()-0.3, m['logQ_erg'].max()+0.8)
+ax.set_ylim(m['logL_OI'].min()-0.5, m['logL_OI'].max()+0.6)
+ax.set_xlabel(r'log Q (erg s$^{-1}$)', fontsize=paperstyle.LABEL1)
+ax.set_ylabel(r'log L[O I] (erg s$^{-1}$)', fontsize=paperstyle.LABEL1)
+ax.tick_params(labelsize=paperstyle.TICK1)
+ax.legend(loc='lower right', fontsize=8, framealpha=1)
 plt.tight_layout()
-plt.savefig('plots/2026-08-27_loi_vs_q_v2.png', dpi=150)
+
+# the two reference lines are labelled along the lines, at the angle they have on the page
+x0, x1 = ax.get_xlim()
+p0 = ax.transData.transform((x0 + 0.05, x0 + 0.05))
+p1 = ax.transData.transform((x0 + 0.55, x0 + 0.55))
+ang = np.degrees(np.arctan2(p1[1] - p0[1], p1[0] - p0[0]))
+ax.text(x0 + 0.14, x0 + 0.14 + 0.06, 'L[O I] = Q', rotation=ang, rotation_mode='anchor', ha='left', va='bottom', fontsize=9)
+ax.text(43.55, 43.55 - 2 - 0.08, '1% of Q', rotation=ang, rotation_mode='anchor', ha='left', va='top', fontsize=9)
+plt.savefig('plots/fig_loi_vs_q.png', dpi=paperstyle.PNG_DPI)
 plt.savefig('plots/fig_loi_vs_q.pdf')
 print('saved')

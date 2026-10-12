@@ -7,24 +7,21 @@ import zipfile
 # keeps Finder's .DS_Store out. Runs from anywhere; paths are taken from this file.
 
 desc = {
-    'catalog_lopez_lacy_2026.csv': 'The release table. 77 rows keyed by TARGETID, 47 small then 30 large, 36 columns.',
+    'catalog_lopez_lacy_2026.csv': 'The release table. 77 rows keyed by TARGETID, 44 small then 33 large, 40 columns.',
     'columns.csv': 'Name, unit, dtype, description and source for every column of the release table.',
     'README.md': 'Description of the release, sample definitions, column notes, and how each number in the paper maps to the columns.',
     'LICENSE': 'Creative Commons Attribution 4.0 International, full legal text.',
     'CHECKSUMS.txt': 'SHA-256 of every file in this archive except itself and MANIFEST.txt.',
-    'scripts/make_catalog_files.py': 'Builds the working catalog from the VLASS x DESI cross-match and the line fit outputs.',
     'scripts/make_release_tables.py': 'Applies release rounding, adds the fitted line fluxes, and writes the release table.',
     'scripts/check_release.py': 'Recomputes every number quoted in the paper from the release table alone.',
     'scripts/jet_power.py': 'Jet power from the VLASS flux density following Willott et al. (1999). Writes the logQ table that plot_loi_vs_q.py reads.',
-    'scripts/plot_bpt_lumcut_POSTEDIT_ML.py': 'Paper Figure 1, the [OI] BPT diagram with the SL measure.',
-    'scripts/plot_w80_by_class.py': 'Paper Figure 2, W80 by BPT class.',
-    'scripts/bpt_distance.py': 'Paper Figure 3, SL measure distributions.',
-    'scripts/plot_loi_vs_q.py': 'Paper Figure 4, [OI] luminosity against jet power.',
-    'scripts/plot_w80_vs_bptdist_paper.py': 'Paper Figure 5, W80 against SL measure.',
-    'scripts/plot_balmer_decrement.py': 'Balmer decrement figure, not in the paper.',
-    'scripts/plot_oiii_nev.py': 'Rest-frame [OIII]/Hb against [NeV]/Hb, not in the paper.',
-    'scripts/plot_oiii_oii.py': 'Rest-frame [OIII] against [OII], not in the paper.',
-    'scripts/plot_w80_nev_small.py': 'W80 against [NeV] for the small sample, not in the paper.',
+    'scripts/plot_bpt.py': 'The [OI] BPT diagram, single panel. Also writes the BPT classification table the other scripts read.',
+    'scripts/paperstyle.py': 'Shared matplotlib settings and figure sizes used by the figure scripts.',
+    'scripts/fig_bpt_2panel.py': 'fig_bpt_2panel.pdf, the BPT diagram and the SL histogram side by side.',
+    'scripts/fig_w80_2panel.py': 'fig_w80_2panel.pdf, W80 by class and W80 against SL side by side.',
+    'scripts/oiii_profiles.py': 'fig_oiii_profiles.pdf, [OIII] profiles of the broadest small sources with their fits. Needs the DESI spectra.',
+    'scripts/fig_examples.py': 'fig_examples.pdf, one small and one large source with VLASS contours on Legacy Survey images. Fetches the cutouts online.',
+    'scripts/plot_loi_vs_q.py': 'fig_loi_vs_q.pdf, [OI] luminosity against jet power.',
 }
 
 zenodo = os.path.dirname(os.path.abspath(__file__))
@@ -42,7 +39,7 @@ for root, dirs, names in os.walk('.'):
             files.append(f)
 files.sort()
 
-# the two generated files belong in the archive whether or not they exist yet
+# the two files this script writes belong in the archive whether or not they exist yet
 listed = [f for f in files if f not in ('CHECKSUMS.txt', 'MANIFEST.txt')]
 files = sorted(listed + ['CHECKSUMS.txt', 'MANIFEST.txt'])
 

@@ -1,9 +1,8 @@
 import numpy as np
 import pandas as pd
-from scipy.stats import ks_2samp, mannwhitneyu, anderson_ksamp, spearmanr
+from scipy.stats import ks_2samp, mannwhitneyu, anderson_ksamp
 
-# every number in the revised paper, from the release catalog and the fit tables in notes/.
-# the WISE block at the end is the one exception, W3 only exists in the raw cross-match files.
+# every number quoted in the paper, from the release catalog and the fit tables in notes/.
 
 d = pd.read_csv('zenodo/upload/catalog_lopez_lacy_2026.csv')
 sm = d[d['sample'] == 'small']
@@ -56,7 +55,7 @@ for name, s in [('small', sm), ('large', lg)]:
     print('balmer %s: NeV nondet %.2f (n=%d)  det %.2f (n=%d)  MW p = %.2f' % (name, nd.median(), len(nd), de.median(), len(de), mannwhitneyu(nd, de).pvalue))
 print()
 
-# jet power, willott with f=1, flat alpha=-0.7 to 151 MHz, per steradian
+# jet power, willott with f=1, flat alpha=-0.7 to 151 MHz, L151 in W/Hz/sr
 mpc_to_m = 3.086e22
 for name, s in [('small', sm), ('large', lg)]:
     L3 = 4*np.pi * (s['D_L']*mpc_to_m)**2 * (s['Flux']*1e-29) * (1 + s['Z'])**(-1 - s['Alpha'].fillna(-0.7))
@@ -132,30 +131,7 @@ ul_l = (3/np.sqrt(lg[~lg['nev3']]['NEV_3426_FLUX_IVAR']) / lg[~lg['nev3']]['OIII
 print('3sig NeV/[OIII] upper limit, nondetections: small median %.3f  large %.3f  ratio small/large %.1f' % (ul_s, ul_l, ul_s/ul_l))
 print()
 
-print('--- WISE 12um (reads data/OI_sample_*.csv and data/VLASS3_2_OI_*.csv, the only place W1-W4 survive)')
-frames = []
-for f in ['data/OI_sample_small.csv', 'data/OI_sample_large.csv', 'data/VLASS3_2_OI_small.csv', 'data/VLASS3_2_OI_large.csv']:
-    r = pd.read_csv(f)
-    k = 'TARGETID' if 'TARGETID' in r.columns else 'TARGETID_1'
-    frames.append(r[[k, 'W1mag', 'W2mag', 'W3mag']].rename(columns={k: 'TARGETID'}))
-w = pd.concat(frames).dropna(subset=['W3mag']).drop_duplicates('TARGETID')
-ww = pd.concat([sm, lg]).merge(w, on='TARGETID')
-fnu = 31.674e-23 * 10**(-0.4 * ww['W3mag'])
-ww['logL12'] = np.log10(4*np.pi*(ww['D_L']*3.086e24)**2 * (3e10/12e-4) * fnu)
-ws, wl = ww[ww['sample'] == 'small'], ww[ww['sample'] == 'large']
-print('n with W3: small %d  large %d' % (len(ws), len(wl)))
-print('log L12 median small %.2f  large %.2f  MW p = %.2f' % (ws['logL12'].median(), wl['logL12'].median(), mannwhitneyu(ws['logL12'], wl['logL12']).pvalue))
-print('log L[OIII] on the same objects: small %.2f  large %.2f' % (ws['logL'].median(), wl['logL'].median()))
-off_s = ws['logL'] - ws['logL12']; off_l = wl['logL'] - wl['logL12']
-print('log L[OIII] - log L12: small %.2f  large %.2f  MW p = %.3f' % (off_s.median(), off_l.median(), mannwhitneyu(off_s, off_l).pvalue))
-lo = max(ws['logL12'].quantile(0.25), wl['logL12'].quantile(0.25)); hi = min(ws['logL12'].quantile(0.75), wl['logL12'].quantile(0.75))
-print('matched L12 window %.2f-%.2f: NeV small %s  large %s' % (lo, hi, rate(ws[(ws['logL12'] > lo) & (ws['logL12'] < hi)]), rate(wl[(wl['logL12'] > lo) & (wl['logL12'] < hi)])))
-print('W1-W2 median small %.2f  large %.2f   fraction > 0.8: small %.0f%%  large %.0f%%'
-      % ((ws['W1mag'] - ws['W2mag']).median(), (wl['W1mag'] - wl['W2mag']).median(),
-         100*((ws['W1mag'] - ws['W2mag']) > 0.8).mean(), 100*((wl['W1mag'] - wl['W2mag']) > 0.8).mean()))
-print()
-
-print('--- broad vs narrow [OIII]/Hb, per component, 2 sigma on each amplitude')
+print('--- broad vs narrow [OIII]/Hb, each component at 2 sigma')
 def load(*fs):
     return pd.concat([pd.read_csv('notes/' + f) for f in fs], ignore_index=True)
 oiii = load('2026-07-08_oiii_fits.csv', '2026-07-22_oiii_fits_new_large.csv', '2026-07-31_oiii_fits_new_small24.csv')
@@ -165,7 +141,7 @@ for comp in ['narrow', 'broad']:
     fo = m['oiii_%s_amp' % comp] * m['oiii_%s_sigma_kms' % comp] * 5006.8
     fh = m['hb_%s_amp' % comp] * m['hb_%s_sigma_kms' % comp] * 4861.3
     ok = (fo > 0) & (fh > 0) & (m['oiii_%s_amp' % comp] > 2*m['oiii_%s_amp_err' % comp]) & (m['hb_%s_amp' % comp] > 2*m['hb_%s_amp_err' % comp])
-    m['y_' + comp] = np.log10(fo / fh).where(ok)
+    m['y_' + comp] = np.log10(fo.where(ok) / fh.where(ok))
 b2 = m.dropna(subset=['y_narrow', 'y_broad'])
 for name in ['small', 'large']:
     x = b2[b2['sample'] == name]
@@ -178,16 +154,6 @@ print('narrow component only, log[OIII]/Hb median: small %.2f (n=%d)  large %.2f
          mannwhitneyu(nn[nn['sample'] == 'small']['y_narrow'], nn[nn['sample'] == 'large']['y_narrow']).pvalue))
 print()
 
-print('--- robustness to the flagged small sources (vlass_extent_check)')
-sure = [39627808774818067, 39627709696969353]
-maybe = sure + [39628383604179664, 39627790470876239, 39628518027432308]
-for lab, drop in [('drop 2', sure), ('drop 5', maybe)]:
-    s = sm[~sm['TARGETID'].isin(drop)]
-    ssy = s[s['bpt_class'] == 'seyfert']['w80']
-    print('%s: n=%d  W80 sey KS p = %.4f  SL MW p = %.3f  NeV 3sig small %s  large %s'
-          % (lab, len(s), ks_2samp(ssy, ls).pvalue, mannwhitneyu(s['sl_distance'], lg['sl_distance']).pvalue, rate(s), rate(lg)))
-
-print()
 print('--- fisher exact p on the NeV detection counts, small vs large')
 from scipy.stats import fisher_exact
 def fisher(a, b, col='nev3'):
@@ -199,6 +165,3 @@ print('0.30<z<0.45     p = %.2f' % fisher(zs, zl))
 print('Ha/Hb < 4       p = %.3f' % fisher(sm[sm['bd'] < 4], lg[lg['bd'] < 4]))
 print('seyferts only   p = %.3f' % fisher(sy_s, sy_l))
 print('hardness cut    p = %.2f' % fisher(sy_s[sy_s['oiii_hb'] > cut], sy_l[sy_l['oiii_hb'] > cut]))
-print('L12 window      p = %.3f' % fisher(ws[(ws['logL12'] > lo) & (ws['logL12'] < hi)], wl[(wl['logL12'] > lo) & (wl['logL12'] < hi)]))
-print('drop 2          p = %.3f' % fisher(sm[~sm['TARGETID'].isin(sure)], lg))
-print('drop 5          p = %.3f' % fisher(sm[~sm['TARGETID'].isin(maybe)], lg))

@@ -1,44 +1,36 @@
 {
-  "metadata": {
-    "upload_type": "dataset",
-    "title": "Data for: Evidence for strong shocks in the ISM of small radio sources",
-    "creators": [
-      {
-        "name": "Lopez, Valeria",
-        "affiliation": "National Radio Astronomy Observatory, 520 Edgemont Road, Charlottesville, VA 22903, USA",
-        "orcid": "0009-0009-0998-5049"
-      },
-      {
-        "name": "Lacy, Mark",
-        "affiliation": "National Radio Astronomy Observatory, 520 Edgemont Road, Charlottesville, VA 22903, USA",
-        "orcid": "0000-0002-3032-1783"
-      }
-    ],
-    "description": "<p>Measurement tables behind Lopez &amp; Lacy, \"Evidence for strong shocks in the ISM of small radio sources\" (submitted to ApJL).</p><p>Two samples of radio-loud AGN were drawn from a cross-match of the VLA Sky Survey (VLASS) with DESI DR1 spectroscopy over 0.15 &lt; z &lt; 0.5, both cut to log10(L_3GHz / W Hz^-1) &gt; 24. The small sample (n = 47) has projected jet sizes of 10-15 kpc and is still confined within the host galaxy; the large sample (n = 30) has jets larger than 25 kpc that have escaped the host. Both samples are given in a single table of 77 rows, keyed by TARGETID, with a sample column separating them. For each source the table gives VLASS radio properties (flux density, angular and linear size, spectral index, luminosity distance, 3 GHz luminosity), DESI DR1 agngal value-added catalog emission line fluxes and inverse variances ([NeV] 3426, [OI] 6300, [OIII] 5007, H-alpha narrow and broad, H-beta), the paper's own pyspeckit Gaussian line fluxes for H-beta, [OIII] 5007, H-alpha, [NII] 6584 and [OI] 6300 with the two BPT line ratios derived from them, the [OIII] 5007 W80 line width with the instrumental resolution removed, and the BPT classification with its perpendicular distance from the Seyfert/LINER dividing line.</p><p>Also included are the scripts that build the table and produce the paper figures, a machine-readable column description, and a check script that reproduces every statistic quoted in the paper from the released table alone.</p><p>The DESI DR1 spectra and VLASS images are not redistributed here. They are public and can be retrieved via the DESI Data Release 1 archive or NOIRLab SPARCL using the TARGETID column.</p>",
-    "keywords": [
-      "Active galactic nuclei (16)",
-      "Radio jets (1347)",
-      "AGN host galaxies (2017)",
-      "shocks",
-      "interstellar medium",
-      "emission line galaxies",
-      "VLASS",
-      "DESI",
-      "spectroscopy",
-      "BPT diagram"
-    ],
-    "license": "cc-by-4.0",
-    "access_right": "open",
-    "language": "eng",
-    "related_identifiers": [
-      {
-        "identifier": "TODO-PAPER-DOI",
-        "relation": "isSupplementTo",
-        "resource_type": "publication-article",
-        "scheme": "doi"
-      }
-    ],
-    "communities": [],
-    "notes": "Ready to upload as a draft; do not publish yet. Valeria Lopez owns the deposit, Mark Lacy is the second creator. One thing is still outstanding: the related_identifiers entry must be replaced with the real ApJL DOI once the paper is accepted. Reserve the Zenodo DOI at draft stage so it can go into the manuscript first."
-  }
+    "metadata": {
+        "upload_type": "dataset",
+        "title": "Data for: Evidence for strong shocks in the ISM of small radio sources",
+        "creators": [
+            {
+                "name": "Lopez, Valeria",
+                "affiliation": "National Radio Astronomy Observatory, 520 Edgemont Road, Charlottesville, VA 22903, USA",
+                "orcid": "0009-0009-0998-5049"
+            },
+            {
+                "name": "Lacy, Mark",
+                "affiliation": "National Radio Astronomy Observatory, 520 Edgemont Road, Charlottesville, VA 22903, USA",
+                "orcid": "0000-0002-3032-1783"
+            }
+        ],
+        "description": "<p>Measurement tables behind Lopez &amp; Lacy, \"Evidence for strong shocks in the ISM of small radio sources\" (submitted to ApJL).</p><p>Two samples of radio-loud AGN were drawn from a cross-match of the VLA Sky Survey (VLASS) with DESI DR1 spectroscopy over 0.15 &lt; z &lt; 0.5, both cut to log10(L_3GHz / W Hz^-1) &gt; 24. The small sample (n = 44) has projected jet sizes of 10-15 kpc and is still confined within the host galaxy; the large sample (n = 33) has jets larger than 25 kpc that have escaped the host. Both samples are given in a single table of 77 rows, keyed by TARGETID, with a sample column separating them. For three sources (TARGETIDs 39628383604179664, 39627709696969353 and 39627808774818067) the size columns are remeasured from the VLASS image, because the catalog component is one part of a larger source. Four columns from visual inspection of the optical images give a common name, the host morphology, a merger flag and the image used. For each source the table gives VLASS radio properties (flux density, angular and linear size, spectral index, luminosity distance, 3 GHz luminosity), DESI DR1 agngal value-added catalog emission line fluxes and inverse variances ([NeV] 3426, [OI] 6300, [OIII] 5007, H-alpha narrow and broad, H-beta), the paper's own pyspeckit Gaussian line fluxes for H-beta, [OIII] 5007, H-alpha, [NII] 6584 and [OI] 6300 with the two BPT line ratios derived from them, the [OIII] 5007 W80 line width with the instrumental resolution removed, and the BPT classification with its perpendicular distance from the Seyfert/LINER dividing line.</p><p>Also included are the scripts that build the table and produce the paper figures, a machine-readable column description, and a check script that reproduces every statistic quoted in the paper from the released table alone.</p><p>The DESI DR1 spectra and VLASS images are not redistributed here. They are public and can be retrieved via the DESI Data Release 1 archive or NOIRLab SPARCL using the TARGETID column.</p>",
+        "keywords": [
+            "Active galactic nuclei (16)",
+            "Radio jets (1347)",
+            "AGN host galaxies (2017)",
+            "shocks",
+            "interstellar medium",
+            "emission line galaxies",
+            "VLASS",
+            "DESI",
+            "spectroscopy",
+            "BPT diagram"
+        ],
+        "license": "cc-by-4.0",
+        "access_right": "open",
+        "language": "eng",
+        "communities": [],
+        "notes": "One table of 77 radio-loud AGN (44 with 10-15 kpc jets, 33 with jets larger than 25 kpc) keyed by DESI TARGETID, with VLASS radio properties, DESI DR1 emission-line fluxes, Gaussian line fits, [OIII] W80 and BPT classification. columns.csv describes every column. The scripts folder rebuilds the paper figures and check_release.py reproduces every statistic in the paper from the table. The ApJL DOI will be added to related_identifiers on publication."
+    }
 }
