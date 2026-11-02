@@ -4,7 +4,7 @@ MANIFEST.txt is not listed here because its own hash would change as it is writt
 
 CHECKSUMS.txt
   size    1227 bytes
-  sha256  df4912881cd98adad25a0308f340d9962340190670ace87c8c67abe4253106bc
+  sha256  1e8cdf9af15fe4a2b338c3476188133c7336e646a2276b56030bf0cb53ff8bba
   SHA-256 of every file in this archive except itself and MANIFEST.txt.
 
 LICENSE
@@ -13,13 +13,13 @@ LICENSE
   Creative Commons Attribution 4.0 International, full legal text.
 
 README.md
-  size    5683 bytes
-  sha256  2397ed5dd058bb305337932143d5db78174a3e5f6537225cf9c14fb99c12aafd
-  Description of the release, sample definitions, column notes, and how each number in the paper maps to the columns.
+  size    10058 bytes
+  sha256  3e3c9686933aaf3414bfde565179af7f5484b210212d23ca4cac0c6ed2a73974
+  Description of the release, sample definitions, a table of every column with its unit, and how to run the scripts.
 
 catalog_lopez_lacy_2026.csv
-  size    33093 bytes
-  sha256  dfbd77b5cd8ab928b54d87ed04532c373b61f1fbca5d787a6fd3be6f8595614a
+  size    24019 bytes
+  sha256  cca99e009812a983bc309300e444e3a9f2358d30c3a08f6615360570e4e20a7e
   The release table. 77 rows keyed by TARGETID, 44 small then 33 large, 40 columns.
 
 columns.csv
@@ -53,8 +53,8 @@ scripts/jet_power.py
   Jet power from the VLASS flux density following Willott et al. (1999). Writes the logQ table that plot_loi_vs_q.py reads.
 
 scripts/make_release_tables.py
-  size    2865 bytes
-  sha256  2a27c1105a6af43f6ed126c1461d57849d829aafa876c8de3932028697e2ce6f
+  size    3292 bytes
+  sha256  29c479a4ca9444470181146cf9c5e2e3b30b0cd9f9b811d1e42fd5aa7e89837f
   Applies release rounding, adds the fitted line fluxes, and writes the release table.
 
 scripts/oiii_profiles.py

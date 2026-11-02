@@ -2,9 +2,15 @@ import numpy as np
 import pandas as pd
 
 c = 299792.458
-rounding = {'RA': 6, 'DEC': 6, 'Z': 5, 'Physical_Size': 2,
+rounding = {'RA': 6, 'DEC': 6, 'Z': 5, 'Flux': 3, 'E_Flux': 3, 'LAS': 2,
+            'Physical_Size': 2, 'Alpha': 3, 'E_Alpha': 3, 'D_L': 1,
             'log_L_radio': 3, 'w80': 1, 'sl_distance': 4,
             'log_oi_ha': 4, 'log_oiii_hb': 4}
+
+# line fluxes and inverse variances span several orders of magnitude,
+# so round those to 5 significant figures instead of fixed decimals
+def sigfigs(x, n=5):
+    return x.apply(lambda v: float('%.*g' % (n, v)) if pd.notna(v) else v)
 
 sm = pd.read_csv('data/catalog_small.csv')
 lg = pd.read_csv('data/catalog_large.csv')
@@ -54,6 +60,9 @@ d = pd.concat([sm, lg], ignore_index=True)
 d = d.merge(fit, on='TARGETID', how='left')
 for col, n in rounding.items():
     d[col] = d[col].round(n)
+for col in d.columns:
+    if col.endswith('_FLUX') or col.endswith('_IVAR'):
+        d[col] = sigfigs(d[col])
 
 d.to_csv('zenodo/upload/catalog_lopez_lacy_2026.csv', index=False)
 print('wrote zenodo/upload/catalog_lopez_lacy_2026.csv', len(d), 'rows',
